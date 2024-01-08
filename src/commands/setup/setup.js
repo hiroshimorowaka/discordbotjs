@@ -1,13 +1,7 @@
 const {
   SlashCommandBuilder,
-  PermissionsBitField,
-  Interaction
+  PermissionsBitField
 } = require("discord.js");
-
-/**
- * @param {Interaction} interaction 
- * @returns 
- */
 
 const {registerGuild} = require('../../models/guilds/guildRegistering');
 const commandTimeout = 7000

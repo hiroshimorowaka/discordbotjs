@@ -7,6 +7,7 @@ const pool = new pg.Pool({
   max: Number(process.env.DB_POOL) || 35,
   idleTimeoutMillis: 3000,
   connectionTimeoutMillis: 10000,
+  application_name: 'Discord BOT'
 });
 
 pool.once("connect", () => {
