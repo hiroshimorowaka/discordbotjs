@@ -14,8 +14,7 @@ module.exports = async (interaction, commandObj) => {
         return false;
       }
     }  
-    console.log(permissionName)
-    console.log()
+    console.log(permission)
     const name = parseInt(permission).toString() 
     interaction.reply({content: `I don't have permission to do this, please give me ${permissionName[name]} permission!`, ephemeral: true});
     return true;
