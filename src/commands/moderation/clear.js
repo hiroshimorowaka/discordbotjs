@@ -14,14 +14,14 @@ const commandTimeout = 5000
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("clear")
-    .setDescription("Delete Xx messages from chat")
+    .setDescription("Delete X messages from chat")
     .addIntegerOption((option) =>
       option
         .setName("amount")
         .setDescription("Amount of messages to be deleted (Limit: 100)")
         .setRequired(true)
         .setMinValue(1)
-        .setMaxValue(100),
+        .setMaxValue(500),
     )
 
     .addUserOption((option) =>
