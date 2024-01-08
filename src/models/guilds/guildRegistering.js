@@ -1,4 +1,4 @@
-const {query} = require('../../infra/database');
+const {query} = require('../../../infra/database');
 
 async function registerGuild(guild_id) {
   return await query(

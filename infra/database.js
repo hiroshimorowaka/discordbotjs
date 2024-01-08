@@ -1,4 +1,5 @@
 const pg = require("pg");
+const pino = require('../logger')
 
 const URL = process.env.DB_URL;
 const pool = new pg.Pool({
@@ -9,8 +10,8 @@ const pool = new pg.Pool({
 });
 
 pool.once("connect", () => {
-  console.log(`Database.js: Connected  to db ${URL}`);
-  console.log(`Database.js: Creating table "users" if not exists`);
+  pino.info(`Database.js -> Connected  to database: ${process.env.POSTGRES_DB}`);
+  pino.info(`Database.js -> Creating table "users" if not exists`);
   pool.query(`
 
       CREATE TABLE IF NOT EXISTS birthdays (
@@ -18,7 +19,7 @@ pool.once("connect", () => {
           birthday DATE NOT NULL
       );
       `);
-  console.log(`Database.js: Creating table "banned_words" if not exists`);
+  pino.info(`Database.js -> Creating table "banned_words" if not exists`);
   pool.query(`
     CREATE TABLE IF NOT EXISTS banned_words (
       guild_id TEXT UNIQUE NOT NULL,
@@ -31,7 +32,7 @@ async function connect() {
   try {
     await pool.connect();
   } catch (err) {
-    console.log(`Database.js: Error on connecting to PG pool: ${err}`);
+    pino.error(`Database.js -> Error on connecting to PG pool: ${err}`);
   }
 }
 

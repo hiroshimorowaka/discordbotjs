@@ -7,16 +7,18 @@ module.exports = async(message) => {
   const cache = await itemsListCached(message.guildId);
   for (i of words) {
     if (cache.includes(i)) {
-      message.delete();
-      message.author.send(`This word (${i}) is banned on this server!`);
+      await message.delete();
+      await message.author.send(`This word (${i}) is banned on this server!`);
+      return;
     }
   }
   const db_words = await GetBannedWords(message.guildId);
   for(i of words){
     if(db_words.includes(i)){
       addListCache(message.guildId,i);
-      message.delete();
-      message.author.send(`This word (${i}) is banned on this server!`);
+      await message.delete();
+      await message.author.send(`This word (${i}) is banned on this server!`);
+      return;
     }
   }
 }

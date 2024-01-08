@@ -1,5 +1,5 @@
 const pino = require('../../../logger')
-const { registerGuild } = require('../../models/guildRegistering')
+const { registerGuild } = require('../../models/guilds/guildRegistering')
 
 
 module.exports = async (guild) => {

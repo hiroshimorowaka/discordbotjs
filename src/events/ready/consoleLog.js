@@ -1,3 +1,5 @@
+const pino = require('../../../logger');
+
 module.exports = (client) => {
-  console.log(`${client.user.username} is ready!`)
+  pino.info(`${client.user.username} is ready!`)
 }

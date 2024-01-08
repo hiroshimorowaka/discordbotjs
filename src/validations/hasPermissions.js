@@ -1,6 +1,6 @@
 
 module.exports = async (interaction, commandObj) => {
-  if(commandObj.requiredPermissions || commandObj.requiredPermissions.length !== 0){
+  if(commandObj.requiredPermissions && commandObj.requiredPermissions?.length !== 0){
 
     for(permission of commandObj.requiredPermissions){
       const has_permission = await interaction.member.permissions.has(permission);

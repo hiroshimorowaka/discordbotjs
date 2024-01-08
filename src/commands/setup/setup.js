@@ -3,8 +3,8 @@ const {
   PermissionsBitField,
 } = require("discord.js");
 
-const {registerGuild} = require('../../models/guildRegistering');
-
+const {registerGuild} = require('../../models/guilds/guildRegistering');
+const commandTimeout = 7000
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("setup")
@@ -23,4 +23,5 @@ module.exports = {
 
     },
   requiredPermissions: [PermissionsBitField.Flags.ManageGuild,PermissionsBitField.Flags.Administrator],
+  timeout: commandTimeout
 };

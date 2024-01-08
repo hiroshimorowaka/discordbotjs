@@ -1,5 +1,5 @@
 const pino = require('../../../logger')
-const { unregisterGuild } = require('../../models/guildRegistering')
+const { unregisterGuild } = require('../../models/guilds/guildRegistering')
 
 module.exports = async (guild) => {
   pino.info(`Bot as removed from ${guild.id} ${guild.name} | Deleting from database...`)

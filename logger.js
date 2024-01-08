@@ -1,3 +1,5 @@
+const {format} = require('date-fns')
+
 const pino = require('pino')({
   level: 'trace',
   transport: {
@@ -15,7 +17,7 @@ const pino = require('pino')({
     ],
   },
 
-  timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`
+  timestamp: () => `,"time":"${format(new Date(Date.now()),'dd/MM H:mm:ss.SS')}"`,
 })
 
 module.exports = pino

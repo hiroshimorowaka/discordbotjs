@@ -1,9 +1,12 @@
 const { createClient } = require("redis");
+const pino = require('../logger')
+
+
 const client = createClient();
-client.on("error", (err) => console.log("Redis.js: Redis Client Error", err));
+client.on("error", (err) => pino.error("Redis.js -> Redis Client Error", err));
 
 client.on("connect", () => {
-  console.log("Redis.js: Redis Client Connected")
+  pino.info("Redis.js -> Redis Client Connected")
 });
 client.connect();
 

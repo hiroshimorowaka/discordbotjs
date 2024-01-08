@@ -75,13 +75,13 @@ async function listBlacklistWords(interaction, client) {
     
     if(result.length === 0){
       interaction.reply({content: "This server dosen't have seted blacklist words yet!", ephemeral: true});
-      return false;
+      return;
     }
 
     for (let word of result) {
       list.addFields({ name: `${word.toUpperCase()}`, value: `.` });
     }
-    return await interaction.reply({ embeds: [list] });
+    return await interaction.reply({ embeds: [list], ephemeral: true });
   } catch (error) {
     pino.error(error);
     return await interaction.reply({

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-
+const commandTimeout = 3000
 module.exports = {
   data: new SlashCommandBuilder()
   .setName('ping')
@@ -18,5 +18,7 @@ module.exports = {
       }ms | Websocket Latency: ${client.ws.ping}ms`,
     );
   },
+
+  timeout: commandTimeout
   }
 

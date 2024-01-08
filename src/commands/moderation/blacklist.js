@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder,PermissionsBitField } = require("discord.js");
 const {
   removeBlacklistWord,
   addBlacklistWord,
@@ -6,7 +6,7 @@ const {
 } = require("../../models/blacklist/blacklist");
 
 
-
+const commandTimeout = 2000
 module.exports = {
   data: new SlashCommandBuilder()
   .setName("blacklist")
@@ -63,5 +63,7 @@ module.exports = {
 
       }
     }
-  }
+  },
+  requiredPermissions: [PermissionsBitField.Flags.ManageGuild,PermissionsBitField.Flags.Administrator],
+  timeout: commandTimeout
 }

@@ -4,6 +4,7 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
+const commandTimeout = 5000
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("clear")
@@ -86,4 +87,5 @@ module.exports = {
     }
   },
   requiredPermissions: [PermissionsBitField.Flags.ManageMessages,PermissionsBitField.Flags.Administrator],
+  timeout: commandTimeout
 };
