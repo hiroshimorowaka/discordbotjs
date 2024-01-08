@@ -1,0 +1,29 @@
+{
+  "name": "discord-bot-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npm run up:services && nodemon src/index.js",
+    "up:services": "docker compose -f infra/compose.yaml up -d",
+    "stop:services": "docker compose -f infra/compose.yaml stop",
+    "down:services": "docker compose -f infra/compose.yaml down",
+    "lint:check": "prettier --check .",
+    "lint:fix": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^3.1.0",
+    "discord.js": "^14.14.1",
+    "djs-commander": "^0.0.50",
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.3",
+    "pino": "^8.17.2",
+    "redis": "^4.6.12"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.1"
+  }
+}

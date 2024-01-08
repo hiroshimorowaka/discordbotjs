@@ -1,0 +1,14 @@
+services:
+  database:
+    image: "postgres:16.1-alpine3.18"
+    env_file:
+      - ../.env
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:7.2.3-alpine
+    hostname: redis
+    container_name: redis
+    command: redis-server --save "" --appendonly no --maxclients 20000
+    ports:
+      - 6379:6379
