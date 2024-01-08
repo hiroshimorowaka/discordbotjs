@@ -11,7 +11,7 @@ const {sendLogs} = require('../../models/logs/sendLogs')
  * @param {Interaction} interaction 
  * @returns 
  */
-
+const maxValue = 500
 const commandTimeout = 5000
 module.exports = {
   data: new SlashCommandBuilder()
@@ -20,10 +20,10 @@ module.exports = {
     .addIntegerOption((option) =>
       option
         .setName("amount")
-        .setDescription("Amount of messages to be deleted (Limit: 100)")
+        .setDescription(`Amount of messages to be deleted (Limit: ${maxValue}) `)
         .setRequired(true)
         .setMinValue(1)
-        .setMaxValue(500),
+        .setMaxValue(maxValue),
     )
 
     .addUserOption((option) =>
@@ -38,9 +38,9 @@ module.exports = {
     const target = options.getUser("target");
     const multiMessages = amount === 1 ? "message" : "messages";
 
-    if (!amount || amount > 100 || amount < 1) {
+    if (!amount || amount > maxValue || amount < 1) {
       return await interaction.reply({
-        content: "Please specify an amount between 1 and 100",
+        content: `Please specify an amount between 1 and ${maxValue}`,
         ephemeral: true,
       });
     }
