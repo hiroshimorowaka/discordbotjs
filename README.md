@@ -9,7 +9,7 @@
 - Node.js
 - Discord.js (Comunicação com a API do discord)
 - Postgres (Persistencia de alguns dados)
-- Redis para cache
+- Redis (cache)
 - Docker
 
 ## Features
