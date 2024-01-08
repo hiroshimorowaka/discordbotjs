@@ -19,6 +19,9 @@
 - **/birthday [subCommand]** (Adiciona sua data de aniversário e lista os aniversáriantes cadastrados)
 - **/list** (Mostra a lista de pessoas que fazem aniversário e estão cadastradas)
 - **/ping** (Mostra o ping do bot)
+- **/setup** (Configura o banco de dados da guild)
+- **/timeout** (Deixa o usuário selecionado impossibilitado de digitar em chats)
+- **/logs** (Adiciona um canal para ser enviado o logs dos comandos)
 
 ## Tempo gasto:
 
