@@ -27,6 +27,13 @@ pool.once("connect", () => {
       words text[]
     );
   `);
+  pino.info(`Database.js -> Creating table "logs" if not exists`);
+  pool.query(`
+  CREATE TABLE IF NOT EXISTS logs (
+    guild_id TEXT UNIQUE NOT NULL,
+    channels text[]
+  );
+`);
 });
 
 async function connect() {

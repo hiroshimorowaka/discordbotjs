@@ -5,6 +5,8 @@ const {
   Interaction
 } = require("discord.js");
 
+const {sendLogs} = require('../../models/logs/sendLogs')
+
 /**
  * @param {Interaction} interaction 
  * @returns 
@@ -83,7 +85,10 @@ module.exports = {
         await channel.bulkDelete(messagesToDelete, true);
       }
 
+      // Send log
+      sendLogs(interaction)
       return await interaction.editReply({ embeds: [clearEmbed] });
+
     } catch (e) {
       await interaction.followUp({
         content: "A error ocurred while clearing messages!",

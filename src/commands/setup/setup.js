@@ -16,9 +16,8 @@ module.exports = {
       await interaction.reply('Configuring your server...');
 
       const result = await registerGuild(interaction.guildId);
-      if(result.rowCount === 0 ){
-        return await interaction.editReply('Your server is already setuped');
-      }
+
+
       await interaction.editReply('Start setup was made with success!');
 
     },

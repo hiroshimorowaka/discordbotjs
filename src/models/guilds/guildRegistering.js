@@ -1,10 +1,15 @@
 const {query} = require('../../../infra/database');
 
 async function registerGuild(guild_id) {
-  return await query(
+  await query(
     "INSERT INTO banned_words (guild_id) VALUES($1) ON CONFLICT (guild_id) DO NOTHING;",
     [guild_id],
   );
+  await query(
+    "INSERT INTO logs (guild_id) VALUES($1) ON CONFLICT (guild_id) DO NOTHING;",
+    [guild_id],
+  );
+  return true;
 }
 
 async function unregisterGuild(guild_id) {
