@@ -15,7 +15,7 @@ module.exports = {
     interaction.editReply(
       `Bot Latency: ${
         sent.createdTimestamp - interaction.createdTimestamp
-      }ms | Websocket Latency: ${client.ws.ping}ms`,
+      }ms`,
     );
   },
 
