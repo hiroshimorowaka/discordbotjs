@@ -1,15 +1,26 @@
 require('dotenv/config');
+
 const { Client, IntentsBitField } = require('discord.js')
 const { CommandHandler } = require('djs-commander')
-const client = new Client({intents: [IntentsBitField.Flags.Guilds]});
 const path = require('path')
 
+const client = new Client({intents: [
+  IntentsBitField.Flags.Guilds,
+  IntentsBitField.Flags.GuildMembers,
+  IntentsBitField.Flags.GuildMessages,
+  IntentsBitField.Flags.MessageContent,
+]});
+
+const {testServer} = require('../config.json')
+const commandsPath = path.join(__dirname,'commands')
+const validationsPath = path.join(__dirname,'validations')
+const eventsPath = path.join(__dirname,'events')
 new CommandHandler({
-  client: client,
-  commandsPath: path.join(__dirname,'commands'),
-  testServer: '1161392391958315119',
-  validationsPath: path.join(__dirname,'validations'),
-  eventsPath: path.join(__dirname,'events')
+  client,
+  commandsPath,
+  testServer,
+  validationsPath,
+  eventsPath
 });
 
 

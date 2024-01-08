@@ -5,6 +5,8 @@ const {
   setBannedWord,
   GetBannedWords,
 } = require("../blacklist/ban_words.js");
+
+const pino = require('../../../logger.js')
 const { removeListCache, addListCache } = require("../../../infra/redis.js");
 
 async function removeBlacklistWord(interaction, client) {
@@ -27,7 +29,7 @@ async function removeBlacklistWord(interaction, client) {
         content: "A error ocurred on remove ban word on database!",
         ephemeral: true,
       });
-      console.error(`Remove Ban Word Error: `, error);
+      pino.error(`Remove Ban Word Error: `, error);
       return;
     }
     return await interaction.reply({
@@ -47,7 +49,7 @@ async function addBlacklistWord(interaction, client) {
       const WordExist = await GetBanWord(guild_id, new_word);
       if (!WordExist) {
         await setBannedWord(guild_id, new_word);
-        addListCache(guild_id, word);
+        await addListCache(guild_id, word);
       } else {
         return await interaction.reply("This Word already exists!");
       }
@@ -56,7 +58,7 @@ async function addBlacklistWord(interaction, client) {
         content: "A error ocurred on insert ban word on database!",
         ephemeral: true,
       });
-      console.error(`Ban Word Insert Error: `, error);
+      pino.error(`Ban Word Insert Error: `, error);
       return;
     }
     return await interaction.reply({
@@ -70,13 +72,22 @@ async function listBlacklistWords(interaction, client) {
   const list = new EmbedBuilder().setTitle("Banned Words List!");
   try {
     const result = await GetBannedWords(interaction.guildId);
-    console.log(result)
+    
+    if(result.length === 0){
+      interaction.reply({content: "This server dosen't have seted blacklist words yet!", ephemeral: true});
+      return false;
+    }
+
     for (let word of result) {
       list.addFields({ name: `${word.toUpperCase()}`, value: `.` });
     }
     return await interaction.reply({ embeds: [list] });
   } catch (error) {
-    console.error(error);
+    pino.error(error);
+    return await interaction.reply({
+      content: "A error ocurred on list ban words!",
+      ephemeral: true,
+    });
   }
 }
 

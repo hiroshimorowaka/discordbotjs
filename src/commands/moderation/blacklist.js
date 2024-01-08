@@ -5,6 +5,8 @@ const {
   listBlacklistWords,
 } = require("../../models/blacklist/blacklist");
 
+
+
 module.exports = {
   data: new SlashCommandBuilder()
   .setName("blacklist")
@@ -46,25 +48,19 @@ module.exports = {
     const subCommandGroup = interaction.options.getSubcommandGroup();
     if (subCommandGroup === "words") {
       if (subCommand === "list") {
-        try {
+
           await listBlacklistWords(interaction, client);
-        } catch (e) {
-          console.log("error execute: ", e);
-        }
+          
       }
       if (subCommand === "add") {
-        try {
+
           await addBlacklistWord(interaction, client);
-        } catch (e) {
-          console.log("error execute: ", e);
-        }
+
       }
       if (subCommand === "remove") {
-        try {
+
         await removeBlacklistWord(interaction, client);
-        } catch (e) {
-          console.log("error execute: ", e);
-        }
+
       }
     }
   }

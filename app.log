@@ -1,0 +1,99 @@
+{"level":30,"time":1704704037669,"pid":40140,"hostname":"hiroshi","event":"guildAvailable","file":"registerBanWords.js","message":"Registering Guild 1161392391958315119"}
+{"level":30,"time":1704704037671,"pid":40140,"hostname":"hiroshi","event":"guildAvailable","file":"registerBanWords.js","message":"Registering Guild 1193788968144224267"}
+{"level":30,"time":1704704037675,"pid":40140,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704037675,"pid":40140,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704037675,"pid":40140,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704037675,"pid":40140,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704037676,"pid":40140,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704037676,"pid":40140,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704148304,"pid":46688,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Registering Guild 1161392391958315119"}
+{"level":30,"time":1704704148306,"pid":46688,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Registering Guild 1193788968144224267"}
+{"level":30,"time":1704704148310,"pid":46688,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704148311,"pid":46688,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704148312,"pid":46688,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704148312,"pid":46688,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704148313,"pid":46688,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704148313,"pid":46688,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704179713,"pid":40632,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704179714,"pid":40632,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704179714,"pid":40632,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704179714,"pid":40632,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704179715,"pid":40632,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704179715,"pid":40632,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704253228,"pid":1976,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704253228,"pid":1976,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704253229,"pid":1976,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704253229,"pid":1976,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704253231,"pid":1976,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704253231,"pid":1976,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704501265,"pid":9028,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704501265,"pid":9028,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704501266,"pid":9028,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704501266,"pid":9028,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704501267,"pid":9028,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704501267,"pid":9028,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704515066,"pid":17444,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704515066,"pid":17444,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704515067,"pid":17444,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704515067,"pid":17444,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704515068,"pid":17444,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704515068,"pid":17444,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704545272,"pid":41552,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704545272,"pid":41552,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704545272,"pid":41552,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704545272,"pid":41552,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704545273,"pid":41552,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704545274,"pid":41552,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":50,"time":1704704583957,"pid":40440,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Registering Guild 1161392391958315119"}
+{"level":50,"time":1704704583959,"pid":40440,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Registering Guild 1193788968144224267"}
+{"level":30,"time":1704704583963,"pid":40440,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704583963,"pid":40440,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704583964,"pid":40440,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704583964,"pid":40440,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704583964,"pid":40440,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704583965,"pid":40440,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704594444,"pid":43600,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704594444,"pid":43600,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704594445,"pid":43600,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704594445,"pid":43600,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704594446,"pid":43600,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704594446,"pid":43600,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704758557,"pid":44248,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704758557,"pid":44248,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704758558,"pid":44248,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704758558,"pid":44248,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704758559,"pid":44248,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704758559,"pid":44248,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704827871,"pid":45016,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704827871,"pid":45016,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704827873,"pid":45016,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704827880,"pid":45016,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704827880,"pid":45016,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704827881,"pid":45016,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704878363,"pid":45016,"hostname":"hiroshi","msg":"Joined on new guild Servidor do hiroshi"}
+{"level":30,"time":1704704931434,"pid":40760,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704704931434,"pid":40760,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704931435,"pid":40760,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704704931435,"pid":40760,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704704931436,"pid":40760,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704704931436,"pid":40760,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704705020015,"pid":42940,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704705020015,"pid":42940,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704705020016,"pid":42940,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704705020016,"pid":42940,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704705020017,"pid":42940,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704705020017,"pid":42940,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704705034008,"pid":15184,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1161392391958315119"}
+{"level":30,"time":1704705034008,"pid":15184,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704705034009,"pid":15184,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Guild already registered 1193788968144224267"}
+{"level":30,"time":1704705034009,"pid":15184,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> Seting banned words!"}
+{"level":30,"time":1704705034011,"pid":15184,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704705034011,"pid":15184,"hostname":"hiroshi","msg":"Ev: guildAvailable Model: registerBanWords.js -> This server dosen't have blacklist words!"}
+{"level":30,"time":1704705603734,"pid":39068,"hostname":"hiroshi","msg":"Bot as removed from 1193788968144224267 Servidor do hiroshi | Deleting from database..."}
+{"level":30,"time":1704705603749,"pid":39068,"hostname":"hiroshi","msg":"Ev: guildDelete Model: unregisterGuild.js -> Guild already deleted 1193788968144224267 Servidor do hiroshi"}
+{"level":30,"time":1704705670221,"pid":24776,"hostname":"hiroshi","msg":"Ev: guildCreate Model: registerGuild.js -> Registering Guild 1193788968144224267 Servidor do hiroshi"}
+{"level":30,"time":1704705670235,"pid":24776,"hostname":"hiroshi","msg":"Ev: guildCreate Model: registerGuild.js -> Guild registered 1193788968144224267 Servidor do hiroshi"}
+{"level":30,"time":1704705713898,"pid":44632,"hostname":"hiroshi","msg":"Bot as removed from 1193788968144224267 Servidor do hiroshi | Deleting from database..."}
+{"level":30,"time":1704705713916,"pid":44632,"hostname":"hiroshi","msg":"Ev: guildDelete Model: unregisterGuild.js -> Guild deleted (1193788968144224267) Servidor do hiroshi"}
+{"level":30,"time":1704707706922,"pid":34496,"hostname":"hiroshi","msg":"Bot has invited to new guild 1193788968144224267 Servidor do hiroshi | Creating this guild on database"}
+{"level":30,"time":1704707706937,"pid":34496,"hostname":"hiroshi","msg":"Ev: guildCreate Model: registerGuild.js -> Guild registered 1193788968144224267 Servidor do hiroshi"}

@@ -29,7 +29,7 @@ async function GetBannedWords(guild_id) {
   const result = await query("SELECT * FROM banned_words WHERE guild_id = $1", [
     guild_id,
   ]);
-  if (result.rows.length === 0 || !result.rows[0].words) return [];
+  if (result.rows.length === 0 || !result.rows[0]?.words) return [];
   return result.rows[0].words;
 }
 
@@ -38,7 +38,7 @@ async function GetBanWord(guild_id, word) {
     guild_id,
   ]);
   
-  if (!result.rows[0].words || result.rows[0].words === 0) return false;
+  if (!result.rows[0]?.words || result.rows[0].words === 0) return false;
   const db_words = result.rows[0].words;
   for(i of word){
     if(db_words.includes(i)){

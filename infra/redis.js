@@ -13,7 +13,6 @@ const getClient = () => {
 
 async function addListCache(key, value = [], expire = 600, exp_option = "NX") {
   client.expire(key, expire, exp_option);
-  if(value.length === 0){return false;}
   for(word of value){
     await client.sAdd(key, word);
   }
@@ -22,7 +21,6 @@ async function addListCache(key, value = [], expire = 600, exp_option = "NX") {
 
 async function removeListCache(key, value = [], expire = 600, exp_option = "NX") {
   client.expire(key, expire, exp_option);
-  if(value.length === 0){return false;}
   for(word of value){
     await client.sRem(key, value);
   }

@@ -18,6 +18,5 @@ module.exports = {
       }ms | Websocket Latency: ${client.ws.ping}ms`,
     );
   },
-    devOnly: true
   }
 

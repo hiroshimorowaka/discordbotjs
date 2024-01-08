@@ -40,16 +40,8 @@ async function query(queryObject, queryParam) {
   return result;
 }
 
-async function registerGuild(guild_id) {
-  return await query(
-    "INSERT INTO banned_words (guild_id) VALUES($1) ON CONFLICT (guild_id) DO NOTHING;",
-    [guild_id],
-  );
-}
-
 connect();
 
 module.exports = {
   query,
-  registerGuild,
 };
