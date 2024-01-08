@@ -19,11 +19,10 @@ const eventsPath = path.join(__dirname,'events')
 new CommandHandler({
   client,
   commandsPath,
-  testServer,
+  // testServer,
   validationsPath,
   eventsPath
 });
-
 
 client.login(process.env.BOT_TOKEN)
 
