@@ -14,10 +14,11 @@
 
 ## Features
 
-- **/Clear** (limpa as mensagens do chat)
+- **/clear** (limpa as mensagens do chat)
 - **/blacklist [subCommand]** (Adiciona palavras a blacklist)
-- **/set [date]** (Adiciona sua data de aniversário para parabeniza-lo quando for o dia do aniversário)
+- **/birthday [subCommand]** (Adiciona sua data de aniversário e lista os aniversáriantes cadastrados)
 - **/list** (Mostra a lista de pessoas que fazem aniversário e estão cadastradas)
+- **/ping** (Mostra o ping do bot)
 
 ## Tempo gasto:
 
