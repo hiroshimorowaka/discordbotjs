@@ -2,6 +2,13 @@ const { GetBannedWords } = require("../../models/blacklist/ban_words.js");
 
 const { addListCache, itemsListCached } = require("../../../infra/redis.js");
 
+const {Message} = require('discord.js')
+/**
+ * @param {Message} message 
+ * @returns 
+ */
+
+
 module.exports = async(message) => {
   const words = message.content.trim().toLowerCase().split(/ +/);
   const cache = await itemsListCached(message.guildId);

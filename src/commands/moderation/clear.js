@@ -2,7 +2,13 @@ const {
   SlashCommandBuilder,
   PermissionsBitField,
   EmbedBuilder,
+  Interaction
 } = require("discord.js");
+
+/**
+ * @param {Interaction} interaction 
+ * @returns 
+ */
 
 const commandTimeout = 5000
 module.exports = {

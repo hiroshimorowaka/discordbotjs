@@ -1,4 +1,10 @@
 const ms = require('ms-prettify').default
+const {Client, Interaction} = require('discord.js')
+/**
+ * @param {Interaction} interaction 
+ * @param {Client} client 
+ * @returns 
+ */
 
 module.exports = (interaction, commandObj,_,client) => {
   const cooldown = client.cooldowns.get(`${interaction.user.id}_${commandObj.name}` || 0);

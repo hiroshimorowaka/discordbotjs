@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder,Interaction,Client } = require("discord.js");
 
 const pino = require("../../../logger");
 
@@ -6,6 +6,12 @@ const {
   commandSetBirthday,
   commandListBirthdays,
 } = require("../../models/birthday/birthday");
+
+/**
+ * @param {Interaction} interaction 
+ * @param {Client} client 
+ * @returns 
+ */
 
 const commandTimeout = 5000
 module.exports = {

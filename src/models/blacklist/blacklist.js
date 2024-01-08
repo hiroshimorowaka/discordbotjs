@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder,Interaction } = require("discord.js");
 const {
   GetBanWord,
   RemoveBannedWord,
@@ -9,7 +9,13 @@ const {
 const pino = require('../../../logger.js')
 const { removeListCache, addListCache } = require("../../../infra/redis.js");
 
-async function removeBlacklistWord(interaction, client) {
+/**
+ * @param {Interaction} interaction 
+ * @returns 
+ */
+
+
+async function removeBlacklistWord(interaction) {
   const word = await interaction.options.get("word").value.replace(/ /g,'');
   const new_word = word.split(',');
   const guild_id = await interaction.guildId;
@@ -39,7 +45,7 @@ async function removeBlacklistWord(interaction, client) {
   }
 }
 
-async function addBlacklistWord(interaction, client) {
+async function addBlacklistWord(interaction) {
   const word = await interaction.options.get("word").value.replace(/ /g,'');
   const new_word = word.split(',');
   const guild_id = await interaction.guildId;
@@ -68,7 +74,7 @@ async function addBlacklistWord(interaction, client) {
   }
 }
 
-async function listBlacklistWords(interaction, client) {
+async function listBlacklistWords(interaction) {
   const list = new EmbedBuilder().setTitle("Banned Words List!");
   try {
     const result = await GetBannedWords(interaction.guildId);

@@ -1,6 +1,11 @@
 const pino = require('../../../logger')
 const { registerGuild } = require('../../models/guilds/guildRegistering')
 
+const {Guild} = require('discord.js')
+/**
+ * @param {Guild} guild 
+ * @returns 
+ */
 
 module.exports = async (guild) => {
   pino.info(`Bot has invited to new guild ${guild.id} ${guild.name} | Creating this guild on database`)

@@ -1,10 +1,15 @@
-const { SlashCommandBuilder,PermissionsBitField } = require("discord.js");
+const { SlashCommandBuilder,PermissionsBitField,Interaction,Client } = require("discord.js");
 const {
   removeBlacklistWord,
   addBlacklistWord,
   listBlacklistWords,
 } = require("../../models/blacklist/blacklist");
 
+/**
+ * @param {Interaction} interaction 
+ * @param {Client} client 
+ * @returns 
+ */
 
 const commandTimeout = 2000
 module.exports = {

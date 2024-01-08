@@ -1,3 +1,8 @@
+const {Interaction} = require('discord.js')
+/**
+ * @param {Interaction} interaction 
+ * @returns 
+ */
 
 module.exports = async (interaction, commandObj) => {
   if(commandObj.requiredPermissions && commandObj.requiredPermissions?.length !== 0){

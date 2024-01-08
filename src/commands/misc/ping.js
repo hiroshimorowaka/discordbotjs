@@ -1,5 +1,12 @@
-const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField,Interaction } = require("discord.js");
 const commandTimeout = 3000
+
+/**
+ * @param {Interaction} interaction 
+ * @returns 
+ */
+
+
 module.exports = {
   data: new SlashCommandBuilder()
   .setName('ping')

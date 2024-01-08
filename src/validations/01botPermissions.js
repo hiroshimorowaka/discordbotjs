@@ -1,4 +1,10 @@
 const permissionName = require('../../permissionNames.json')
+const {Interaction} = require('discord.js')
+/**
+ * @param {Interaction} interaction 
+ * @returns 
+ */
+
 
 module.exports = async (interaction, commandObj) => {
   if(commandObj.botPermissions && commandObj.botPermissions?.length !== 0){
