@@ -55,7 +55,7 @@ async function addBlacklistWord(interaction) {
       const WordExist = await GetBanWord(guild_id, new_word);
       if (!WordExist) {
         await setBannedWord(guild_id, new_word);
-        await addListCache(guild_id, word);
+        await addListCache(guild_id, new_word);
       } else {
         return await interaction.reply("This Word already exists!");
       }

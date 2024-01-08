@@ -43,8 +43,6 @@ module.exports = {
     if(subCommand === "set"){
       await commandSetBirthday(interaction);
     }
-
-    client.timeout.set(`${interaction.user.id}_${interaction.commandName}`,Date.now() + (commandTimeout))
   },
 
   timeout: commandTimeout

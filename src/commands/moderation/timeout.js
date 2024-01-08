@@ -41,6 +41,7 @@ module.exports = {
         const userObj = await interaction.guild.members.fetch(userSelected);
         const requestUser = interaction.user.id
         const guildOwner = interaction.guild.ownerId
+        
 
         if(!userObj){
           await interaction.editReply({content: "That user doesn't exist in this server!", ephemeral: true});
@@ -75,17 +76,20 @@ module.exports = {
         const requestUserRolePosition = interaction.member.roles.highest.position;
         const botRolePosition = interaction.guild.members.me.roles.highest.position;
 
-        if(requestUser !== guildOwner){
-        if(targetUserRolePosition >= requestUserRolePosition){
-          await interaction.editReply({content: "You can't timeout that user because they have the same/higher role than you", ephemeral:true});
-          return;
-        }
-      }
 
-        if(targetUserRolePosition >= botRolePosition){
-          await interaction.editReply({content: "I can't timeout that user because they have the same/higher role than me", ephemeral:true});
+
+        if(requestUser !== guildOwner){
+        if(targetUserRolePosition >= requestUserRolePosition || userSelected === guildOwner){
+          await interaction.editReply({content: "You can't timeout that user because they have the same/higher role than you or is Server Owner", ephemeral:true});
           return;
         }
+
+      }
+        if(targetUserRolePosition >= botRolePosition || userSelected === guildOwner){
+          await interaction.editReply({content: "I can't timeout that user because they have the same/higher role than me or is Server Owner", ephemeral:true});
+          return;
+        }
+      
 
         try {
 
@@ -99,7 +103,7 @@ module.exports = {
           await interaction.editReply(`${userObj}'s was timeout for ${prettyMs(msDuration)}\nReason: ${reason}`);
 
         } catch (error) {
-          pino.error(e)
+          pino.error(error)
         }
 
     },
