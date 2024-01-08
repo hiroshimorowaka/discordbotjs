@@ -13,9 +13,9 @@ const pino = require('pino')({
         options: { destination: `${__dirname}/app.log` },
       },
     ],
-
   },
-  destination: '/log/file'
+
+  timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`
 })
 
 module.exports = pino
