@@ -3,8 +3,6 @@ const ms = require('ms');
 const {
   SlashCommandBuilder,
   PermissionsBitField,
-  Interaction,
-  Client
 } = require("discord.js");
 
 const pino = require('../../../logger')
