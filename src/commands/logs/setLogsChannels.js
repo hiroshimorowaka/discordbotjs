@@ -11,6 +11,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("logs")
     .setDescription("Set logs channels")
+    .setDMPermission(false)
     .addChannelOption((option) =>
       option
         .setName("channel")

@@ -10,7 +10,7 @@ module.exports = {
   data: new SlashCommandBuilder()
   .setName("blacklist")
   .setDescription("Blacklist manager!")
-
+  .setDMPermission(false)
   .addSubcommandGroup((subcommandgroup) =>
     subcommandgroup
       .setName("words")

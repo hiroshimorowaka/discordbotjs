@@ -12,6 +12,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("clear")
     .setDescription("Delete X messages from chat")
+    .setDMPermission(false)
     .addIntegerOption((option) =>
       option
         .setName("amount")
@@ -20,7 +21,6 @@ module.exports = {
         .setMinValue(1)
         .setMaxValue(maxValue),
     )
-
     .addUserOption((option) =>
       option
         .setName("target")

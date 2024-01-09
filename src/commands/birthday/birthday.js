@@ -18,6 +18,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("birthday")
     .setDescription("Birthday settings")
+    .setDMPermission(false)
       .addSubcommand((subCommand) =>
         subCommand
         .setName("set")

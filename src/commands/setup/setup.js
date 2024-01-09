@@ -7,7 +7,8 @@ const commandTimeout = 7000
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("setup")
-    .setDescription("Setup the BOT to work on your server"),
+    .setDescription("Setup the BOT to work on your server")
+    .setDMPermission(false),
 
 /**
  * @param {import('commandkit').SlashCommandProps} param0 
