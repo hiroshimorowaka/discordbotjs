@@ -34,6 +34,11 @@ module.exports = {
         .setName("list")
         .setDescription("Lists all the server's birthdays!")
     ),
+
+/**
+ * @param {import('commandkit').SlashCommandProps} param0 
+ * @param {import('commandkit').SlashCommandProps} param1
+ */
   run: async ({ interaction,client }) => {
     const subCommand = interaction.options.getSubcommand();
 
@@ -44,7 +49,7 @@ module.exports = {
       await commandSetBirthday(interaction);
     }
   },
-
-  timeout: commandTimeout
-
+  options: {
+    timeout: commandTimeout
+  }
 };

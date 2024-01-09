@@ -31,14 +31,17 @@ module.exports = {
         .setDescription("The reason for the time out!"),
     ),
 
-    run: async({interaction,client}) => {
+/**
+ * @param {import('commandkit').SlashCommandProps} param0 
+ */
+    run: async({interaction}) => {
+      
         const userSelected = interaction.options.get('user').value
         const duration = interaction.options.get('duration').value
         const reason = interaction.options.get('reason')?.value || "No reason provided";
       
         await interaction.deferReply();
-
-        const userObj = await interaction.guild.members.fetch(userSelected);
+        const userObj = interaction.guild.members.cache.get(userSelected) || await interaction.guild.members.fetch(userSelected);
         const requestUser = interaction.user.id
         const guildOwner = interaction.guild.ownerId
         
@@ -103,11 +106,14 @@ module.exports = {
           await interaction.editReply(`${userObj}'s was timeout for ${prettyMs(msDuration)}\nReason: ${reason}`);
 
         } catch (error) {
+          await interaction.editReply("An error ocurred ")
           pino.error(error)
         }
 
     },
-  requiredPermissions: [PermissionsBitField.Flags.ManageMessages],
-  botPermissions: [PermissionsBitField.Flags.MuteMembers],
-  timeout: commandTimeout
+    options: {
+      userPermissions: ['ManageMessages'],
+      botPermissions: ['MuteMembers'],
+      timeout: commandTimeout
+    }
 };

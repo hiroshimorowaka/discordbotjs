@@ -1,10 +1,6 @@
-const { SlashCommandBuilder, PermissionsBitField,Interaction } = require("discord.js");
+const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 const commandTimeout = 3000
 
-/**
- * @param {Interaction} interaction 
- * @returns 
- */
 
 
 module.exports = {
@@ -12,6 +8,9 @@ module.exports = {
   .setName('ping')
   .setDescription('Reply Pong foda demais!'),
 
+/**
+ * @param {import('commandkit').SlashCommandProps} param0 
+ */
   run: async ({interaction}) => {
 
     const sent = await interaction.reply({
@@ -25,7 +24,8 @@ module.exports = {
       }ms`,
     );
   },
-  botPermissions: [PermissionsBitField.Flags.Administrator],
-  timeout: commandTimeout
+  options: {
+    timeout: commandTimeout
+  }
   }
 

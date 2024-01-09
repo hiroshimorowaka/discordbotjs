@@ -2,15 +2,10 @@ const {
   SlashCommandBuilder,
   PermissionsBitField,
   EmbedBuilder,
-  Interaction
 } = require("discord.js");
 
 const {setLogChannel,LogChannelExists} = require('../../models/logs/setLogsChannels')
 const pino = require('../../../logger')
-/**
- * @param {Interaction} interaction 
- * @returns 
- */
 
 const commandTimeout = 5000
 module.exports = {
@@ -23,6 +18,9 @@ module.exports = {
         .setDescription("The channel to send logs!")
         .setRequired(true)
     ),
+/**
+ * @param {import('commandkit').SlashCommandProps} param0 
+ */
     run: async({interaction}) => {
         await interaction.deferReply();
         const {options,guildId} = interaction
@@ -41,6 +39,8 @@ module.exports = {
           pino.error(error)
         }
     },
-  requiredPermissions: [PermissionsBitField.Flags.ManageMessages,PermissionsBitField.Flags.Administrator],
-  timeout: commandTimeout
+    options: {
+      timeout: commandTimeout,
+      userPermissions: ['ManageChannels']
+    }
 };

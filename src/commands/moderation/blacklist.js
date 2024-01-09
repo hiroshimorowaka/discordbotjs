@@ -1,15 +1,9 @@
-const { SlashCommandBuilder,PermissionsBitField,Interaction,Client } = require("discord.js");
+const { SlashCommandBuilder,PermissionsBitField } = require("discord.js");
 const {
   removeBlacklistWord,
   addBlacklistWord,
   listBlacklistWords,
 } = require("../../models/blacklist/blacklist");
-
-/**
- * @param {Interaction} interaction 
- * @param {Client} client 
- * @returns 
- */
 
 const commandTimeout = 2000
 module.exports = {
@@ -47,7 +41,10 @@ module.exports = {
         subCommand.setName("list").setDescription("List words blacklisted"),
       ),
   ),
-
+/**
+ * @param {import('commandkit').SlashCommandProps} param0 
+ * @param {import('commandkit').SlashCommandProps} param1
+ */
   run: async ({interaction, client}) => {
     const subCommand = interaction.options.getSubcommand();
     const subCommandGroup = interaction.options.getSubcommandGroup();
@@ -69,6 +66,9 @@ module.exports = {
       }
     }
   },
-  requiredPermissions: [PermissionsBitField.Flags.ManageGuild,PermissionsBitField.Flags.Administrator],
-  timeout: commandTimeout
+
+  options: {
+    userPermissions: ['ManageGuild'],
+    timeout: commandTimeout
+  }
 }

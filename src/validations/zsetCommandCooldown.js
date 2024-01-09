@@ -1,11 +1,7 @@
-const ms = require('ms-prettify').default
-
 const {Interaction,Client} = require('discord.js')
 /**
- * @param {Interaction} interaction 
- * @param {Client} client 
- * @returns 
+ * @param {import('commandkit').SlashCommandProps} param0 
  */
-module.exports = (interaction, commandObj,_,client) => {
-  client.cooldowns.set(`${interaction.user.id}_${commandObj.name}`, Date.now() + (commandObj.timeout || 0));
+module.exports = ({interaction, commandObj}) => {
+  interaction.client.cooldowns.set(`${interaction.user.id}_${commandObj.name}`, Date.now() + (commandObj.options?.timeout || 0));
 }

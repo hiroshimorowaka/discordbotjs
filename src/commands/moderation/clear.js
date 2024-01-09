@@ -1,16 +1,12 @@
 const {
   SlashCommandBuilder,
   PermissionsBitField,
-  EmbedBuilder,
-  Interaction
+  EmbedBuilder
 } = require("discord.js");
 
-const {sendLogs} = require('../../models/logs/sendLogs')
+const {sendLogs} = require('../../models/logs/sendLogs');
+const pino = require('../../../logger');
 
-/**
- * @param {Interaction} interaction 
- * @returns 
- */
 const maxValue = 500
 const commandTimeout = 5000
 module.exports = {
@@ -32,7 +28,12 @@ module.exports = {
         .setDescription("Delete specified user messages!"),
     ),
 
+/**
+ * @param {import('commandkit').SlashCommandProps} param0 
+ */
+
     run: async({interaction}) => {
+
     const { options, channel } = interaction;
     let amount = options.getInteger("amount");
     const target = options.getUser("target");
@@ -82,6 +83,7 @@ module.exports = {
       }
 
       if (messagesToDelete.length > 0) {
+        console.log(messagesToDelete)
         await channel.bulkDelete(messagesToDelete, true);
       }
 
@@ -91,12 +93,16 @@ module.exports = {
 
     } catch (e) {
       await interaction.followUp({
-        content: "A error ocurred while clearing messages!",
+        content: "An error occurred when executing this command!",
         ephemeral: true,
       });
-      console.log(e);
+      pino.error(e);
     }
   },
-  requiredPermissions: [PermissionsBitField.Flags.ManageMessages,PermissionsBitField.Flags.Administrator],
-  timeout: commandTimeout
+  options: {
+    userPermissions: ['ManageGuild'],
+    botPermissions: ['ManageMessages'],
+    timeout: commandTimeout
+  }
+
 };

@@ -10,9 +10,11 @@ module.exports = {
     .setName("setup")
     .setDescription("Setup the BOT to work on your server"),
 
-
+/**
+ * @param {import('commandkit').SlashCommandProps} param0 
+ */
     run: async({interaction}) => {
-      
+
       await interaction.reply('Configuring your server...');
 
       const result = await registerGuild(interaction.guildId);
@@ -21,6 +23,9 @@ module.exports = {
       await interaction.editReply('Start setup was made with success!');
 
     },
-  requiredPermissions: [PermissionsBitField.Flags.ManageGuild,PermissionsBitField.Flags.Administrator],
-  timeout: commandTimeout
+  options: {
+    userPermissions: ['ManageGuild'],
+    timeout: commandTimeout
+  }
+
 };

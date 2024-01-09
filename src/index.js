@@ -1,8 +1,15 @@
 require('dotenv/config');
 
 const { Client, IntentsBitField, Collection } = require('discord.js')
-const { CommandHandler } = require('djs-commander')
+const { CommandKit } = require('commandkit')
 const path = require('path')
+
+const {testServer, devs} = require('../config.json')
+const commandsPath = path.join(__dirname,'commands')
+const validationsPath = path.join(__dirname,'validations')
+const eventsPath = path.join(__dirname,'events')
+
+const status = require("../status.json");
 
 const client = new Client({intents: [
   IntentsBitField.Flags.Guilds,
@@ -10,21 +17,35 @@ const client = new Client({intents: [
   IntentsBitField.Flags.GuildMessages,
   IntentsBitField.Flags.MessageContent,
 ]});
+
 client.cooldowns = new Collection();
 
-const {testServer} = require('../config.json')
-const commandsPath = path.join(__dirname,'commands')
-const validationsPath = path.join(__dirname,'validations')
-const eventsPath = path.join(__dirname,'events')
-new CommandHandler({
+
+new CommandKit({
   client,
+  devGuildIds: [testServer],
+  devUserIds: devs,
   commandsPath,
-  testServer,
   validationsPath,
-  eventsPath
+  eventsPath,
+  bulkRegister: true,
 });
+
 client.on('interactionCreate', async (interaction) => {
-  
+  const commands = (await client.application.commands.fetch())
+  commands.forEach((command) => {
+    console.log(command.name)
+  });
+})
+
+client.on("ready", () => {
+
+  setInterval(() => {
+    let random = Math.floor(Math.random() * status.length);
+    client.user.setActivity(status[random])
+  }, 15 * 1000);
+
+
 })
 
 client.login(process.env.BOT_TOKEN)
