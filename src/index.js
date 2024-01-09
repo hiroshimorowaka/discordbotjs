@@ -32,10 +32,10 @@ new CommandKit({
 });
 
 client.on('interactionCreate', async (interaction) => {
-  const commands = (await client.application.commands.fetch())
-  commands.forEach((command) => {
-    console.log(command.name)
-  });
+  // const commands = (await client.application.commands.fetch())
+  // commands.forEach((command) => {
+  //   console.log(command.name)
+  // }); // usar pra mostrar os comandos no /help
 })
 
 client.on("ready", () => {

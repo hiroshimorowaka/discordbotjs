@@ -1,6 +1,5 @@
 const {
-  SlashCommandBuilder,
-  PermissionsBitField
+  SlashCommandBuilder
 } = require("discord.js");
 
 const {registerGuild} = require('../../models/guilds/guildRegistering');

@@ -1,8 +1,7 @@
 const prettyMs = require('ms-prettify').default;
 const ms = require('ms');
 const {
-  SlashCommandBuilder,
-  PermissionsBitField,
+  SlashCommandBuilder
 } = require("discord.js");
 
 const pino = require('../../../logger')

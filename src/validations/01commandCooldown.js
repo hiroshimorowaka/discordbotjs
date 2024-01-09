@@ -1,5 +1,4 @@
 const ms = require('ms-prettify').default
-const {Client, Interaction} = require('discord.js')
 /**
  * @param {import('commandkit').SlashCommandProps} param0 
  */
