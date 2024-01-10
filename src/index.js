@@ -4,7 +4,7 @@ const { Client, IntentsBitField, Collection } = require('discord.js')
 const { CommandKit } = require('commandkit')
 const path = require('path')
 
-const {testServer, devs} = require('../config.json')
+const {testServers, devs} = require('../config.json')
 const commandsPath = path.join(__dirname,'commands')
 const validationsPath = path.join(__dirname,'validations')
 const eventsPath = path.join(__dirname,'events')
@@ -20,10 +20,9 @@ const client = new Client({intents: [
 
 client.cooldowns = new Collection();
 
-
 new CommandKit({
   client,
-  devGuildIds: [testServer],
+  devGuildIds: testServers,
   devUserIds: devs,
   commandsPath,
   validationsPath,

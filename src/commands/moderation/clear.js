@@ -99,7 +99,7 @@ module.exports = {
     }
   },
   options: {
-    userPermissions: ['ManageGuild'],
+    userPermissions: ['ManageMessages'],
     botPermissions: ['ManageMessages'],
     timeout: commandTimeout
   }

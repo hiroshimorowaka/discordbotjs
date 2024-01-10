@@ -20,8 +20,9 @@
 - **/list** (Mostra a lista de pessoas que fazem aniversário e estão cadastradas)
 - **/ping** (Mostra o ping do bot)
 - **/setup** (Configura o banco de dados da guild)
-- **/timeout** (Deixa o usuário selecionado impossibilitado de digitar em chats)
+- **/timeout [subCommand]** (Deixa o usuário selecionado impossibilitado de digitar em chats ou remove seu timeout)
 - **/logs** (Adiciona um canal para ser enviado o logs dos comandos)
+- **/bot [subCommand]** (Da reload em algumas features do bot, como commands, event listeners e validations)
 
 ## Tempo gasto:
 
@@ -35,4 +36,11 @@
 
 - Começo: 07/01/2024 - 23:30
 - Fim: 08/01/2024 - 16:03
-- Tempo total: 16:27
+- Tempo total: 16:33
+
+### Dia 3
+
+- Começo: 09/01/2024 - 03:30
+- Fim: 09/01/2024 - 14:03
+- Tempo total: 10:33
+

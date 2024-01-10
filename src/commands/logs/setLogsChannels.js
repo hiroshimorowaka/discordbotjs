@@ -41,6 +41,6 @@ module.exports = {
     },
     options: {
       timeout: commandTimeout,
-      userPermissions: ['ManageChannels']
+      userPermissions: ['ManageChannels','ManageGuild']
     }
 };
