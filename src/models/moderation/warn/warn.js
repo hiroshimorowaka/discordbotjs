@@ -4,7 +4,7 @@ const {punish} = require('./punishType');
 const pino = require("../../../../logger");
 const {EmbedBuilder} = require("discord.js")
 const { errorEmbed } = require("../../embeds/defaultEmbeds")
-
+const {deleteInfoOnExitGuild} = require('../../guilds/deleteInfoOnExitGuild');
 /**
   * @param {import('discord.js').Interaction} interaction 
   */
@@ -49,7 +49,7 @@ async function addWarn(interaction){
   }
 
   const checkRole = await checkRolePosition(interaction,userSelectedObj,'warn')
-  pino.info(`models/warn.js -> Check Role Position: ${checkRole}`);
+
   if(!checkRole) 
   {
     return false;
@@ -80,6 +80,10 @@ async function addWarn(interaction){
       if(punishment){
         const punish_message = punishment(userSelectedObj,reason,userWarnsResult.timeout_duration);
         
+        if(punish[punishmentType].name === 'kick' || punish[punishmentType].name === 'ban'){
+          deleteInfoOnExitGuild(guildId,userSelectedId);
+        }
+        
         embed
         .setDescription(`${punish_message}`)
         interaction.editReply({embeds: [embed]});
@@ -94,7 +98,7 @@ async function addWarn(interaction){
       
     }
     embed
-    .setDescription(`${userSelectedObj} has been warned`)
+    .setDescription(`${userSelectedObj} has been warned\nThis user has **${userWarnsResult.count}** warns`);
     interaction.editReply({embeds: [embed], ephemeral: true});
 
   }catch(e){
@@ -172,10 +176,34 @@ async function removeWarn(interaction){
   }
 
 }
+/**
+  * @param {import('discord.js').Interaction} interaction 
+  */
+async function listWarn(interaction){
+  const embed = new EmbedBuilder()
+  .setTitle('List of warns');
+  const guildId = interaction.guild.id;
+  const description = [];
+
+  await interaction.deferReply();
+
+  const users = await query('SELECT user_id,count(user_id) FROM warns WHERE guild_id = $1 GROUP BY user_id ORDER BY count DESC;',[guildId]);
+
+  for(i of users.rows){
+    const newString = `<@${i.user_id}>: **${i.count}** warns\n`;
+    description.push(newString);
+  }
+
+  embed.setDescription(description.join(' '));
+  interaction.editReply({embeds: [embed]})
+
+  //SELECT user_id,count(user_id) FROM warns WHERE guild_id = '1161392391958315119' GROUP BY user_id;
+}
 
 
 module.exports = {
   checkUserWarns,
   addWarn,
-  removeWarn
+  removeWarn,
+  listWarn
 }

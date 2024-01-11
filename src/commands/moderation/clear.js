@@ -6,7 +6,7 @@ const {
 const {sendLogs} = require('../../models/logs/sendLogs');
 const pino = require('../../../logger');
 
-const maxValue = 500
+const maxValue = 100
 const commandTimeout = 5000
 module.exports = {
   data: new SlashCommandBuilder()
@@ -46,7 +46,7 @@ module.exports = {
     }
 
     try {
-      const channelMessages = await channel.messages.fetch();
+      const channelMessages = await channel.messages.fetch({ limit: maxValue });
 
       if (channelMessages.size === 0) {
         return await interaction.reply({

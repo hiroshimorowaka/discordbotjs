@@ -44,15 +44,9 @@ module.exports = {
             .addIntegerOption((option) => 
               option
               .setName('limit')
-              .setDescription('Number of warnings that will punish the member when reached')
+              .setDescription('Number of warnings that will punish the member when reached (Integer Number)')
               .setMinValue(1)
               .setRequired(true)
-              .addChoices(
-                { name: 'Two', value: 2 },
-                { name: 'Three', value: 3 },
-                { name: 'Four', value: 4 },
-                { name: 'Five', value: 5 },
-                )
             )
         )
   ),
@@ -84,7 +78,6 @@ module.exports = {
 
   },
   options: {
-    devOnly: true,
     userPermissions: ['ManageGuild'],
     timeout: commandTimeout
   }

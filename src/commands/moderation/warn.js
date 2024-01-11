@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const {addWarn,removeWarn} = require('../../models/moderation/warn/warn');
+const {addWarn,removeWarn, listWarn} = require('../../models/moderation/warn/warn');
 
 
 const commandTimeout = 3000
@@ -40,7 +40,12 @@ module.exports = {
               .setName("quantity")
               .setDescription('Quantity of warns to remove (Default 1 if not selected)')
             )
-          ),
+          )
+          .addSubcommand((subCommand) => 
+          subCommand
+            .setName('list')
+            .setDescription('List all server user warns!')
+            ),
 
 
 /**
@@ -59,6 +64,10 @@ module.exports = {
     }
     if(subCommand === 'remove'){
       await removeWarn(interaction)
+      return
+    }
+    if(subCommand === 'list'){
+      await listWarn(interaction)
       return
     }
   },
