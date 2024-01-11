@@ -39,9 +39,9 @@
 >
 >Depois de criado o arquivo, é só subir startar o projeto com `npm run start`, e ele irá subir os container e executar o projeto; 
 > 
-> para derrubar os container ou subi-los sem executar o projeto, existem os comandos:
-> `npm run up:services` Subir os containers 
-> `npm run down:services` Derrubar os containers
+> para derrubar os container ou subi-los sem executar o projeto, existem os comandos:  
+> `npm run up:services` Subir os containers  
+> `npm run down:services` Derrubar os containers  
 > `npm run stop:services` Parar os container respectivamente
 
 
