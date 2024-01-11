@@ -2,7 +2,7 @@ const pino = require('../../../logger')
 
 const prettyMs = require('ms-prettify').default;
 const ms = require('ms')
-
+const { checkRolePosition } = require("../validations/checkRolePosition");
 
 /**
  * @param {import('discord.js').Interaction} interaction 
@@ -15,25 +15,13 @@ const duration = interaction.options.get('duration').value
 const reason = interaction.options.get('reason')?.value || "No reason provided";
 
 await interaction.deferReply();
-const userObj = interaction.guild.members.cache.get(userSelected) || await interaction.guild.members.fetch(userSelected);
-const requestUser = interaction.user.id
-const guildOwner = interaction.guild.ownerId
+const userObj = interaction.guild.members.cache.get(userSelected) || await interaction.guild.members.fetch(userSelected).catch(() => {});
 
-if(!userObj){
-  await interaction.editReply({content: "That user doesn't exist in this server!", ephemeral: true});
-  return
+const checkrole = await checkRolePosition(interaction,userObj,'timeout')
+
+if (!checkrole){
+  return false;
 }
-
-if(userObj.user.bot){
-  await interaction.editReply({content: "I can't timeout a bot!", ephemeral: true});
-  return;
-}
-
-if(userSelected === requestUser){
-  await interaction.editReply({content: "You can't auto timeout!", ephemeral: true});
-  return;
-}
-
 
 const msDuration = ms(duration);
 
@@ -44,24 +32,6 @@ if(isNaN(msDuration)){
 
 if(msDuration < 5000 || msDuration > 2.419e9){
   await interaction.editReply({content: "Timeout duration cannot be less than 5 seconds or more than 28 days!", ephemeral: true});
-  return;
-}
-
-const targetUserRolePosition = userObj.roles.highest.position;
-const requestUserRolePosition = interaction.member.roles.highest.position;
-const botRolePosition = interaction.guild.members.me.roles.highest.position;
-
-
-
-if(requestUser !== guildOwner){
-if(targetUserRolePosition >= requestUserRolePosition || userSelected === guildOwner){
-  await interaction.editReply({content: "You can't timeout that user because they have the same/higher role than you or is Server Owner", ephemeral:true});
-  return;
-}
-
-}
-if(targetUserRolePosition >= botRolePosition || userSelected === guildOwner){
-  await interaction.editReply({content: "I can't timeout that user because they have the same/higher role than me or is Server Owner", ephemeral:true});
   return;
 }
 
@@ -94,30 +64,22 @@ async function removeTimeout(interaction){
   
   await interaction.deferReply();
   const userObj = interaction.guild.members.cache.get(userSelected) || await interaction.guild.members.fetch(userSelected);
-  const requestUser = interaction.user.id
-  const guildOwner = interaction.guild.ownerId
 
   if(!userObj.isCommunicationDisabled()){
     interaction.editReply('The user selected is not timed out!')
     return;
   }
 
-const targetUserRolePosition = userObj.roles.highest.position;
-const requestUserRolePosition = interaction.member.roles.highest.position;
-const botRolePosition = interaction.guild.members.me.roles.highest.position;
+  if (!userObj){
+    await interaction.editReply({content: "That user doesn't exist in this server!", ephemeral: true}); 
+    return false;
+  }
 
-if(requestUser !== guildOwner){
-if(targetUserRolePosition >= requestUserRolePosition || userSelected === guildOwner){
-  await interaction.editReply({content: "You can't timeout that user because they have the same/higher role than you or is Server Owner", ephemeral:true});
-  return;
-}
+  const checkrole = await checkRolePosition(interaction,userObj,'remove timeout')
 
-}
-if(targetUserRolePosition >= botRolePosition || userSelected === guildOwner){
-  await interaction.editReply({content: "I can't timeout that user because they have the same/higher role than me or is Server Owner", ephemeral:true});
-  return;
-}
-
+  if (!checkrole){
+    return false;
+  }
 
 await userObj.timeout(null);
 await interaction.editReply(`The user ${userObj} has been removed from timeout`);

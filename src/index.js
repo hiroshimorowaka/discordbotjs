@@ -30,6 +30,7 @@ new CommandKit({
   bulkRegister: true,
 });
 
+
 client.on('interactionCreate', async (interaction) => {
   // const commands = (await client.application.commands.fetch())
   // commands.forEach((command) => {
@@ -37,6 +38,8 @@ client.on('interactionCreate', async (interaction) => {
   // }); // usar pra mostrar os comandos no /help
 })
 
+
+//Discord bot custom status
 client.on("ready", () => {
 
   setInterval(() => {

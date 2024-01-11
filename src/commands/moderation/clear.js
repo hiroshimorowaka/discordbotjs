@@ -82,7 +82,6 @@ module.exports = {
       }
 
       if (messagesToDelete.length > 0) {
-        console.log(messagesToDelete)
         await channel.bulkDelete(messagesToDelete, true);
       }
 
