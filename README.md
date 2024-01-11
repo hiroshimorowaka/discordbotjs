@@ -11,6 +11,7 @@
 - Postgres (Persistencia de alguns dados)
 - Redis (cache)
 - Docker
+- CommandKit library (Event and command handler)
 
 ## Features
 
@@ -23,6 +24,27 @@
 - **/timeout [subCommand]** (Deixa o usuário selecionado impossibilitado de digitar em chats ou remove seu timeout)
 - **/logs** (Adiciona um canal para ser enviado o logs dos comandos)
 - **/bot [subCommand]** (Da reload em algumas features do bot, como commands, event listeners e validations)
+
+## Como executar o projeto:
+
+### Depêndencias:
+
+- Docker
+- Node.js (Eu estou usando a 20.8.0)
+
+
+>Faça um Git clone na sua máquina ou baixe o código fonte zipado
+>
+>Crie um arquivo `.env` na raiz do projeto e popule com as variáveis de ambiente do seu bot baseado no arquivo já existente `.env.template` (caso você não saiba criar um bot no discord, [clique aqui](https://discord.com/developers/docs/getting-started#step-1-creating-an-app))
+>
+>Depois de criado o arquivo, é só subir startar o projeto com `npm run start`, e ele irá subir os container e executar o projeto; 
+> 
+> para derrubar os container ou subi-los sem executar o projeto, existem os comandos:
+> `npm run up:services` Subir os containers 
+> `npm run down:services` Derrubar os containers
+> `npm run stop:services` Parar os container respectivamente
+
+
 
 ## Tempo gasto:
 
