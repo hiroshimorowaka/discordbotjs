@@ -37,9 +37,9 @@
 >
 >Crie um arquivo `.env` na raiz do projeto e popule com as variáveis de ambiente do seu bot baseado no arquivo já existente `.env.template` (caso você não saiba criar um bot no discord, [clique aqui](https://discord.com/developers/docs/getting-started#step-1-creating-an-app))
 >
->Depois de criado o arquivo, é só subir startar o projeto com `npm run start`, e ele irá subir os container e executar o projeto; 
+>Depois de criado o arquivo, é só startar o projeto com `npm run start`, e ele irá subir os container e executar o projeto; 
 > 
-> para derrubar os container ou subi-los sem executar o projeto, existem os comandos:  
+> Para derrubar os container ou subi-los sem executar o projeto, existem os comandos:  
 > `npm run up:services` Subir os containers  
 > `npm run down:services` Derrubar os containers  
 > `npm run stop:services` Parar os container respectivamente
