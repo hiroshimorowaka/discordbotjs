@@ -9,7 +9,7 @@ const commandsPath = path.join(__dirname,'commands')
 const validationsPath = path.join(__dirname,'validations')
 const eventsPath = path.join(__dirname,'events')
 
-const status = require("../status.json");
+
 
 const client = new Client({intents: [
   IntentsBitField.Flags.Guilds,
@@ -29,21 +29,6 @@ new CommandKit({
   eventsPath,
   bulkRegister: true,
 });
-
-
-//Discord bot custom status
-client.on("ready", () => {
-
-  if(status.length > 1){
-    setInterval(() => {
-      let random = Math.floor(Math.random() * status.length);
-      client.user.setActivity(status[random])
-    }, 15 * 1000);
-  }else{
-    client.user.setActivity(status[0]);
-  }
-  
-})
 
 client.login(process.env.BOT_TOKEN)
 
