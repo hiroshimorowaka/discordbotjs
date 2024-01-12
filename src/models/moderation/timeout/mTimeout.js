@@ -1,8 +1,8 @@
-const pino = require('../../../logger')
+const pino = require('../../../../logger')
 
 const prettyMs = require('ms-prettify').default;
 const ms = require('ms')
-const { checkRolePosition } = require("../validations/checkRolePosition");
+const { checkRolePosition } = require("../../validations/checkRolePosition");
 
 /**
  * @param {import('discord.js').Interaction} interaction 

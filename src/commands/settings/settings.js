@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js");
-const commandTimeout = 3000
+const { maxWarnCommand } = require('../../models/settings/warn/setMaxWarns');
+const { warnPunishmentCommand } = require('../../models/settings/warn/setWarnPunishmentType');
 
-const { maxWarnCommand, warnPunishmentCommand} = require('../../models/settings/setWarnSettings');
+const commandTimeout = 3000
 
 module.exports = {
   data: new SlashCommandBuilder()

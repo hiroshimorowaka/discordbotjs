@@ -2,7 +2,7 @@ const {
   SlashCommandBuilder
 } = require("discord.js");
 
-const {setTimeout, removeTimeout} = require('../../models/moderation/mTimeout');
+const {setTimeout, removeTimeout} = require('../../models/moderation/timeout/mTimeout');
 
 const commandTimeout = 3000
 module.exports = {

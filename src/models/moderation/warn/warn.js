@@ -86,8 +86,7 @@ async function addWarn(interaction){
         
         embed
         .setDescription(`${punish_message}`)
-        interaction.editReply({embeds: [embed]});
-        return;
+
       }else{
         pino.error('Error when punish member, this method does not exists (punish type)');
           errorEmbed
@@ -96,10 +95,19 @@ async function addWarn(interaction){
         return
       }
       
+    }else{
+      embed
+      .setDescription(`${userSelectedObj} has been warned\nThis user has **${userWarnsResult.count}** warns`);
     }
-    embed
-    .setDescription(`${userSelectedObj} has been warned\nThis user has **${userWarnsResult.count}** warns`);
+
     interaction.editReply({embeds: [embed], ephemeral: true});
+
+    userSelectedObj.send(`You have been warned on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou already has **${userWarnsResult.count}** warn(s)`);
+
+    const channelToSend = interaction.guild.channels.cache.get('1193387277548789790') || await interaction.guild.channels.fetch('1193387277548789790')
+
+    userSelectedObj.roles.add('1195439185067253840');
+    channelToSend.send({embeds: [embed]});
 
   }catch(e){
     errorEmbed
