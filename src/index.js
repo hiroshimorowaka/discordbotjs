@@ -31,14 +31,6 @@ new CommandKit({
 });
 
 
-client.on('interactionCreate', async (interaction) => {
-  // const commands = (await client.application.commands.fetch())
-  // commands.forEach((command) => {
-  //   console.log(command.name)
-  // }); // usar pra mostrar os comandos no /help
-})
-
-
 //Discord bot custom status
 client.on("ready", () => {
 
@@ -50,9 +42,7 @@ client.on("ready", () => {
   }else{
     client.user.setActivity(status[0]);
   }
-
-
-
+  
 })
 
 client.login(process.env.BOT_TOKEN)

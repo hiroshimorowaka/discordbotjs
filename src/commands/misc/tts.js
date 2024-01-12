@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const commandTimeout = 3000
+const commandTimeout = 5000
 
 
 module.exports = {
@@ -22,6 +22,8 @@ module.exports = {
     interaction.reply({content: `${text}`, tts: true});
   },
   options: {
+    userPermissions: ['SendTTSMessages'],
+    botPermissions: ['SendTTSMessages'],
     timeout: commandTimeout
   }
   }
