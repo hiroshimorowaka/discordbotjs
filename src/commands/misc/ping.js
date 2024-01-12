@@ -6,7 +6,7 @@ const commandTimeout = 3000
 module.exports = {
   data: new SlashCommandBuilder()
   .setName('ping')
-  .setDescription('Reply Pong foda demais!'),
+  .setDescription('Show bot ping!'),
 
 /**
  * @param {import('commandkit').SlashCommandProps} param0 

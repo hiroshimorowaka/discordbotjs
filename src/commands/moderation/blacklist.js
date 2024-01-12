@@ -9,7 +9,7 @@ const commandTimeout = 2000
 module.exports = {
   data: new SlashCommandBuilder()
   .setName("blacklist")
-  .setDescription("Blacklist manager!")
+  .setDescription("Blacklist settings!")
   .setDMPermission(false)
   .addSubcommandGroup((subcommandgroup) =>
     subcommandgroup

@@ -15,7 +15,7 @@ module.exports = async(message) => {
   for (i of words) {
     if (cache.includes(i)) {
       await message.delete();
-      await message.author.send(`This word (${i}) is banned on this server!`);
+      await message.author.send(`This word is banned on this server!`);
       return;
     }
   }
@@ -24,7 +24,7 @@ module.exports = async(message) => {
     if(db_words.includes(i)){
       addListCache(message.guildId,i);
       await message.delete();
-      await message.author.send(`This word (${i}) is banned on this server!`);
+      await message.author.send(`This word is banned on this server!`);
       return;
     }
   }
