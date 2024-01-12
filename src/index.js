@@ -42,10 +42,15 @@ client.on('interactionCreate', async (interaction) => {
 //Discord bot custom status
 client.on("ready", () => {
 
-  setInterval(() => {
-    let random = Math.floor(Math.random() * status.length);
-    client.user.setActivity(status[random])
-  }, 15 * 1000);
+  if(status.length > 1){
+    setInterval(() => {
+      let random = Math.floor(Math.random() * status.length);
+      client.user.setActivity(status[random])
+    }, 15 * 1000);
+  }else{
+    client.user.setActivity(status[0]);
+  }
+
 
 
 })

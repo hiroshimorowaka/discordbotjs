@@ -1,3 +1,19 @@
+Caso você queria o status personalizado no seu bot, coloque no status.json, na chave "type" o valor correspondente ao status que você quer, como 0,1,2,3 e etc.
+
+E na chave "Name" a frase que você quer que apareça.
+
+Exemplo, caso você queria que apareça:
+
+Playing video games
+
+Você coloca:
+
+{
+"name": "video games"
+"type": 0
+}
+
+
 Playing: 0
 Streaming: 1
 Listening: 2
