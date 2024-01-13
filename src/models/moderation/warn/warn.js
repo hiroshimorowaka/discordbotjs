@@ -61,10 +61,9 @@ async function addWarn(interaction) {
 		await query("INSERT INTO warns (guild_id,user_id,reason,staff) VALUES ($1,$2,$3,$4)", [guildId, userSelectedId, reason, requestUser]);
 
 		const userWarnsResult = await checkUserWarns(guildId, userSelectedId);
-		pino.info(`models/warn.js -> Check User Warns: ${JSON.stringify(userWarnsResult)}`);
 
 		if (!userWarnsResult) {
-			errorEmbed.setDescription("The warn feature is not configured to this server! Please use /settings warn!");
+			errorEmbed.setDescription({content: "The warn feature is not configured to this server! Please use /settings warn!", ephemeral: true});
 			interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 			return;
 		}
@@ -94,16 +93,16 @@ async function addWarn(interaction) {
 			embed.setDescription(`${userSelectedObj} has been warned\nThis user has **${userWarnsResult.count}** warns`);
 		}
 
-		interaction.editReply({ embeds: [embed], ephemeral: true });
+		interaction.editReply({embeds: [embed]});
 
 		userSelectedObj.send(
 			`You have been warned on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou already has **${userWarnsResult.count}** warn(s)`,
 		);
 
-		const channelToSend = interaction.guild.channels.cache.get("1193387277548789790") || (await interaction.guild.channels.fetch("1193387277548789790"));
+		// const channelToSend = interaction.guild.channels.cache.get("1193387277548789790") || (await interaction.guild.channels.fetch("1193387277548789790"));
 
-		userSelectedObj.roles.add("1195439185067253840");
-		channelToSend.send({ embeds: [embed] });
+		// channelToSend.send({ embeds: [embed] });
+
 	} catch (e) {
 		errorEmbed.setDescription("An error ocurred when executing this command!");
 		interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
@@ -129,14 +128,12 @@ async function removeWarn(interaction) {
 	}
 
 	const checkRole = await checkRolePosition(interaction, userSelectedObj, "warn");
-	pino.info(`models/warn.js -> Check Role Position: ${checkRole}`);
 	if (!checkRole) {
 		return false;
 	}
 
 	try {
 		const userWarnsResult = await checkUserWarns(guildId, userSelectedId);
-		pino.info(`models/warn.js -> Check User Warns: ${JSON.stringify(userWarnsResult)}`);
 
 		if (!userWarnsResult?.count) {
 			const warnEmbed = new EmbedBuilder().setTitle("⚠️ Warning!").setDescription("This user don't have warns to remove!").setColor(14397952);
