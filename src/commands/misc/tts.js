@@ -1,29 +1,27 @@
 const { SlashCommandBuilder } = require("discord.js");
-const commandTimeout = 5000
-
+const commandTimeout = 5000;
 
 module.exports = {
-  data: new SlashCommandBuilder()
-  .setName('speak')
-  .setDescription('I will tts your message!')
-  .addStringOption((option)=>
-    option
-    .setName('text')
-    .setDescription('Enter the text and I will tts it')
-    .setRequired(true)
-  ),
-/**
- * @param {import('commandkit').SlashCommandProps} param0 
- */
-  run: async ({interaction}) => {
+	data: new SlashCommandBuilder()
+		.setName("speak")
+		.setDescription("I will tts your message!")
+		.addStringOption((option) =>
+			option
+				.setName("text")
+				.setDescription("Enter the text and I will tts it")
+				.setRequired(true),
+		),
+	/**
+	 * @param {import('commandkit').SlashCommandProps} param0
+	 */
+	run: async ({ interaction }) => {
+		const text = interaction.options.getString("text");
 
-    const text = interaction.options.getString('text');
-
-    interaction.reply({content: `${text}`, tts: true});
-  },
-  options: {
-    userPermissions: ['SendTTSMessages'],
-    botPermissions: ['SendTTSMessages'],
-    timeout: commandTimeout
-  }
-  }
+		interaction.reply({ content: `${text}`, tts: true });
+	},
+	options: {
+		userPermissions: ["SendTTSMessages"],
+		botPermissions: ["SendTTSMessages"],
+		timeout: commandTimeout,
+	},
+};

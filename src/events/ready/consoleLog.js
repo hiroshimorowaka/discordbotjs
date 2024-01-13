@@ -1,11 +1,11 @@
-const pino = require('../../../logger');
+const pino = require("../../../logger");
 
-const {Client} = require('discord.js')
+const { Client } = require("discord.js");
 /**
- * @param {Client} client 
- * @returns 
+ * @param {Client} client
+ * @returns
  */
 
 module.exports = (client) => {
-  pino.info(`${client.user.username} is ready!`)
-}
+	pino.info(`${client.user.username} is ready!`);
+};
