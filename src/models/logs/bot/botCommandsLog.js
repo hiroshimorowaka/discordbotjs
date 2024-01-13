@@ -5,8 +5,13 @@ const { logs } = require("../../../../config.json");
  * @param {Interaction} interaction
  * @param {Client} client
  */
-async function sendBotCommandLog(interaction,client,options = [],subCommandGroup,subCommand) {
-
+async function sendBotCommandLog(
+  interaction,
+  client,
+  options = [],
+  subCommandGroup,
+  subCommand,
+) {
   let subCommands = "";
   if (subCommandGroup) {
     subCommands += " " + subCommandGroup;

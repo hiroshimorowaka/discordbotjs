@@ -1,5 +1,5 @@
 const pg = require("pg");
-const pino = require('../logger')
+const pino = require("../logger");
 
 const URL = process.env.DB_URL;
 const pool = new pg.Pool({
@@ -7,13 +7,15 @@ const pool = new pg.Pool({
   max: Number(process.env.DB_POOL) || 35,
   idleTimeoutMillis: 3000,
   connectionTimeoutMillis: 10000,
-  application_name: 'Discord BOT'
+  application_name: "Discord BOT",
 });
 
 pool.once("connect", () => {
-  pino.info(`Database.js -> Connected  to database: ${process.env.POSTGRES_DB}`);
+  pino.info(
+    `Database.js -> Connected  to database: ${process.env.POSTGRES_DB}`,
+  );
   pino.info(`Database.js -> Creating table "users" if not exists`);
-  
+
   pool.query(`
 
       CREATE TABLE IF NOT EXISTS birthdays (
@@ -39,8 +41,8 @@ pool.once("connect", () => {
   );
 `);
 
-pino.info(`Database.js -> Creating table "warns" if not exists`);
-pool.query(`
+  pino.info(`Database.js -> Creating table "warns" if not exists`);
+  pool.query(`
 CREATE TABLE IF NOT EXISTS warns (
   id uuid DEFAULT gen_random_uuid() UNIQUE NOT NULL,
   guild_id TEXT NOT NULL,
@@ -51,8 +53,8 @@ CREATE TABLE IF NOT EXISTS warns (
 );
 `);
 
-pino.info(`Database.js -> Creating table "warn_config" if not exists`);
-pool.query(`
+  pino.info(`Database.js -> Creating table "warn_config" if not exists`);
+  pool.query(`
 CREATE TABLE IF NOT EXISTS warn_config (
   id uuid DEFAULT gen_random_uuid() UNIQUE NOT NULL,
   guild_id TEXT UNIQUE NOT NULL,

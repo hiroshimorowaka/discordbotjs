@@ -1,6 +1,6 @@
 const pino = require("../../../logger");
 const {
-	sendBotGuildJoinLog,
+  sendBotGuildJoinLog,
 } = require("../../models/logs/bot/botGuildJoinLog");
 
 const { Guild } = require("discord.js");
@@ -10,5 +10,5 @@ const { Guild } = require("discord.js");
  */
 
 module.exports = async (guild, client) => {
-	sendBotGuildJoinLog(guild, client);
+  sendBotGuildJoinLog(guild, client);
 };
