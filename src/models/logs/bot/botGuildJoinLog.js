@@ -6,29 +6,25 @@ const { logs } = require("../../../../config.json");
  * @param {Client} client
  */
 async function sendBotGuildJoinLog(guild, client) {
-  const logEmbed = new EmbedBuilder()
-    .setTitle("Acabei de entrar em um server!")
-    .setColor([123, 237, 78])
-    .addFields(
-      { name: "Nome do server:", value: `${guild.name} ||${guild.id}||` },
-      { name: "Membros:", value: `${guild.memberCount}` },
-      { name: "Dono:", value: `<@${guild.ownerId}> ||${guild.ownerId}||` },
-    );
+	const logEmbed = new EmbedBuilder()
+		.setTitle("Acabei de entrar em um server!")
+		.setColor([123, 237, 78])
+		.addFields(
+			{ name: "Nome do server:", value: `${guild.name} ||${guild.id}||` },
+			{ name: "Membros:", value: `${guild.memberCount}` },
+			{ name: "Dono:", value: `<@${guild.ownerId}> ||${guild.ownerId}||` },
+		);
 
-  if (logs.guildid && logs.commandLogs) {
-    const guild =
-      client.guilds.cache.get(logs.guildid) ||
-      (await client.guilds.fetch(logs.guildid));
-    const channel =
-      guild.channels.cache.get(logs.joinGuildLogs) ||
-      (await guild.channels.fetch(logs.joinGuildLogs));
+	if (logs.guildid && logs.commandLogs) {
+		const guild = client.guilds.cache.get(logs.guildid) || (await client.guilds.fetch(logs.guildid));
+		const channel = guild.channels.cache.get(logs.joinGuildLogs) || (await guild.channels.fetch(logs.joinGuildLogs));
 
-    if (guild && channel) {
-      channel.send({ embeds: [logEmbed] });
-    }
-  }
+		if (guild && channel) {
+			channel.send({ embeds: [logEmbed] });
+		}
+	}
 }
 
 module.exports = {
-  sendBotGuildJoinLog,
+	sendBotGuildJoinLog,
 };

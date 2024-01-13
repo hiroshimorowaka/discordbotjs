@@ -7,9 +7,9 @@ const { Interaction, Client } = require("discord.js");
  */
 
 module.exports = (interaction, client) => {
-  const options = interaction.options?._hoistedOptions || [];
-  const subCommand = interaction.options?.getSubcommand(false);
-  const subCommandGroup = interaction.options?.getSubcommandGroup(false);
+	const options = interaction.options?._hoistedOptions || [];
+	const subCommand = interaction.options?.getSubcommand(false);
+	const subCommandGroup = interaction.options?.getSubcommandGroup(false);
 
-  sendBotCommandLog(interaction, client, options, subCommandGroup, subCommand);
+	sendBotCommandLog(interaction, client, options, subCommandGroup, subCommand);
 };

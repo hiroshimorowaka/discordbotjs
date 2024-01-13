@@ -7,5 +7,5 @@ const { Client } = require("discord.js");
  */
 
 module.exports = (client) => {
-  pino.info(`${client.user.username} is ready!`);
+	pino.info(`${client.user.username} is ready!`);
 };
