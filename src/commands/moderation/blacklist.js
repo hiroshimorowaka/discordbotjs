@@ -3,7 +3,7 @@ const {
 	removeBlacklistWord,
 	addBlacklistWord,
 	listBlacklistWords,
-} = require("../../models/blacklist/blacklist");
+} = require("../../models/moderation/blacklist/blacklist");
 
 const commandTimeout = 2000;
 module.exports = {

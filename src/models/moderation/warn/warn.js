@@ -42,9 +42,9 @@ async function addWarn(interaction) {
 
 	await interaction.deferReply();
 
-	const userSelectedObj =
-		interaction.guild.members.cache.get(userSelectedId) ||
-		(await interaction.guild.members.fetch(userSelectedId).catch(() => {}));
+	const userSelectedObj = 
+  interaction.guild.members.cache.get(userSelectedId) ||
+  (await interaction.guild.members.fetch(userSelectedId).catch(() => {}));
 
 	if (!userSelectedObj) {
 		await query("DELETE FROM warns WHERE user_id = $1", [userSelectedId]);
@@ -55,11 +55,7 @@ async function addWarn(interaction) {
 		return false;
 	}
 
-	const checkRole = await checkRolePosition(
-		interaction,
-		userSelectedObj,
-		"warn",
-	);
+	const checkRole = await checkRolePosition(interaction,userSelectedObj,"warn");
 
 	if (!checkRole) {
 		return false;
@@ -213,9 +209,11 @@ async function removeWarn(interaction) {
 		pino.error(e);
 	}
 }
+
 /**
  * @param {import('discord.js').Interaction} interaction
  */
+
 async function listWarn(interaction) {
 	const embed = new EmbedBuilder().setTitle("List of warns");
 	const guildId = interaction.guild.id;
@@ -235,8 +233,6 @@ async function listWarn(interaction) {
 
 	embed.setDescription(description.join(" "));
 	interaction.editReply({ embeds: [embed] });
-
-	//SELECT user_id,count(user_id) FROM warns WHERE guild_id = '1161392391958315119' GROUP BY user_id;
 }
 
 module.exports = {

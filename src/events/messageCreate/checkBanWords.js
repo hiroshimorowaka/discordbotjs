@@ -1,4 +1,4 @@
-const { GetBannedWords } = require("../../models/blacklist/ban_words.js");
+const { GetBannedWords } = require("../../models/moderation/blacklist/ban_words.js");
 
 const { addListCache, itemsListCached } = require("../../../infra/redis.js");
 

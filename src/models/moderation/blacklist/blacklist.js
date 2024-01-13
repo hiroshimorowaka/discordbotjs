@@ -4,10 +4,10 @@ const {
 	RemoveBannedWord,
 	setBannedWord,
 	GetBannedWords,
-} = require("../blacklist/ban_words.js");
+} = require("./ban_words.js");
 
-const pino = require("../../../logger.js");
-const { removeListCache, addListCache, itemsListCached } = require("../../../infra/redis.js");
+const pino = require("../../../../logger.js");
+const { removeListCache, addListCache, itemsListCached } = require("../../../../infra/redis.js");
 
 /**
  * @param {Interaction} interaction
@@ -98,7 +98,9 @@ async function listBlacklistWords(interaction) {
 
     const startTime = performance.now();
     let cached = true
+
     let result = await itemsListCached(interaction.guildId)
+
     if(!result || result.length === 0){
       cached = false;
       result = await GetBannedWords(interaction.guildId);
@@ -113,14 +115,22 @@ async function listBlacklistWords(interaction) {
 			return;
 		}
 
+    const blacklistedWords = []
+
 		for (const word of result) {
-			list.addFields({ name: `${word.toUpperCase()}`, value: "." });
-		}
+      const newString = `**${word.toUpperCase()}**\n`;
+      blacklistedWords.push(newString);
+    }
+
+    list.setDescription(blacklistedWords.join(''));
 
     const endTime = performance.now();
+
     list.addFields({ name: `Perfomance`, value: `${(endTime - startTime).toFixed(2)}ms\nCached: ${cached}` });
 		return await interaction.reply({ embeds: [list], ephemeral: true });
-	} catch (error) {
+	
+  
+  } catch (error) {
 		pino.error(error);
 		return await interaction.reply({
 			content: "A error ocurred on list ban words!",
