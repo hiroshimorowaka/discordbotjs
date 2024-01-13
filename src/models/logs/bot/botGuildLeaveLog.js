@@ -5,23 +5,24 @@ const { logs } = require("../../../../config.json");
  * @param {Guild} guild
  * @param {Client} client
  */
-async function sendBotGuildJoinLog(guild, client) {
+async function sendBotGuildLeaveLog(guild, client) {
   const logEmbed = new EmbedBuilder()
-    .setTitle("Acabei de entrar em um server!")
-    .setColor([123, 237, 78])
+    .setTitle("Me expulsaram do server ;-;")
     .addFields(
       { name: "Nome do server:", value: `${guild.name} ||${guild.id}||` },
       { name: "Membros:", value: `${guild.memberCount}` },
       { name: "Dono:", value: `<@${guild.ownerId}> ||${guild.ownerId}||` },
-    );
+    )
+    .setColor([255, 0, 0]);
 
   if (logs.guildid && logs.commandLogs) {
     const guild =
       client.guilds.cache.get(logs.guildid) ||
       (await client.guilds.fetch(logs.guildid));
+
     const channel =
-      guild.channels.cache.get(logs.joinGuildLogs) ||
-      (await guild.channels.fetch(logs.joinGuildLogs));
+      guild.channels.cache.get(logs.leaveGuildLogs) ||
+      (await guild.channels.fetch(logs.leaveGuildLogs));
 
     if (guild && channel) {
       channel.send({ embeds: [logEmbed] });
@@ -30,5 +31,5 @@ async function sendBotGuildJoinLog(guild, client) {
 }
 
 module.exports = {
-  sendBotGuildJoinLog,
+  sendBotGuildLeaveLog,
 };
