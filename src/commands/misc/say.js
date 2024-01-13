@@ -18,8 +18,6 @@ module.exports = {
 	run: async ({ interaction, client }) => {
 		const text = interaction.options.get("text");
 		interaction.reply(`${text.value}`);
-
-		sendBotCommandLog(interaction, client, [text]);
 	},
 	options: {
 		timeout: commandTimeout,

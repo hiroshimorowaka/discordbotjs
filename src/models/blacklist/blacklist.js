@@ -20,11 +20,20 @@ async function removeBlacklistWord(interaction) {
 	const guild_id = await interaction.guildId;
 	if (new_word) {
 		try {
-			const wordExist = await GetBanWord(guild_id, new_word);
+			
+      const wordExist = await GetBanWord(guild_id, new_word);
+
 			if (wordExist) {
-				await RemoveBannedWord(guild_id, new_word);
+
+				const result = await RemoveBannedWord(guild_id, new_word);
+        if(!result){
+          
+          return await interaction.reply('Your guild is not setuped. Please use /setup')
+        }
+
 				removeListCache(guild_id, word);
-			} else {
+			
+      } else {
 				return await interaction.reply(
 					"This word dosen't exist on database of this server!",
 				);

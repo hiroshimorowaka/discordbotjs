@@ -7,7 +7,6 @@ async function setBannedWord(guild_id, word) {
   if(!exists.rows[0]) return false
 
 	for (i of word) {
-    console.log(word)
     await query(
 			`
     UPDATE banned_words SET words = array_append(banned_words.words,$2) 
