@@ -6,6 +6,7 @@ const {
 	GetBannedWords,
 } = require("./ban_words.js");
 
+
 const pino = require("../../../../logger.js");
 const { removeListCache, addListCache, itemsListCached } = require("../../../../infra/redis.js");
 

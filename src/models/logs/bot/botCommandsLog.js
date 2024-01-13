@@ -5,9 +5,18 @@ const { logs } = require("../../../../config.json");
  * @param {Interaction} interaction
  * @param {Client} client
  */
-async function sendBotCommandLog(interaction, client, options = []) {
+async function sendBotCommandLog(interaction,client,options = [],subCommandGroup,subCommand) {
+
+  let subCommands = "";
+  if (subCommandGroup) {
+    subCommands += " " + subCommandGroup;
+  }
+  if (subCommand) {
+    subCommands += " " + subCommand;
+  }
+
   const logEmbed = new EmbedBuilder()
-    .setTitle(`Command LOG: /${interaction.commandName}`)
+    .setTitle(`Command LOG: /${interaction.commandName}${subCommands}`)
     .setDescription(
       `**Guild ID:** ${interaction.guildId}\n**User:** <@${interaction.user.id}> ||${interaction.user.id}||`,
     );
