@@ -51,12 +51,15 @@ module.exports = {
 		if (subCommandGroup === "words") {
 			if (subCommand === "list") {
 				await listBlacklistWords(interaction, client);
+        return
 			}
 			if (subCommand === "add") {
 				await addBlacklistWord(interaction, client);
+        return
 			}
 			if (subCommand === "remove") {
 				await removeBlacklistWord(interaction, client);
+        return
 			}
 		}
 	},

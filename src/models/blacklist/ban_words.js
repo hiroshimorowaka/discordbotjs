@@ -1,8 +1,14 @@
 const { query } = require("../../../infra/database");
 
 async function setBannedWord(guild_id, word) {
+
+  const exists = await query('SELECT guild_id FROM banned_words WHERE guild_id = $1',[guild_id])
+
+  if(!exists.rows[0]) return false
+
 	for (i of word) {
-		const result = await query(
+    console.log(word)
+    await query(
 			`
     UPDATE banned_words SET words = array_append(banned_words.words,$2) 
     WHERE banned_words.guild_id = $1;`,
@@ -10,19 +16,24 @@ async function setBannedWord(guild_id, word) {
 		);
 	}
 
-	return result;
+	return true;
 }
 
 async function RemoveBannedWord(guild_id, word) {
+  
+  const exists = await query('SELECT guild_id FROM banned_words WHERE guild_id = $1',[guild_id])
+
+  if(!exists.rows[0]) return false
+
 	for (i of word) {
-		const result = await query(
+	await query(
 			`
   UPDATE banned_words SET words = array_remove(banned_words.words,$2) 
   WHERE banned_words.guild_id = $1;`,
 			[guild_id, i],
 		);
 	}
-	return result;
+	return true;
 }
 
 async function GetBannedWords(guild_id) {

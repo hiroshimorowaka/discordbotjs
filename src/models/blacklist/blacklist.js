@@ -7,7 +7,7 @@ const {
 } = require("../blacklist/ban_words.js");
 
 const pino = require("../../../logger.js");
-const { removeListCache, addListCache } = require("../../../infra/redis.js");
+const { removeListCache, addListCache, itemsListCached } = require("../../../infra/redis.js");
 
 /**
  * @param {Interaction} interaction
@@ -49,21 +49,31 @@ async function addBlacklistWord(interaction) {
 	const new_word = word.split(",");
 	const guild_id = await interaction.guildId;
 
-	if (new_word) {
+	if (new_word && new_word.length > 0) {
 		try {
-			const WordExist = await GetBanWord(guild_id, new_word);
+			
+      const WordExist = await GetBanWord(guild_id, new_word);
 			if (!WordExist) {
-				await setBannedWord(guild_id, new_word);
+
+				const result = await setBannedWord(guild_id, new_word);
+        if(!result){
+          
+          return await interaction.reply('Your guild is not setuped. Please use /setup')
+        }
+
 				await addListCache(guild_id, new_word);
 			} else {
 				return await interaction.reply("This Word already exists!");
 			}
+
 		} catch (error) {
+
 			await interaction.reply({
 				content: "A error ocurred on insert ban word on database!",
 				ephemeral: true,
 			});
-			pino.error("Ban Word Insert Error: ", error);
+			
+      pino.error(`Ban Word Insert Error: ${error}`);
 			return;
 		}
 		return await interaction.reply({
@@ -76,7 +86,15 @@ async function addBlacklistWord(interaction) {
 async function listBlacklistWords(interaction) {
 	const list = new EmbedBuilder().setTitle("Banned Words List!");
 	try {
-		const result = await GetBannedWords(interaction.guildId);
+
+    const startTime = performance.now();
+    let cached = true
+    let result = await itemsListCached(interaction.guildId)
+    if(!result || result.length === 0){
+      cached = false;
+      result = await GetBannedWords(interaction.guildId);
+      addListCache(interaction.guildId,result)
+    }
 
 		if (result.length === 0) {
 			interaction.reply({
@@ -89,6 +107,9 @@ async function listBlacklistWords(interaction) {
 		for (const word of result) {
 			list.addFields({ name: `${word.toUpperCase()}`, value: "." });
 		}
+
+    const endTime = performance.now();
+    list.addFields({ name: `Perfomance`, value: `${(endTime - startTime).toFixed(2)}ms\nCached: ${cached}` });
 		return await interaction.reply({ embeds: [list], ephemeral: true });
 	} catch (error) {
 		pino.error(error);

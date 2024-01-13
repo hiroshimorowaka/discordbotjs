@@ -12,17 +12,16 @@ module.exports = {
 	 */
 
 	run: async ({ interaction, client }) => {
-		const embed = new EmbedBuilder().setTitle("List of all commands!");
+		
+    const embed = new EmbedBuilder().setTitle("List of all commands!");
 		const descriptionOfEmbed = [];
 
 		await interaction.deferReply();
 
-		const commands = await client.application.commands.fetch();
+    const commands = await client.application.commands.fetch();
 
-		commands.forEach((command) => {
-			const newString = `\`/${command.name.toUpperCase()}:\` ${
-				command.description
-			}\n`;
+    commands.forEach((command) => {
+			const newString = `\`/${command.name.toUpperCase()}:\` ${command.description}\n`;
 			descriptionOfEmbed.push(newString);
 		});
 
