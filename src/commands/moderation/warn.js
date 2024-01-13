@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { addWarn, removeWarn, listWarn } = require("../../models/moderation/warn/warn");
+const { addWarn, removeWarn, listWarn,listUserWarns } = require("../../models/moderation/warn/warn");
 
 const commandTimeout = 3000;
 module.exports = {
@@ -22,7 +22,15 @@ module.exports = {
 
 				.addIntegerOption((option) => option.setName("quantity").setDescription("Quantity of warns to remove (Default 1 if not selected)")),
 		)
-		.addSubcommand((subCommand) => subCommand.setName("list").setDescription("List all server user warns!")),
+		.addSubcommand((subCommand) => 
+    subCommand.setName("list")
+    .setDescription("List all server user warns!")
+    .addUserOption((option) => 
+    option
+    .setName('user')
+    .setDescription('Show specific user warn informations!')
+    )
+    ),
 
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
@@ -30,7 +38,7 @@ module.exports = {
 
 	run: async ({ interaction }) => {
 		const subCommand = interaction.options.getSubcommand();
-
+    const userSelected = interaction.options?.getMember('user');
 		if (subCommand === "add") {
 			await addWarn(interaction);
 			return;
@@ -40,6 +48,9 @@ module.exports = {
 			return;
 		}
 		if (subCommand === "list") {
+      if(userSelected){
+        await listUserWarns(interaction,userSelected);
+      }
 			await listWarn(interaction);
 			return;
 		}

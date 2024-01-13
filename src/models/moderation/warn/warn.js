@@ -183,10 +183,20 @@ async function listWarn(interaction) {
 	embed.setDescription(description.join(" "));
 	interaction.editReply({ embeds: [embed] });
 }
+/**
+ * @param {import('discord.js').Interaction} interaction
+ */
+async function listUserWarns(interaction,userSelected) {
+  
+  
+
+}
+
 
 module.exports = {
 	checkUserWarns,
 	addWarn,
 	removeWarn,
 	listWarn,
+  listUserWarns
 };
