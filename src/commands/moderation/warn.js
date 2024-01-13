@@ -50,6 +50,7 @@ module.exports = {
 		if (subCommand === "list") {
       if(userSelected){
         await listUserWarns(interaction,userSelected);
+        return;
       }
 			await listWarn(interaction);
 			return;

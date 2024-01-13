@@ -13,15 +13,33 @@ module.exports = {
 			subCommand
 				.setName("set")
 				.setDescription("Set timeout for a user!")
-				.addUserOption((option) => option.setName("user").setDescription("The user to be timed out").setRequired(true))
-				.addStringOption((option) => option.setName("duration").setDescription("The duration of time out (5s, 30m, 1h, 1 day)").setRequired(true))
-				.addStringOption((option) => option.setName("reason").setDescription("The reason for the time out!")),
+				.addUserOption((option) => 
+        option
+        .setName("user")
+        .setDescription("The user to be timed out")
+        .setRequired(true)
+        )
+				.addStringOption((option) =>
+         option
+         .setName("duration")
+         .setDescription("The duration of time out (5s, 30m, 1h, 1 day)")
+         .setRequired(true)
+         )
+				.addStringOption((option) => 
+        option
+        .setName("reason")
+        .setDescription("The reason for the time out!")
+        ),
 		)
 		.addSubcommand((subCommand) =>
 			subCommand
 				.setName("remove")
 				.setDescription("Set timeout for a user!")
-				.addUserOption((option) => option.setName("user").setDescription("The user to remove timeout").setRequired(true)),
+				.addUserOption((option) => 
+        option.setName("user")
+        .setDescription("The user to remove timeout")
+        .setRequired(true)
+        ),
 		),
 
 	/**

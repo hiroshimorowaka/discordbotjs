@@ -4,17 +4,17 @@ const commandTimeout = 3000;
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("dm")
-    .setDescription("Send dm to user!!!")
+    .setDescription("Envie uma DM para um usuário!")
     .addUserOption((option) =>
       option
         .setName("user")
-        .setDescription("The user to send the DM!")
+        .setDescription("O usuário que será enviado a DM!")
         .setRequired(true),
     )
     .addStringOption((option) =>
       option
         .setName("text")
-        .setDescription("The text to send!")
+        .setDescription("O conteúdo da DM!")
         .setRequired(true),
     ),
 
@@ -28,7 +28,7 @@ module.exports = {
     const guild = interaction.guild;
     const embed = new EmbedBuilder()
 
-      .setTitle("A new message has sent to you!")
+      .setTitle("Uma nova mensagem foi enviada para você!")
       .setDescription(`${text}`);
 
     await userSelected.send({
@@ -36,7 +36,7 @@ module.exports = {
       embeds: [embed],
     });
     await interaction.reply({
-      content: "The message has been sent!",
+      content: "Mensagem enviada!",
       ephemeral: true,
     });
   },

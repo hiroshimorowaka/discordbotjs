@@ -5,6 +5,10 @@ const pino = require("../../../../logger");
 const { EmbedBuilder } = require("discord.js");
 const { errorEmbed } = require("../../embeds/defaultEmbeds");
 const { deleteInfoOnExitGuild } = require("../../guilds/deleteInfoOnExitGuild");
+
+const {format,subHours} = require('date-fns')
+
+
 /**
  * @param {import('discord.js').Interaction} interaction
  */
@@ -188,7 +192,28 @@ async function listWarn(interaction) {
  */
 async function listUserWarns(interaction,userSelected) {
   
+  await interaction.deferReply();
   
+  const user = await query("SELECT * FROM warns WHERE guild_id = $1 AND user_id = $2 ORDER BY timestamp",[interaction.guildId,userSelected.id]);
+
+  if(user.rows.length > 0) {
+    const embed = new EmbedBuilder()
+    .setTitle(`${userSelected.user.username} warns`)
+
+    for(let i = 0; i < user.rows.length; i++){
+     
+      const date =  subHours(user.rows[i].timestamp,3)
+      const newDate = format(date,'dd/MM H:mm:ss') 
+      embed
+      .addFields(
+        { name: `Warn ${i+1} - ${newDate} GMT-03`, value:`Staff: <@${user.rows[i].staff}>\nReason: ${user.rows[i].reason}\n` }
+        )
+    }
+
+    interaction.editReply({embeds:[embed]})
+  } else {
+    interaction.editReply("This user doesn't have warns!")
+  }
 
 }
 
