@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { sendLogs } = require("../../models/logs/sendLogs");
 const pino = require("../../../logger");
 
-const maxValue = 100;
+const maxValue = 500;
 const commandTimeout = 5000;
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -11,7 +11,12 @@ module.exports = {
 		.setDescription("Delete X messages from chat")
 		.setDMPermission(false)
 		.addIntegerOption((option) =>
-			option.setName("amount").setDescription(`Amount of messages to be deleted (Limit: ${maxValue}) `).setRequired(true).setMinValue(1).setMaxValue(maxValue),
+			option
+				.setName("amount")
+				.setDescription(`Amount of messages to be deleted (Limit: ${maxValue}) `)
+				.setRequired(true)
+				.setMinValue(1)
+				.setMaxValue(maxValue),
 		)
 		.addUserOption((option) => option.setName("target").setDescription("Delete specified user messages!")),
 
@@ -51,13 +56,11 @@ module.exports = {
 			let messagesToDelete = [];
 
 			if (target) {
-				let i = 0;
-				channelMessages.forEach((m) => {
-					if (m.author.id === target.id && messagesToDelete.length < amount) {
+				for (message in channelMessages) {
+					if (message.author.id === target.id && messagesToDelete.length < amount) {
 						messagesToDelete.push(m);
-						i++;
 					}
-				});
+				}
 				clearEmbed.setDescription(`
               \`✅\` Successfully cleared \`${messagesToDelete.length}\` ${multiMessages} from ${target} in ${channel}.
             `);
