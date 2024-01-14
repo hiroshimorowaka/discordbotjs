@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { sendLogs } = require("../../models/logs/sendLogs");
 const pino = require("../../../logger");
 
-const maxValue = 500;
+const maxValue = 100;
 const commandTimeout = 5000;
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -79,7 +79,7 @@ module.exports = {
 			sendLogs(interaction);
 			return await interaction.editReply({ embeds: [clearEmbed] });
 		} catch (e) {
-			await interaction.followUp({
+			await interaction.reply({
 				content: "An error occurred when executing this command!",
 				ephemeral: true,
 			});
