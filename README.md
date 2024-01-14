@@ -11,6 +11,7 @@
 - Node.js
 - Discord.js (Comunicação com a API do discord)
 - Postgres (Persistencia de alguns dados)
+- pg (Conexão no banco | Querys são feitas manualmente)
 - Redis (cache)
 - Docker
 - CommandKit library (Event and command handler)

@@ -110,7 +110,7 @@ module.exports = {
 						});
 					}
 				} else {
-					interaction.editReply("Não tem guilda porra!");
+					interaction.editReply("No results were found for your search!");
 					return;
 				}
 
