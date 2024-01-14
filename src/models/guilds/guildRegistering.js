@@ -1,6 +1,6 @@
 const { query } = require("../../../infra/database");
 
-async function registerGuild(guild_id) {
+async function registerGuild(guild_id, client) {
 	await query("INSERT INTO banned_words (guild_id) VALUES($1) ON CONFLICT (guild_id) DO NOTHING;", [
 		guild_id,
 	]);
@@ -9,6 +9,11 @@ async function registerGuild(guild_id) {
 		"INSERT INTO warn_config (guild_id,max_warns,punishment_type,timeout_duration) VALUES($1,$2,$3,$4) ON CONFLICT (guild_id) DO NOTHING;",
 		[guild_id, 0, 0, 0],
 	);
+	await query("INSERT INTO guild_config (guild_id,locale) VALUES($1,$2) ON CONFLICT (guild_id) DO NOTHING;", [
+		guild_id,
+		"pt-BR",
+	]);
+
 	return true;
 }
 

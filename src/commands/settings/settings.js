@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { maxWarnCommand } = require("../../models/settings/warn/setMaxWarns");
 const { warnPunishmentCommand } = require("../../models/settings/warn/setWarnPunishmentType");
-
+const { setGuildLocaleCache } = require("../../../infra/redis");
+const { setGuildLocaleDatabase } = require("../../models/guilds/locale");
 const commandTimeout = 3000;
 
 module.exports = {
@@ -24,11 +25,19 @@ module.exports = {
 								.setName("type")
 								.setDescription("The punish type! (1: Kick, 2: Ban, 3: Timeout)")
 								.setRequired(true)
-								.addChoices({ name: "Kick", value: 1 }, { name: "Ban", value: 2 }, { name: "Timeout", value: 3 }),
+								.addChoices(
+									{ name: "Kick", value: 1 },
+									{ name: "Ban", value: 2 },
+									{ name: "Timeout", value: 3 },
+								),
 						)
 
 						.addStringOption((option) =>
-							option.setName("timeout_duration").setDescription("Timeout duration if you choose Timeout as punish type! (5s, 30m, 1h, 1 day) (Default: 10m)"),
+							option
+								.setName("timeout_duration")
+								.setDescription(
+									"Timeout duration if you choose Timeout as punish type! (5s, 30m, 1h, 1 day) (Default: 10m)",
+								),
 						),
 				)
 				.addSubcommand((subCommand) =>
@@ -37,7 +46,29 @@ module.exports = {
 						.setDescription("The maximum of warns to user has been punished!")
 
 						.addIntegerOption((option) =>
-							option.setName("limit").setDescription("Number of warnings that will punish the member when reached (Integer Number)").setMinValue(1).setRequired(true),
+							option
+								.setName("limit")
+								.setDescription(
+									"Number of warnings that will punish the member when reached (Integer Number)",
+								)
+								.setMinValue(1)
+								.setRequired(true),
+						),
+				),
+		)
+		.addSubcommand((subCommand) =>
+			subCommand
+				.setName("locale")
+				.setDescription("Set locale for your server (Default: pt-BR)!")
+
+				.addStringOption((option) =>
+					option
+						.setName("locale")
+						.setDescription("Your locale! Supported languages: pt-BR, en-US")
+						.setRequired(true)
+						.addChoices(
+							{ name: "Português Brasileiro", value: "pt-BR" },
+							{ name: "English US", value: "en-US" },
 						),
 				),
 		),
@@ -61,6 +92,23 @@ module.exports = {
 				await maxWarnCommand(interaction);
 				return;
 			}
+		}
+		if (subCommand === "locale") {
+			const locales = {
+				"pt-BR": "Sua lingua foi setada com sucesso!",
+				"en-US": "Your language has been set successfully!",
+			};
+			const supportedLocales = ["pt-BR", "en-US"];
+			const locale = interaction.options.getString("locale").trim();
+			if (!supportedLocales.includes(locale)) {
+				interaction.reply("Please, select one of supported languages");
+				return;
+			}
+
+			await setGuildLocaleDatabase(interaction.guildId, locale);
+			setGuildLocaleCache(interaction.guildId, locale);
+			interaction.reply(locales[locale]);
+			return;
 		}
 	},
 	options: {

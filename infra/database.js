@@ -72,6 +72,14 @@ banned INT NOT NULL,
 timestamp timestamp DEFAULT current_timestamp
 );
 `);
+
+	pino.info(`Database.js -> Creating table "guild_config" if not exists`);
+	pool.query(`
+CREATE TABLE IF NOT EXISTS guild_config (
+guild_id TEXT UNIQUE NOT NULL,
+locale TEXT NOT NULL
+);
+`);
 });
 
 async function connect() {
