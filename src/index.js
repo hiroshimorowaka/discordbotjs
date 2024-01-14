@@ -10,7 +10,12 @@ const validationsPath = path.join(__dirname, "validations");
 const eventsPath = path.join(__dirname, "events");
 
 const client = new Client({
-	intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMembers, IntentsBitField.Flags.GuildMessages, IntentsBitField.Flags.MessageContent],
+	intents: [
+		IntentsBitField.Flags.Guilds,
+		IntentsBitField.Flags.GuildMembers,
+		IntentsBitField.Flags.GuildMessages,
+		IntentsBitField.Flags.MessageContent,
+	],
 });
 
 client.cooldowns = new Collection();
