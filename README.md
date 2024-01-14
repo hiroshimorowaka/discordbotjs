@@ -4,6 +4,8 @@
 
 ### Nível atual como programador: Iniciante
 
+>desculpe pelo meu inglês ruim
+
 ## Stack
 
 - Node.js
@@ -17,14 +19,17 @@
 
 - **/clear** (limpa as mensagens do chat)
 - **/blacklist [subCommand]** (Adiciona palavras a blacklist)
-- **/birthday [subCommand]** (Adiciona sua data de aniversário e lista os aniversáriantes cadastrados)
-- **/list** (Mostra a lista de pessoas que fazem aniversário e estão cadastradas)
 - **/ping** (Mostra o ping do bot)
 - **/setup** (Configura o banco de dados da guild)
 - **/timeout [subCommand]** (Deixa o usuário selecionado impossibilitado de digitar em chats ou remove seu timeout)
-- **/logs** (Adiciona um canal para ser enviado o logs dos comandos)
 - **/bot [subCommand]** (Da reload em algumas features do bot, como commands, event listeners e validations)
-
+- **/say (text)** (Bot diz algo que você escreveu)
+- **/speak (text)** (Le sua mensagem em TTS)
+- **/choose (text[])** (Escolhe aleatoriamente entre as opções passadas pela option)
+- **/help** (Mostra todos os comandos cadastrados e suas opções)
+- **/warn [subCommand]** (Sistema de warns)
+- **/dm (user) (text)** (Envia uma mensagem para um usuário especifico pela DM)
+- etc etc
 ## Como executar o projeto:
 
 ### Baixar o repositório
