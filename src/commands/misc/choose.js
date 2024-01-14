@@ -43,7 +43,7 @@ module.exports = {
 			"en-US": "You need to put at least 2 choices!",
 		};
 
-		const checkGuildLocale = await checkGuildLocale(interaction.guildId);
+		const locale = await checkGuildLocale(interaction.guildId);
 
 		const rawChoices = interaction.options.getString("choices");
 
@@ -52,7 +52,7 @@ module.exports = {
 		const newArray = choicesArray.map((element) => element.trim());
 
 		if (newArray.length <= 1) {
-			const errorTranslate = errorLocales[checkGuildLocale];
+			const errorTranslate = errorLocales[locale];
 
 			interaction.reply(`${errorTranslate}`);
 			return true;
@@ -61,7 +61,7 @@ module.exports = {
 		const randomIndex = Math.floor(Math.random() * newArray.length);
 		const result = newArray[randomIndex];
 
-		const successTranslate = successLocales[checkGuildLocale];
+		const successTranslate = successLocales[locale];
 
 		interaction.reply(`${successTranslate} ${result}`);
 	},

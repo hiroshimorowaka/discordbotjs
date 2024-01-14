@@ -5,7 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("help")
 		.setDescription("Show all commands and their description!")
-		.setNameLocalization("pt-BR", "teste"),
+		.setNameLocalization("pt-BR", "ajuda"),
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
 	 * @param {import('discord.js').Client} param1

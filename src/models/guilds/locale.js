@@ -1,5 +1,5 @@
 const { query } = require("../../../infra/database");
-const { getLocaleCache, setLocaleCache } = require("../../../infra/redis");
+const { getGuildLocaleCache, setGuildLocaleCache } = require("../../../infra/redis");
 
 async function setGuildLocaleDatabase(guild_id, locale) {
 	await query("UPDATE guild_config SET locale = $2 WHERE guild_id = $1", [guild_id, locale]);
@@ -12,17 +12,17 @@ async function getGuildLocaleDatabase(guild_id) {
 }
 
 async function checkGuildLocale(guild_id) {
-	let currentLocale = await getLocaleCache(guild_id);
+	let currentLocale = await getGuildLocaleCache(guild_id);
 
 	if (!currentLocale) {
-		currentLocale = await getLocaleDatabase(guild_id);
+		currentLocale = await setGuildLocaleCache(guild_id);
 
 		if (!currentLocale) {
-			setLocaleDatabase(guild_id, "pt-BR");
+			setGuildLocaleDatabase(guild_id, "pt-BR");
 			return "pt-BR";
 		}
 
-		setLocaleCache(guild_id, currentLocale);
+		setGuildLocaleCache(guild_id, currentLocale);
 	}
 	return currentLocale;
 }

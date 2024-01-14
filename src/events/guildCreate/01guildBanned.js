@@ -16,7 +16,7 @@ module.exports = async (guild) => {
 		const ownerId = guild.ownerId;
 		const owner = guild.members.cache.get(ownerId) || (await guild.members.fetch(ownerId));
 		await owner.send(
-			`Your guild \`${guild.name}\` (${guild.id}) has been banned from using this BOT\n**Reason**${result.rows[0].reason}`,
+			`Your guild \`${guild.name}\` (${guild.id}) has been banned from using this BOT\n**Reason:** ${result.rows[0].reason}`,
 		);
 
 		await guild.leave();
