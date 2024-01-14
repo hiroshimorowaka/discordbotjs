@@ -90,28 +90,3 @@ Depois de fazer todas as etapas acima, seu bot já está pronto para ser executa
 > `npm run down:services` Derrubar os containers  
 > `npm run stop:services` Parar os container respectivamente
 
-## Tempo gasto:
-
-### Dia 1
-
-- Começo: 06/01/2024 - 22:30
-- Fim: 07/01/2024 - 11:51
-- Tempo total: 13:21
-
-### Dia 2
-
-- Começo: 07/01/2024 - 23:30
-- Fim: 08/01/2024 - 16:03
-- Tempo total: 16:33
-
-### Dia 3
-
-- Começo: 09/01/2024 - 03:30
-- Fim: 09/01/2024 - 14:03
-- Tempo total: 10:33
-
-### Dia 4
-
-- Começo: 11/01/2024 - 03:30
-- Fim: 11/01/2024 - 17:07
-- Tempo total: 13:37
