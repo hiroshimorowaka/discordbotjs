@@ -16,7 +16,7 @@ async function sendBotCommandLog(interaction, client, options, subCommandGroup, 
 
 	const logEmbed = new EmbedBuilder()
 		.setTitle(`Command LOG: /${interaction.commandName}${subCommands}`)
-		.setDescription(`**Guild ID:** ${interaction.guildId}\n**User:** <@${interaction.user.id}> ||${interaction.user.id}||`);
+		.setDescription(`**Guild Name:** ${interaction.guild.name}\n**Guild ID:** ${interaction.guildId}\n**User:** <@${interaction.user.id}> ||${interaction.user.id}||`);
 
 	if (options.length > 0) {
 		const newOptions = [];
