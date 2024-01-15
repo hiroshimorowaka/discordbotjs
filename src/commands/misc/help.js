@@ -4,19 +4,27 @@ const commandTimeout = 3000;
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("help")
+		.setNameLocalization("pt-BR", "ajuda")
 		.setDescription("Show all commands and their description!")
-		.setNameLocalization("pt-BR", "ajuda"),
+		.setDescriptionLocalization("pt-BR", "Mostra todos todos os comandos e suas descrições!"),
+
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
 	 * @param {import('discord.js').Client} param1
 	 */
 
 	run: async ({ interaction, client }) => {
-		const embed = new EmbedBuilder().setTitle("List of all commands!");
+		const locale = interaction.locale;
+
+		const locales = {
+			"pt-BR": "Lista de todos os comandos!",
+			"en-US": "List of all commands!",
+		};
+		const embed = new EmbedBuilder()
+
+		.setTitle(locales[locale] || locales["pt-BR"]);
 
 		await interaction.deferReply();
-
-		const locale = interaction.locale;
 
 		const commands = await client.application.commands.fetch();
 

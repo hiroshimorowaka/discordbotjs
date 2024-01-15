@@ -2,7 +2,10 @@ const { SlashCommandBuilder } = require("discord.js");
 const commandTimeout = 3000;
 
 module.exports = {
-	data: new SlashCommandBuilder().setName("ping").setDescription("Show bot ping!"),
+	data: new SlashCommandBuilder()
+		.setName("ping")
+		.setDescription("Show bot ping!")
+		.setDescriptionLocalization("pt-BR", "Mostra o ping do bot!"),
 
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
