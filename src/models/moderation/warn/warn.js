@@ -187,6 +187,7 @@ async function removeWarn(interaction) {
 
 async function listWarn(interaction) {
 	const embed = new EmbedBuilder().setTitle("List of warns");
+
 	const guildId = interaction.guild.id;
 	const description = [];
 
@@ -197,12 +198,18 @@ async function listWarn(interaction) {
 		[guildId],
 	);
 
+	if (users.rowCount === 0) {
+		interaction.editReply("Anyone in this guild has warns!");
+		return;
+	}
+
 	for (i of users.rows) {
 		const newString = `<@${i.user_id}>: **${i.count}** warns\n`;
 		description.push(newString);
 	}
 
 	embed.setDescription(description.join(" "));
+
 	interaction.editReply({ embeds: [embed] });
 }
 /**
@@ -211,11 +218,12 @@ async function listWarn(interaction) {
 async function listUserWarns(interaction, userSelected) {
 	await interaction.deferReply();
 
+	const startTime = performance.now();
 	const user = await query("SELECT * FROM warns WHERE guild_id = $1 AND user_id = $2 ORDER BY timestamp", [
 		interaction.guildId,
 		userSelected.id,
 	]);
-
+	const endTime = performance.now();
 	if (user.rows.length > 0) {
 		const embed = new EmbedBuilder().setTitle(`${userSelected.user.username} warns`);
 
@@ -228,7 +236,10 @@ async function listUserWarns(interaction, userSelected) {
 			});
 		}
 
-		interaction.editReply({ embeds: [embed] });
+		interaction.editReply({
+			content: `Perfomance time (Just Database perfomance: ${(endTime - startTime).toFixed(4)}ms)`,
+			embeds: [embed],
+		});
 	} else {
 		interaction.editReply("This user doesn't have warns!");
 	}
