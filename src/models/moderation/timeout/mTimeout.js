@@ -14,7 +14,9 @@ async function setTimeout(interaction) {
 	const reason = interaction.options.get("reason")?.value || "No reason provided";
 
 	await interaction.deferReply();
-	const userObj = interaction.guild.members.cache.get(userSelected) || (await interaction.guild.members.fetch(userSelected).catch(() => {}));
+	const userObj =
+		interaction.guild.members.cache.get(userSelected) ||
+		(await interaction.guild.members.fetch(userSelected).catch(() => {}));
 
 	const checkrole = await checkRolePosition(interaction, userObj, "timeout");
 
@@ -43,7 +45,9 @@ async function setTimeout(interaction) {
 	try {
 		if (userObj.isCommunicationDisabled()) {
 			await userObj.timeout(msDuration, reason);
-			await interaction.editReply(`${userObj}'s timeout has been updated to ${prettyMs(msDuration)}\nReason: ${reason}`);
+			await interaction.editReply(
+				`${userObj}'s timeout has been updated to ${prettyMs(msDuration)}\nReason: ${reason}`,
+			);
 			return;
 		}
 
@@ -63,7 +67,9 @@ async function removeTimeout(interaction) {
 	const userSelected = interaction.options.get("user").value;
 
 	await interaction.deferReply();
-	const userObj = interaction.guild.members.cache.get(userSelected) || (await interaction.guild.members.fetch(userSelected));
+	const userObj =
+		interaction.guild.members.cache.get(userSelected) ||
+		(await interaction.guild.members.fetch(userSelected));
 
 	if (!userObj.isCommunicationDisabled()) {
 		interaction.editReply("The user selected is not timed out!");

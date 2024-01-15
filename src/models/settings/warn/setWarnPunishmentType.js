@@ -41,7 +41,9 @@ async function warnPunishmentCommand(interaction) {
 
 	if (punish_type === 3) {
 		if (!timeout_duration) {
-			errorEmbed.setDescription("You Canno't use punishment type `timeout` without specify a timeout duration");
+			errorEmbed.setDescription(
+				"You Canno't use punishment type `timeout` without specify a timeout duration",
+			);
 			interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 			return;
 		}
@@ -63,7 +65,9 @@ async function warnPunishmentCommand(interaction) {
 		const result = await checkGuildRegister(guildId);
 
 		if (!result) {
-			errorEmbed.setDescription("Your guild is not registered, please use /setup to register this guild and try again!");
+			errorEmbed.setDescription(
+				"Your guild is not registered, please use /setup to register this guild and try again!",
+			);
 			await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 			return;
 		}
@@ -73,7 +77,9 @@ async function warnPunishmentCommand(interaction) {
 		const success = new EmbedBuilder().setTitle("Warn punishment set successfully!");
 
 		if (punish_type === 3) {
-			success.setDescription(`You set Punishment type: **${nameOfPunishment}** with Timeout Duration: ${msPretty(msDuration)}`);
+			success.setDescription(
+				`You set Punishment type: **${nameOfPunishment}** with Timeout Duration: ${msPretty(msDuration)}`,
+			);
 		} else {
 			success.setDescription(`You set Punishment type: **${nameOfPunishment}**!`);
 		}

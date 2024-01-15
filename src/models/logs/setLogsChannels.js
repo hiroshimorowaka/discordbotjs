@@ -2,7 +2,10 @@ const pino = require("../../../logger");
 const { query } = require("../../../infra/database");
 
 async function setLogChannel(channelId, guildId) {
-	return await query("UPDATE logs SET channels = array_append(logs.channels,$2) WHERE logs.guild_id = $1;", [guildId, channelId]);
+	return await query("UPDATE logs SET channels = array_append(logs.channels,$2) WHERE logs.guild_id = $1;", [
+		guildId,
+		channelId,
+	]);
 }
 
 async function LogChannelExists(channelId, guildId) {

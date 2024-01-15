@@ -20,9 +20,16 @@ module.exports = {
 			subCommand
 				.setName("set")
 				.setDescription("Set your birthday!")
-				.addStringOption((option) => option.setName("date").setDescription("Set your date to retrive later! (FORMAT: dd/MM/yyyy)").setRequired(true)),
+				.addStringOption((option) =>
+					option
+						.setName("date")
+						.setDescription("Set your date to retrive later! (FORMAT: dd/MM/yyyy)")
+						.setRequired(true),
+				),
 		)
-		.addSubcommand((subCommand) => subCommand.setName("list").setDescription("Lists all the server's birthdays!")),
+		.addSubcommand((subCommand) =>
+			subCommand.setName("list").setDescription("Lists all the server's birthdays!"),
+		),
 
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0

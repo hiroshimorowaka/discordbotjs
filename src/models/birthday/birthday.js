@@ -6,7 +6,10 @@ const pino = require("../../../logger.js");
 const { validateDate } = require("../../models/birthday/validations.js");
 
 async function SetBirthday(id, birth) {
-	const result = await query("INSERT INTO birthdays (user_id,birthday) VALUES ($1,$2) ON CONFLICT (user_id) DO UPDATE SET birthday = $2", [id, birth]);
+	const result = await query(
+		"INSERT INTO birthdays (user_id,birthday) VALUES ($1,$2) ON CONFLICT (user_id) DO UPDATE SET birthday = $2",
+		[id, birth],
+	);
 	return result;
 }
 

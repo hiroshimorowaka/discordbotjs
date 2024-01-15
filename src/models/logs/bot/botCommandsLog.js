@@ -16,7 +16,9 @@ async function sendBotCommandLog(interaction, client, options, subCommandGroup, 
 
 	const logEmbed = new EmbedBuilder()
 		.setTitle(`Command LOG: /${interaction.commandName}${subCommands}`)
-		.setDescription(`**Guild Name:** ${interaction.guild.name}\n**Guild ID:** ${interaction.guildId}\n**User:** <@${interaction.user.id}> ||${interaction.user.id}||`);
+		.setDescription(
+			`**Guild Name:** ${interaction.guild.name}\n**Guild ID:** ${interaction.guildId}\n**User:** <@${interaction.user.id}> ||${interaction.user.id}||`,
+		);
 
 	if (options.length > 0) {
 		const newOptions = [];
@@ -31,7 +33,8 @@ async function sendBotCommandLog(interaction, client, options, subCommandGroup, 
 	if (logs.guildid && logs.commandLogs) {
 		const guild = client.guilds.cache.get(logs.guildid) || (await client.guilds.fetch(logs.guildid));
 
-		const channel = guild.channels.cache.get(logs.commandLogs) || (await guild.channels.fetch(logs.commandLogs));
+		const channel =
+			guild.channels.cache.get(logs.commandLogs) || (await guild.channels.fetch(logs.commandLogs));
 
 		if (guild && channel) {
 			channel.send({ embeds: [logEmbed] });

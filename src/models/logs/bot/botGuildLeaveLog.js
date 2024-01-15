@@ -18,7 +18,8 @@ async function sendBotGuildLeaveLog(guild, client) {
 	if (logs.guildid && logs.commandLogs) {
 		const guild = client.guilds.cache.get(logs.guildid) || (await client.guilds.fetch(logs.guildid));
 
-		const channel = guild.channels.cache.get(logs.leaveGuildLogs) || (await guild.channels.fetch(logs.leaveGuildLogs));
+		const channel =
+			guild.channels.cache.get(logs.leaveGuildLogs) || (await guild.channels.fetch(logs.leaveGuildLogs));
 
 		if (guild && channel) {
 			channel.send({ embeds: [logEmbed] });

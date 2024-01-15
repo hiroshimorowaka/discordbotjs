@@ -13,7 +13,9 @@ async function sendLogs(interaction) {
 	if (channels) {
 		for (i of channels) {
 			const channel = await interaction.guild.channels.fetch(i);
-			channel.send(`Command **${interaction.commandName}** used by ${interaction.user.tag} ||${interaction.user.id}||`);
+			channel.send(
+				`Command **${interaction.commandName}** used by ${interaction.user.tag} ||${interaction.user.id}||`,
+			);
 		}
 		pino.info("Logs sented");
 		return;

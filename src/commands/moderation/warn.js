@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { addWarn, removeWarn, listWarn,listUserWarns } = require("../../models/moderation/warn/warn");
+const { addWarn, removeWarn, listWarn, listUserWarns } = require("../../models/moderation/warn/warn");
 
 const commandTimeout = 3000;
 module.exports = {
@@ -10,27 +10,36 @@ module.exports = {
 			subCommand
 				.setName("add")
 				.setDescription("Add 1 warn to user")
-				.addUserOption((option) => option.setName("user").setDescription("The target to warn!").setRequired(true))
-				.addStringOption((option) => option.setName("reason").setDescription("The reason to warn this user!")),
+				.addUserOption((option) =>
+					option.setName("user").setDescription("The target to warn!").setRequired(true),
+				)
+				.addStringOption((option) =>
+					option.setName("reason").setDescription("The reason to warn this user!"),
+				),
 		)
 		.addSubcommand((subCommand) =>
 			subCommand
 				.setName("remove")
 				.setDescription("Remove user warn(s)!")
 
-				.addUserOption((option) => option.setName("user").setDescription("The user to remove warn(s)!").setRequired(true))
+				.addUserOption((option) =>
+					option.setName("user").setDescription("The user to remove warn(s)!").setRequired(true),
+				)
 
-				.addIntegerOption((option) => option.setName("quantity").setDescription("Quantity of warns to remove (Default 1 if not selected)")),
+				.addIntegerOption((option) =>
+					option
+						.setName("quantity")
+						.setDescription("Quantity of warns to remove (Default 1 if not selected)"),
+				),
 		)
-		.addSubcommand((subCommand) => 
-    subCommand.setName("list")
-    .setDescription("List all server user warns!")
-    .addUserOption((option) => 
-    option
-    .setName('user')
-    .setDescription('Show specific user warn informations!')
-    )
-    ),
+		.addSubcommand((subCommand) =>
+			subCommand
+				.setName("list")
+				.setDescription("List all server user warns!")
+				.addUserOption((option) =>
+					option.setName("user").setDescription("Show specific user warn informations!"),
+				),
+		),
 
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
@@ -38,7 +47,7 @@ module.exports = {
 
 	run: async ({ interaction }) => {
 		const subCommand = interaction.options.getSubcommand();
-    const userSelected = interaction.options?.getMember('user');
+		const userSelected = interaction.options?.getMember("user");
 		if (subCommand === "add") {
 			await addWarn(interaction);
 			return;
@@ -48,10 +57,10 @@ module.exports = {
 			return;
 		}
 		if (subCommand === "list") {
-      if(userSelected){
-        await listUserWarns(interaction,userSelected);
-        return;
-      }
+			if (userSelected) {
+				await listUserWarns(interaction, userSelected);
+				return;
+			}
 			await listWarn(interaction);
 			return;
 		}

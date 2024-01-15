@@ -9,7 +9,9 @@ module.exports = {
 		.setName("logs")
 		.setDescription("Set logs channels")
 		.setDMPermission(false)
-		.addChannelOption((option) => option.setName("channel").setDescription("The channel to send logs!").setRequired(true)),
+		.addChannelOption((option) =>
+			option.setName("channel").setDescription("The channel to send logs!").setRequired(true),
+		),
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
 	 */

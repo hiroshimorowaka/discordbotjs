@@ -20,14 +20,18 @@ async function maxWarnCommand(interaction) {
 		const result = await checkGuildRegister(guildId);
 
 		if (!result) {
-			errorEmbed.setDescription("Your guild is not registered, please use /setup to register this guild and try again!");
+			errorEmbed.setDescription(
+				"Your guild is not registered, please use /setup to register this guild and try again!",
+			);
 			await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 			return;
 		}
 
 		await setMaxWarnsSettings(guildId, maxWarnLimit);
 
-		const success = new EmbedBuilder().setTitle("Warn max limit set successfully!").setDescription(`You set Warn max limit to: \`${maxWarnLimit}\``);
+		const success = new EmbedBuilder()
+			.setTitle("Warn max limit set successfully!")
+			.setDescription(`You set Warn max limit to: \`${maxWarnLimit}\``);
 
 		interaction.editReply({ embeds: [success] });
 	} catch (error) {

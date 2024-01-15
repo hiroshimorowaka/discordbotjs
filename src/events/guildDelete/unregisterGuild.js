@@ -14,7 +14,9 @@ module.exports = async (guild) => {
 		if (r.rowCount > 0) {
 			pino.info(`Ev: guildDelete Model: unregisterGuild.js -> Guild deleted (${guild.id}) ${guild.name}`);
 		} else {
-			pino.info(`Ev: guildDelete Model: unregisterGuild.js -> Guild already deleted ${guild.id} ${guild.name}`);
+			pino.info(
+				`Ev: guildDelete Model: unregisterGuild.js -> Guild already deleted ${guild.id} ${guild.name}`,
+			);
 		}
 	});
 };

@@ -1,5 +1,9 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { removeBlacklistWord, addBlacklistWord, listBlacklistWords } = require("../../models/moderation/blacklist/blacklist");
+const {
+	removeBlacklistWord,
+	addBlacklistWord,
+	listBlacklistWords,
+} = require("../../models/moderation/blacklist/blacklist");
 
 const commandTimeout = 2000;
 module.exports = {
@@ -15,13 +19,23 @@ module.exports = {
 					subCommand
 						.setName("add")
 						.setDescription("Add a new blacklist word")
-						.addStringOption((option) => option.setName("word").setDescription("The word you want to block from channels").setRequired(true)),
+						.addStringOption((option) =>
+							option
+								.setName("word")
+								.setDescription("The word you want to block from channels")
+								.setRequired(true),
+						),
 				)
 				.addSubcommand((subCommand) =>
 					subCommand
 						.setName("remove")
 						.setDescription("remove a new blacklist word")
-						.addStringOption((option) => option.setName("word").setDescription("The word you want to block from channels").setRequired(true)),
+						.addStringOption((option) =>
+							option
+								.setName("word")
+								.setDescription("The word you want to block from channels")
+								.setRequired(true),
+						),
 				)
 				.addSubcommand((subCommand) => subCommand.setName("list").setDescription("List words blacklisted")),
 		),

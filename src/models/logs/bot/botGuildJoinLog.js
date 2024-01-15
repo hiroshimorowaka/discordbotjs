@@ -17,7 +17,8 @@ async function sendBotGuildJoinLog(guild, client) {
 
 	if (logs.guildid && logs.commandLogs) {
 		const guild = client.guilds.cache.get(logs.guildid) || (await client.guilds.fetch(logs.guildid));
-		const channel = guild.channels.cache.get(logs.joinGuildLogs) || (await guild.channels.fetch(logs.joinGuildLogs));
+		const channel =
+			guild.channels.cache.get(logs.joinGuildLogs) || (await guild.channels.fetch(logs.joinGuildLogs));
 
 		if (guild && channel) {
 			channel.send({ embeds: [logEmbed] });

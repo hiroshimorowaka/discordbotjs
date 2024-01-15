@@ -5,16 +5,10 @@ const pino = require("../../../logger");
 const { subHours, format } = require("date-fns");
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("pato")
-		.setNameLocalizations({
-			"pt-BR": "pato",
-			"en-US": "duck",
-		})
-		.setDescription("pato!")
-		.setDescriptionLocalizations({
-			"pt-BR": "Apenas pato.",
-			"en-US": "Just duck!",
-		})
+		.setName("duck")
+		.setNameLocalization("pt-BR", "pato")
+		.setDescription("Duck!")
+		.setDescriptionLocalization("pt-BR", "Apenas pato.")
 		.setDMPermission(false),
 
 	/**
