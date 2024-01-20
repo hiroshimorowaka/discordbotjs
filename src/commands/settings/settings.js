@@ -94,6 +94,7 @@ module.exports = {
 							option
 								.setName("announce")
 								.setDescription("Is to be annouced on specified channel?")
+								.setDescriptionLocalization("pt-BR", "É para anunciar no canal especifico?")
 								.setRequired(true)
 								.addChoices({ name: "Yes!", value: 1 }, { name: "No!", value: 0 }),
 						)
@@ -123,11 +124,11 @@ module.exports = {
 							option
 								.setName("embed_description")
 								.setDescription(
-									"The description(content) of the message to be sent! Placeholder: {user} | {reason} | {staff}",
+									"The description/content of the message to be sent! Placeholder: {user} | {reason} | {staff}",
 								)
 								.setDescriptionLocalization(
 									"pt-BR",
-									"A descrição(conteúdo) da mensagem que será enviada! Placeholder: {user} | {reason} | {staff}",
+									"A descrição/conteúdo da mensagem que será enviada! Placeholder: {user} | {reason} | {staff}",
 								)
 								.setMinLength(5)
 								.setMaxLength(200),
@@ -160,17 +161,19 @@ module.exports = {
 				"pt-BR": "Sua lingua foi setada com sucesso!",
 				"en-US": "Your language has been set successfully!",
 			};
-			const supportedLocales = ["pt-BR", "en-US"];
-			const locale = interaction.options.getString("locale").trim();
-			if (!supportedLocales.includes(locale)) {
-				interaction.reply("Please, select one of supported languages");
-				return;
-			}
 
-			await setGuildLocaleDatabase(interaction.guildId, locale);
-			setGuildLocaleCache(interaction.guildId, locale);
-			interaction.reply(locales[locale]);
-			return;
+			const locale = interaction.options.getString("locale").trim();
+			try {
+				await setGuildLocaleDatabase(interaction.guildId, locale);
+				setGuildLocaleCache(interaction.guildId, locale);
+
+				interaction.reply(locales[locale]);
+
+				return;
+			} catch (error) {
+				pino.error(error);
+				interaction.reply("An error ocurred on executing this command!");
+			}
 		}
 
 		if (subCommandGroup === "ban") {

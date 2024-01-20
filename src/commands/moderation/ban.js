@@ -28,6 +28,8 @@ module.exports = {
 		const reason = interaction.options?.getString("reason") || "No reason provided!";
 		const guildId = interaction.guildId;
 		const staff = interaction.user.username;
+		const guildLocale = interaction.guild.preferredLocale;
+
 		await interaction.deferReply({ ephemeral: true });
 
 		const userObj =
@@ -48,13 +50,15 @@ module.exports = {
 		}
 
 		try {
-			userObj
-				.send(
-					`You have been banned from guild **${interaction.guild.name}** \`(${guildId})\`\nReason: \`${reason}\``,
-				)
-				.catch((e) => {
-					pino.error(e);
-				});
+			const locales = {
+				"pt-BR": `Você foi banido da guilda **${interaction.guild.name}** \`(${guildId})\`\nMotivo: \`${reason}\``,
+				"en-US": `You have been banned from guild **${interaction.guild.name}** \`(${guildId})\`\nReason: \`${reason}\``,
+			};
+
+			userObj.send(locales[guildLocale]).catch((e) => {
+				pino.error(e);
+			});
+
 			userObj.ban({ reason: `Staff: ${staff} | Reason: ${reason}` });
 
 			const banConfig = await getBanConfig(guildId);
@@ -112,7 +116,7 @@ module.exports = {
 		}
 	},
 	options: {
-		userPermissions: ["ManageGuild"],
+		userPermissions: ["BanMembers"],
 		timeout: commandTimeout,
 	},
 };
