@@ -1,6 +1,8 @@
 const pino = require("../logger");
 
 async function createTables(pool) {
+	const startTime = performance.now();
+
 	pino.info(`Database.js -> Connected  to database: ${process.env.POSTGRES_DB}`);
 	pino.info(`Database.js -> Creating table "users" if not exists`);
 
@@ -70,6 +72,22 @@ guild_id TEXT UNIQUE NOT NULL,
 locale TEXT NOT NULL
 );
 `);
+
+	pino.info(`Database.js -> Creating table "ban_config" if not exists`);
+	pool.query(`
+CREATE TABLE IF NOT EXISTS ban_config (
+guild_id TEXT UNIQUE NOT NULL,
+announce INT DEFAULT 0,
+announce_channel TEXT,
+announce_embed_title TEXT,
+announce_embed_description TEXT
+);
+`);
+
+	const endTime = performance.now();
+	const totalTime = (endTime - startTime).toFixed(2);
+
+	pino.info(`Task -> create tables complete! || Time: ${totalTime}ms`);
 }
 
 module.exports = {

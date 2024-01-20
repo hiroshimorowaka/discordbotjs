@@ -1,20 +1,23 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, ChannelType } = require("discord.js");
 const { maxWarnCommand } = require("../../models/settings/warn/setMaxWarns");
 const { warnPunishmentCommand } = require("../../models/settings/warn/setWarnPunishmentType");
 const { setGuildLocaleCache } = require("../../../infra/redis");
 const { setGuildLocaleDatabase } = require("../../models/guilds/locale");
+const { setBanConfig, setBanAnnouncement } = require("../../models/settings/ban/banConfig");
+const pino = require("../../../logger");
+const { errorEmbed } = require("../../models/embeds/defaultEmbeds");
+
 const commandTimeout = 3000;
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("settings")
 		.setDescription("Set settings to specified features!")
-
+		.setDMPermission(false)
 		.addSubcommandGroup((subCommandGroup) =>
 			subCommandGroup
 				.setName("warns")
 				.setDescription("Settings to warn system!")
-
 				.addSubcommand((subCommand) =>
 					subCommand
 						.setName("punishment")
@@ -71,6 +74,65 @@ module.exports = {
 							{ name: "English US", value: "en-US" },
 						),
 				),
+		)
+		.addSubcommandGroup((subCommandGroup) =>
+			subCommandGroup
+				.setName("ban")
+				.setDescription("Settings to command /ban!")
+				.setDescriptionLocalization("pt-BR", "Configuração do comando /ban")
+
+				.addSubcommand((subCommand) =>
+					subCommand
+						.setName("announcement")
+						.setDescription("Configure announce channel to banned people")
+						.setDescriptionLocalization(
+							"pt-BR",
+							"Configura qual canal será utilizado para anunciar o banimento",
+						)
+
+						.addIntegerOption((option) =>
+							option
+								.setName("announce")
+								.setDescription("Is to be annouced on specified channel?")
+								.setRequired(true)
+								.addChoices({ name: "Yes!", value: 1 }, { name: "No!", value: 0 }),
+						)
+
+						.addChannelOption((option) =>
+							option
+								.setName("channel")
+								.setDescription("The channel to be announced")
+								.setDescriptionLocalization("pt-BR", "Selecione o canal para ser anunciado!")
+								.addChannelTypes(ChannelType.GuildText),
+						)
+
+						.addStringOption((option) =>
+							option
+								.setName("embed_title")
+								.setDescription(
+									"The title of the message to be sent! Placeholder: {user} | {reason} | {staff}",
+								)
+								.setDescriptionLocalization(
+									"pt-BR",
+									"O titulo da mensagem que será enviada! Placeholder: {user} | {reason} | {staff}",
+								)
+								.setMinLength(5)
+								.setMaxLength(100),
+						)
+						.addStringOption((option) =>
+							option
+								.setName("embed_description")
+								.setDescription(
+									"The description(content) of the message to be sent! Placeholder: {user} | {reason} | {staff}",
+								)
+								.setDescriptionLocalization(
+									"pt-BR",
+									"A descrição(conteúdo) da mensagem que será enviada! Placeholder: {user} | {reason} | {staff}",
+								)
+								.setMinLength(5)
+								.setMaxLength(200),
+						),
+				),
 		),
 
 	/**
@@ -109,6 +171,51 @@ module.exports = {
 			setGuildLocaleCache(interaction.guildId, locale);
 			interaction.reply(locales[locale]);
 			return;
+		}
+
+		if (subCommandGroup === "ban") {
+			if (subCommand === "announcement") {
+				const isToBeAnnounced = interaction.options.getInteger("announce");
+
+				const channelAnnounce = interaction.options?.getChannel("channel");
+				const embedTitle = interaction.options?.getString("embed_title");
+				const embedDescription = interaction.options?.getString("embed_description");
+
+				const guild_id = interaction.guildId;
+				await interaction.deferReply();
+
+				if (isToBeAnnounced === 1) {
+					if (!channelAnnounce || !embedTitle || !embedDescription) {
+						errorEmbed.setDescription(
+							"If announce has been set to 'Yes!' you need to specify all other optional options!",
+						);
+						await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
+						return;
+					}
+
+					try {
+						await setBanConfig(guild_id, isToBeAnnounced, channelAnnounce.id, embedTitle, embedDescription);
+
+						interaction.editReply(`
+            Your configuration has been set successfully!\nChannel: ${channelAnnounce}\nIs to be announced?: ${Boolean(
+							isToBeAnnounced,
+						)}
+            `);
+					} catch (error) {
+						pino.error(error);
+						interaction.editReply("An error ocurred on set ban config!");
+					}
+				} else {
+					try {
+						await setBanAnnouncement(guild_id, isToBeAnnounced);
+
+						interaction.editReply({ content: "The announcement has been turned off!", ephemeral: true });
+					} catch (error) {
+						pino.error(error);
+						interaction.editReply("An error ocurred on set ban config!");
+					}
+				}
+			}
 		}
 	},
 	options: {
