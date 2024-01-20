@@ -12,6 +12,18 @@ const { format, subHours } = require("date-fns");
  * @param {import('discord.js').Interaction} interaction
  */
 
+async function checkIfGuildIsConfigurated(guild_id) {
+	const maxWarnsConfig = await query("SELECT * FROM warn_config WHERE guild_id = $1", [guild_id]);
+	const maxWarns = maxWarnsConfig.rows[0]?.max_warns;
+	const punishment_type = maxWarnsConfig.rows[0]?.punishment_type;
+
+	if (!maxWarns || !punishment_type || punishment_type === 0) {
+		return false;
+	}
+
+	return true;
+}
+
 async function checkUserWarns(guild_id, user_id) {
 	const result = await query("SELECT * FROM warns WHERE guild_id = $1 AND user_id = $2", [guild_id, user_id]);
 
@@ -20,10 +32,6 @@ async function checkUserWarns(guild_id, user_id) {
 	const punishment_type = maxWarnsConfig.rows[0]?.punishment_type;
 	const timeout_duration = maxWarnsConfig.rows[0]?.timeout_duration || 0;
 	const count = result.rowCount;
-
-	if (!maxWarns || !punishment_type || punishment_type === 0) {
-		return false;
-	}
 
 	return { count, maxWarns, punishment_type, timeout_duration };
 }
@@ -37,7 +45,7 @@ async function addWarn(interaction) {
 	const guildId = interaction.guildId;
 	if (!reason) reason = "No Reason Provided";
 
-	await interaction.deferReply();
+	await interaction.deferReply({ ephemeral: true });
 
 	const userSelectedObj =
 		interaction.guild.members.cache.get(userSelectedId) ||
@@ -59,6 +67,16 @@ async function addWarn(interaction) {
 	}
 
 	try {
+		const checkGuild = await checkIfGuildIsConfigurated(guildId);
+
+		if (!checkGuild) {
+			errorEmbed.setDescription(
+				"The warn feature is not configured to this server! Please use **/settings warns**!",
+			);
+			interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
+			return;
+		}
+
 		await query("INSERT INTO warns (guild_id,user_id,reason,staff) VALUES ($1,$2,$3,$4)", [
 			guildId,
 			userSelectedId,
@@ -67,15 +85,6 @@ async function addWarn(interaction) {
 		]);
 
 		const userWarnsResult = await checkUserWarns(guildId, userSelectedId);
-
-		if (!userWarnsResult) {
-			errorEmbed.setDescription({
-				content: "The warn feature is not configured to this server! Please use /settings warn!",
-				ephemeral: true,
-			});
-			interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
-			return;
-		}
 
 		const needToPunish = userWarnsResult.count >= userWarnsResult.maxWarns;
 		const embed = new EmbedBuilder().setTitle("Member Warned!");
@@ -98,17 +107,21 @@ async function addWarn(interaction) {
 				interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 				return;
 			}
+
+			userSelectedObj.send(
+				`You have been punished on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou exceed max warns count!`,
+			);
 		} else {
 			embed.setDescription(
 				`${userSelectedObj} has been warned\nThis user has **${userWarnsResult.count}** warns`,
 			);
+
+			userSelectedObj.send(
+				`You have been warned on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou already has **${userWarnsResult.count}** warn(s)`,
+			);
 		}
 
 		interaction.editReply({ embeds: [embed] });
-
-		userSelectedObj.send(
-			`You have been warned on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou already has **${userWarnsResult.count}** warn(s)`,
-		);
 
 		// const channelToSend = interaction.guild.channels.cache.get("1193387277548789790") || (await interaction.guild.channels.fetch("1193387277548789790"));
 
