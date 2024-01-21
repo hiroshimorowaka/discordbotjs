@@ -1,13 +1,8 @@
-require("dotenv/config");
-
 const { REST, Routes } = require("discord.js");
-const { BOT_TOKEN, BOT_ID, GUILD_ID } = process.env;
+const { BOT_TOKEN, BOT_ID } = process.env;
 
 const rest = new REST().setToken(BOT_TOKEN);
 
-// ...
-
-// for guild-based commands
 
 rest
   .put(Routes.applicationCommands(BOT_ID), { body: [] })

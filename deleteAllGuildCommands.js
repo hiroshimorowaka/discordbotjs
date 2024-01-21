@@ -1,5 +1,3 @@
-require("dotenv/config");
-
 const { REST, Routes } = require("discord.js");
 const { BOT_TOKEN, BOT_ID, GUILD_ID } = process.env;
 

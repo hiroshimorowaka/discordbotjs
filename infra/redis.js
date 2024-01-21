@@ -6,7 +6,7 @@ const node_env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
 const client =
 	node_env === "production"
 		? createClient({
-				url: "rediss://default:d684f534d1e242bdb30552fcbd9375cf@useful-satyr-50535.upstash.io:50535",
+				url: process.env.REDIS_URL,
 		  })
 		: createClient();
 
