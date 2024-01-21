@@ -3,7 +3,6 @@ const pino = require("../logger");
 async function createTables(pool) {
 	const startTime = performance.now();
 
-	pino.info(`Database.js -> Connected  to database: ${process.env.POSTGRES_DB}`);
 	pino.info(`Database.js -> Creating table "users" if not exists`);
 
 	pool.query(`

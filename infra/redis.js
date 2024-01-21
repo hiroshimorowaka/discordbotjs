@@ -1,13 +1,22 @@
 const { createClient } = require("redis");
 const pino = require("../logger");
 
-const client = createClient();
+const node_env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
+
+const client =
+	node_env === "production"
+		? createClient({
+				url: "rediss://default:d684f534d1e242bdb30552fcbd9375cf@useful-satyr-50535.upstash.io:50535",
+		  })
+		: createClient();
+
+client.connect();
+
 client.on("error", (err) => pino.error("Redis.js -> Redis Client Error", err));
 
 client.on("connect", () => {
-	pino.info("Redis.js -> Redis Client Connected");
+	pino.info(`Redis.js -> Redis Client Connected | Node ENV: ${node_env}`);
 });
-client.connect();
 
 async function setGuildLocaleCache(guild_id, locale) {
 	await client.set(`${guild_id}:locale`, locale, { EX: 120 });

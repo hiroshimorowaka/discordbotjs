@@ -50,12 +50,12 @@ module.exports = {
 		}
 
 		try {
-			const locales = {
+			const userDmLocales = {
 				"pt-BR": `Você foi banido da guilda **${interaction.guild.name}** \`(${guildId})\`\nMotivo: \`${reason}\``,
 				"en-US": `You have been banned from guild **${interaction.guild.name}** \`(${guildId})\`\nReason: \`${reason}\``,
 			};
 
-			userObj.send(locales[guildLocale]).catch((e) => {
+			userObj.send(userDmLocales[guildLocale]).catch((e) => {
 				pino.error(e);
 			});
 
@@ -92,15 +92,20 @@ module.exports = {
 				}
 			}
 
-			const successEmbed = new EmbedBuilder()
-				.setTitle(":white_check_mark: Success!")
-				.setDescription(
-					`The user ${userObj} has been banned successfully!\n${
-						banConfig?.announce === 1
-							? `Announced on channel <#${banConfig.announce_channel}>!`
-							: "Not announced because not configured OR turned off!"
-					}`,
-				);
+			const successEmbed = new EmbedBuilder().setTitle(":white_check_mark: Success!");
+
+			const interactionReplyLocales = {
+				"pt-BR": `O usuário ${userObj} foi banido com sucesso!\n${
+					banConfig?.announce === 1
+						? `Anúncio enviado no canal <#${banConfig.announce_channel}>!`
+						: "Não anunciado porque não foi configurado OU foi desligado!!"
+				}`,
+				"en-US": `The user ${userObj} has been banned successfully!\n${
+					banConfig?.announce === 1
+						? `Announced on channel <#${banConfig.announce_channel}>!`
+						: "Not announced because not configured OR turned off!"
+				}`,
+			}.setDescription(interactionReplyLocales[guildLocale]);
 
 			interaction.editReply({
 				embeds: [successEmbed],
