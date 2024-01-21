@@ -1,5 +1,9 @@
 require("dotenv/config");
 
+const express = require("express");
+
+const app = express();
+
 const { Client, IntentsBitField, Collection } = require("discord.js");
 const { CommandKit } = require("commandkit");
 const path = require("path");
@@ -31,3 +35,9 @@ new CommandKit({
 });
 
 client.login(process.env.BOT_TOKEN);
+
+app.get("/", (req, res) => {
+	res.send({ status: "up" });
+});
+
+app.listen(process.env.PORT);
