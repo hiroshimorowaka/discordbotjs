@@ -10,34 +10,54 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("blacklist")
 		.setDescription("Blacklist settings!")
+		.setDescriptionLocalization("pt-BR", "Configuração da blacklist!")
 		.setDMPermission(false)
 		.addSubcommandGroup((subcommandgroup) =>
 			subcommandgroup
 				.setName("words")
-				.setDescription("Blacklist words from chat")
+				.setNameLocalization("pt-BR", "palavras")
+				.setDescription("Blacklist words config")
+				.setDescriptionLocalization("pt-BR", "Configura as palavras da blacklist")
 				.addSubcommand((subCommand) =>
 					subCommand
 						.setName("add")
 						.setDescription("Add a new blacklist word")
+						.setDescriptionLocalization("pt-BR", "Adiciona palavras a blacklist")
 						.addStringOption((option) =>
 							option
 								.setName("word")
-								.setDescription("The word you want to block from channels")
+								.setNameLocalization("pt-BR", "palavra")
+								.setDescription("The word(s) you want to blacklist Usage: word1,word2,word3")
+								.setDescriptionLocalization(
+									"pt-BR",
+									"A(s) palavra(s) que você deseja adicionar! Usage: palavra1,palavra2",
+								)
 								.setRequired(true),
 						),
 				)
 				.addSubcommand((subCommand) =>
 					subCommand
 						.setName("remove")
-						.setDescription("remove a new blacklist word")
+						.setDescription("Remove blacklist word(s)")
+						.setDescriptionLocalization("pt-BR", "Remove palavras da blacklist!")
 						.addStringOption((option) =>
 							option
 								.setName("word")
-								.setDescription("The word you want to block from channels")
+								.setName("palavra")
+								.setDescription("The word(s) you want to remove from blacklist! Usage: word1,word2,word3")
+								.setDescriptionLocalization(
+									"pt-BR",
+									"A(s) palavra(s) que você deseja retirar da blacklist! Usage: word1,word2",
+								)
 								.setRequired(true),
 						),
 				)
-				.addSubcommand((subCommand) => subCommand.setName("list").setDescription("List words blacklisted")),
+				.addSubcommand((subCommand) =>
+					subCommand
+						.setName("list")
+						.setDescription("List words blacklisted")
+						.setDescriptionLocalization("pt-BR", "Lista todas as palavras banidas do servidor!"),
+				),
 		),
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0

@@ -11,6 +11,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("ban")
 		.setDescription("Ban user!")
+		.setDescriptionLocalization("pt-BR", "Bane um usuário!")
 		.setDMPermission(false)
 
 		.addUserOption((option) =>

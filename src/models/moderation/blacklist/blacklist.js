@@ -109,10 +109,13 @@ async function listBlacklistWords(interaction) {
 
 		const endTime = performance.now();
 
-		list.addFields({
-			name: "Perfomance",
-			value: `${(endTime - startTime).toFixed(2)}ms\nCached: ${cached}`,
-		});
+		if (process.env.DEBUG) {
+			list.addFields({
+				name: "Perfomance",
+				value: `${(endTime - startTime).toFixed(2)}ms\nCached: ${cached}`,
+			});
+		}
+
 		return await interaction.reply({ embeds: [list], ephemeral: true });
 	} catch (error) {
 		pino.error(error);

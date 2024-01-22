@@ -5,27 +5,21 @@ const { checkGuildLocale } = require("../../models/guilds/locale");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("choose")
-		.setNameLocalizations({
-			"pt-BR": "escolher",
-		})
+		.setNameLocalization("pt-BR", "escolher")
 		.setDescription("I will choose something for you!")
-		.setDescriptionLocalizations({
-			"pt-BR": "Eu vou escolher algo pra você",
-		})
+		.setDescriptionLocalization("pt-BR", "Eu vou escolher algo pra você")
 
 		.addStringOption((option) =>
 			option
 				.setName("choices")
-				.setNameLocalizations({
-					"pt-BR": "escolhas",
-				})
+				.setNameLocalization("pt-BR", "escolhas")
 				.setDescription(
 					"Enter the options and I will choose at random (comma separated) Usage: option1, option2, option3",
 				)
-				.setDescriptionLocalizations({
-					"pt-BR":
-						"Insira as opções que você quer que eu escolha (separada por virgula)! Usage: escolha1,escolha2",
-				})
+				.setDescriptionLocalization(
+					"pt-BR",
+					"Insira as opções que você quer que eu escolha (separada por virgula)! Usage: escolha1,escolha2",
+				)
 				.setRequired(true),
 		),
 	/**
