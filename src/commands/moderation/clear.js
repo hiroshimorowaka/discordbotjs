@@ -97,7 +97,7 @@ module.exports = {
 			return await interaction.editReply({ embeds: [clearEmbed] });
 		} catch (e) {
 			await interaction.reply({
-				content: "An error occurred when executing this command!",
+				content: "An error occurred when executing this command! Please try again!",
 				ephemeral: true,
 			});
 			pino.error(e);

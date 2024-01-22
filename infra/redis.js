@@ -19,7 +19,7 @@ client.on("connect", () => {
 });
 
 async function setGuildLocaleCache(guild_id, locale) {
-	await client.set(`${guild_id}:locale`, locale, { EX: 120 });
+	await client.set(`${guild_id}:locale`, locale, { EX: 600 });
 	return true;
 }
 async function getGuildLocaleCache(guild_id) {

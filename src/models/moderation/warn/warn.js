@@ -328,7 +328,7 @@ async function listUserWarns(interaction, userSelected) {
 
 		if (process.env.DEBUG) {
 			interaction.editReply({
-				content: `Perfomance time (Just Database perfomance: ${(endTime - startTime).toFixed(4)}ms)`,
+				content: `Perfomance time (Just Database perfomance: ${(endTime - startTime).toFixed(2)}ms)`,
 				embeds: [embed],
 			});
 		} else {

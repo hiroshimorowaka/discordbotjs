@@ -5,7 +5,7 @@ const {
 	listBlacklistWords,
 } = require("../../models/moderation/blacklist/blacklist");
 
-const commandTimeout = 2000;
+const commandTimeout = 3000;
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("blacklist")
