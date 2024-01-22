@@ -1,6 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-
-const { sendLogs } = require("../../models/logs/sendLogs");
 const pino = require("../../../logger");
 
 const maxValue = 100;
