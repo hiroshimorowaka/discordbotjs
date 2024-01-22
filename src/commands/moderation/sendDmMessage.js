@@ -9,7 +9,7 @@ module.exports = {
 		.addUserOption((option) =>
 			option
 				.setName("user")
-				.setNameLocalization("usuario")
+				.setNameLocalization("pt-BR", "usuario")
 				.setDescription("Select the user you want to send a DM!")
 				.setDescriptionLocalization("pt-BR", "Selecione o usuário que deseja enviar a mensagem!")
 				.setRequired(true),
