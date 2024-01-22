@@ -196,7 +196,7 @@ module.exports = {
 		const subCommand = interaction.options.getSubcommand();
 
 		if (subCommandGroup === "warns") {
-			await interaction.deferReply();
+			await interaction.deferReply({ ephemeral: true });
 
 			if (subCommand === "punishment") {
 				await warnPunishmentCommand(interaction);
