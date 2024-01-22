@@ -51,7 +51,6 @@ async function setTimeout(interaction) {
 			"pt-BR": "A duração do timeout não pode ser menor que 5 segundos ou maior que 28 dias!",
 			"en-US": "Timeout duration cannot be less than 5 seconds or more than 28 days!",
 		};
-		awa;
 		await interaction.editReply({
 			content: errorLocale[serverLocale] || errorLocale["en-US"],
 			ephemeral: true,

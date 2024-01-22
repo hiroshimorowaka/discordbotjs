@@ -1,8 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const { query } = require("../../../infra/database");
+const { SlashCommandBuilder } = require("discord.js");
 const commandTimeout = 3000;
 const pino = require("../../../logger");
-const { subHours, format } = require("date-fns");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("duck")
@@ -23,7 +21,7 @@ module.exports = {
 
 		let i = 0;
 		interaction.reply({ content: locales[interaction.locale] });
-		console.log(interaction.guild.preferredLocale);
+
 		const messages = [];
 		const interval = setInterval(async () => {
 			const message = await interaction.channel.send(":duck:");

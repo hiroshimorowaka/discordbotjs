@@ -43,7 +43,14 @@ async function addWarn(interaction) {
 	let reason = interaction.options.get("reason")?.value;
 	const requestUser = interaction.member.id;
 	const guildId = interaction.guildId;
-	if (!reason) reason = "No Reason Provided";
+	const serverLocale = interaction.guild.preferredLocale;
+
+	const noReasonLocale = {
+		"pt-BR": "Motivo não informado.",
+		"en-US": "No reason provided.",
+	};
+
+	if (!reason) reason = noReasonLocale[serverLocale] || noReasonLocale["en-US"];
 
 	await interaction.deferReply({ ephemeral: true });
 
@@ -54,7 +61,12 @@ async function addWarn(interaction) {
 	if (!userSelectedObj) {
 		await query("DELETE FROM warns WHERE user_id = $1", [userSelectedId]);
 
-		errorEmbed.setDescription("That user doesn't exist in this server!");
+		const noUserLocale = {
+			"pt-BR": "Esse usuário não existe nesse servidor!",
+			"en-US": "That user doesn't exist in this server!",
+		};
+
+		errorEmbed.setDescription(noUserLocale[serverLocale] || noReasonLocale["en-US"]);
 
 		await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 		return false;
@@ -70,9 +82,13 @@ async function addWarn(interaction) {
 		const checkGuild = await checkIfGuildIsConfigurated(guildId);
 
 		if (!checkGuild) {
-			errorEmbed.setDescription(
-				"The warn feature is not configured to this server! Please use **/settings warns**!",
-			);
+			const warnNoConfiguredLocale = {
+				"pt-BR":
+					"A função de warn não está configurada nesse servidor! Por favor use **/configuracoes warns**",
+				"en-US": "The warn feature is not configured to this server! Please use **/settings warns**!",
+			};
+
+			errorEmbed.setDescription(warnNoConfiguredLocale[serverLocale] || warnNoConfiguredLocale["en-US"]);
 			interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 			return;
 		}
@@ -94,7 +110,12 @@ async function addWarn(interaction) {
 			const punishment = punish[punishmentType]?.run;
 
 			if (punishment) {
-				const punish_message = punishment(userSelectedObj, reason, userWarnsResult.timeout_duration);
+				const punish_message = await punishment(
+					userSelectedObj,
+					reason,
+					userWarnsResult.timeout_duration,
+					serverLocale,
+				);
 
 				if (punish[punishmentType].name === "kick" || punish[punishmentType].name === "ban") {
 					deleteInfoOnExitGuild(guildId, userSelectedId);
@@ -108,17 +129,26 @@ async function addWarn(interaction) {
 				return;
 			}
 
-			userSelectedObj.send(
-				`You have been punished on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou exceed max warns count!`,
-			);
-		} else {
-			embed.setDescription(
-				`${userSelectedObj} has been warned\nThis user has **${userWarnsResult.count}** warns`,
-			);
+			const dmUserPunishLocales = {
+				"pt-BR": `Você foi punido em **${interaction.guild.name}** por <@${requestUser}>.\nMotivo: \`${reason}\`\nVocê excedeu a quantidade maxima de warns!`,
+				"en-US": `You have been punished on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou exceed max warns count!`,
+			};
 
-			userSelectedObj.send(
-				`You have been warned on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou already has **${userWarnsResult.count}** warn(s)`,
-			);
+			userSelectedObj.send(dmUserPunishLocales[serverLocale] || dmUserPunishLocales["en-US"]);
+		} else {
+			const successWarn = {
+				"pt-BR": `O usuário ${userSelectedObj} foi advertido!\nEsse usuário já tem **${userWarnsResult.count}** advertencia(s)`,
+				"en-US": `${userSelectedObj} has been warned\nThis user has **${userWarnsResult.count}** warn(s)`,
+			};
+
+			const dmUserNotPunishedLocales = {
+				"pt-BR": `Você foi advertido em **${interaction.guild.name}** por <@${requestUser}>.\nMotivo: \`${reason}\`\nVocê já tem **${userWarnsResult.count}** advertencia(s)!`,
+				"en-US": `You have been warned on **${interaction.guild.name}** by <@${requestUser}>.\nReason: \`${reason}\`\nYou already has **${userWarnsResult.count}** warn(s)`,
+			};
+
+			embed.setDescription(successWarn[serverLocale] || successWarn["en-US"]);
+
+			userSelectedObj.send(dmUserNotPunishedLocales[serverLocale] || dmUserNotPunishedLocales["en-US"]);
 		}
 
 		interaction.editReply({ embeds: [embed] });
@@ -138,7 +168,7 @@ async function addWarn(interaction) {
 async function removeWarn(interaction) {
 	const userSelectedId = interaction.options.get("user").value;
 	const guildId = interaction.guildId;
-
+	const serverLocale = interaction.guild.preferredLocale;
 	let amount = interaction.options.get("quantity")?.value;
 
 	await interaction.deferReply();
@@ -161,9 +191,14 @@ async function removeWarn(interaction) {
 		const userWarnsResult = await checkUserWarns(guildId, userSelectedId);
 
 		if (!userWarnsResult?.count) {
+			const dontHaveWarnsLocales = {
+				"pt-BR": "Esse usuário não tem avisos para remover!",
+				"en-US": "This user has no warnings to remove!",
+			};
+
 			const warnEmbed = new EmbedBuilder()
 				.setTitle("⚠️ Warning!")
-				.setDescription("This user don't have warns to remove!")
+				.setDescription(dontHaveWarnsLocales[serverLocale] || dontHaveWarnsLocales["en-US"])
 				.setColor(14397952);
 
 			interaction.editReply({ embeds: [warnEmbed], ephemeral: true });
@@ -181,11 +216,12 @@ async function removeWarn(interaction) {
 
 		const embed = new EmbedBuilder().setTitle("Warn Removed!");
 
-		if (amount > 1) {
-			embed.setDescription(`**${amount}** warns has been removed from ${userSelectedObj}`);
-		} else {
-			embed.setDescription(`The warn from ${userSelectedObj} has been removed!`);
-		}
+		const warnRemoveLocales = {
+			"pt-BR": `**${amount}** advertencia(s) foram removidas do usuário ${userSelectedObj}`,
+			"en-US": `**${amount}** warn(s) has been removed from ${userSelectedObj}`,
+		};
+
+		embed.setDescription(warnRemoveLocales[serverLocale] || warnRemoveLocales["en-US"]);
 
 		interaction.editReply({ embeds: [embed] });
 	} catch (e) {
@@ -199,7 +235,14 @@ async function removeWarn(interaction) {
  */
 
 async function listWarn(interaction) {
-	const embed = new EmbedBuilder().setTitle("List of warns");
+	const serverLocale = interaction.guild.preferredLocale;
+
+	const listTitleLocales = {
+		"pt-BR": "Lista de advertências",
+		"en-US": "List of warns",
+	};
+
+	const embed = new EmbedBuilder().setTitle(listTitleLocales[serverLocale]);
 
 	const guildId = interaction.guild.id;
 	const description = [];
@@ -212,12 +255,24 @@ async function listWarn(interaction) {
 	);
 
 	if (users.rowCount === 0) {
-		interaction.editReply("Anyone in this guild has warns!");
+		const noWarnsLocales = {
+			"pt-BR": "Ninguém nesse servidor tem advertências!",
+			"en-US": "No one on this server has warnings!",
+		};
+
+		interaction.editReply(noWarnsLocales[serverLocale] || noWarnsLocales["en-US"]);
 		return;
 	}
 
+	const warnCountLocales = {
+		"pt-BR": "advertência(s)",
+		"en-US": "warn(s)",
+	};
+
 	for (i of users.rows) {
-		const newString = `<@${i.user_id}>: **${i.count}** warns\n`;
+		const newString = `<@${i.user_id}>: **${i.count}** ${
+			warnCountLocales[serverLocale] || warnCountLocales["en-US"]
+		}\n`;
 		description.push(newString);
 	}
 
@@ -229,6 +284,8 @@ async function listWarn(interaction) {
  * @param {import('discord.js').Interaction} interaction
  */
 async function listUserWarns(interaction, userSelected) {
+	const serverLocale = interaction.guild.preferredLocale;
+
 	await interaction.deferReply();
 
 	const startTime = performance.now();
@@ -238,23 +295,52 @@ async function listUserWarns(interaction, userSelected) {
 	]);
 	const endTime = performance.now();
 	if (user.rows.length > 0) {
-		const embed = new EmbedBuilder().setTitle(`${userSelected.user.username} warns`);
+		const userWarnsTitleLocales = {
+			"pt-BR": `Advertências de ${userSelected.user.username}`,
+			"en-US": `${userSelected.user.username} warns`,
+		};
+
+		const embed = new EmbedBuilder().setTitle(
+			userWarnsTitleLocales[serverLocale] || userWarnsTitleLocales["en-US"],
+		);
+
+		const fieldNameLocales = {
+			"pt-BR": "Advertência",
+			"en-US": "Warn",
+		};
+
+		const fieldReasonLocales = {
+			"pt-BR": "Motivo",
+			"en-US": "Reason",
+		};
 
 		for (let i = 0; i < user.rows.length; i++) {
 			const date = subHours(user.rows[i].timestamp, 3);
 			const newDate = format(date, "dd/MM H:mm:ss");
 			embed.addFields({
-				name: `Warn ${i + 1} - ${newDate} GMT-3`,
-				value: `Staff: <@${user.rows[i].staff}>\nReason: ${user.rows[i].reason}\n`,
+				name: `${fieldNameLocales[serverLocale] || fieldNameLocales["en-US"]} ${i + 1} - ${newDate} GMT-3`,
+				value: `Staff: <@${user.rows[i].staff}>\n${
+					fieldReasonLocales[serverLocale] || fieldReasonLocales["en-US"]
+				}: ${user.rows[i].reason}\n`,
 			});
 		}
 
-		interaction.editReply({
-			content: `Perfomance time (Just Database perfomance: ${(endTime - startTime).toFixed(4)}ms)`,
-			embeds: [embed],
-		});
+		if (process.env.DEBUG) {
+			interaction.editReply({
+				content: `Perfomance time (Just Database perfomance: ${(endTime - startTime).toFixed(4)}ms)`,
+				embeds: [embed],
+			});
+		} else {
+			interaction.editReply({
+				embeds: [embed],
+			});
+		}
 	} else {
-		interaction.editReply("This user doesn't have warns!");
+		const userDontHaveWarnsLocales = {
+			"pt-BR": "Esse usuário não tem advertências!",
+			"en-US": "This user doesn't have warns!",
+		};
+		interaction.editReply(userDontHaveWarnsLocales[serverLocale] || userDontHaveWarnsLocales["en-US"]);
 	}
 }
 

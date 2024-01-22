@@ -6,6 +6,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("setup")
 		.setDescription("Setup the BOT to work on your server")
+		.setDescriptionLocalization("pt-BR", "Configuração inicial do BOT caso necessário!")
 		.setDMPermission(false),
 
 	/**
@@ -17,7 +18,7 @@ module.exports = {
 
 		const result = await registerGuild(interaction.guildId, interaction.client);
 
-		await interaction.editReply("Start setup was made with success!");
+		await interaction.editReply("Start setup was made successfully!");
 	},
 	options: {
 		userPermissions: ["ManageGuild"],

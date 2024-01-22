@@ -12,21 +12,31 @@ const commandTimeout = 3000;
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("settings")
-		.setDescription("Set settings to specified features!")
+		.setNameLocalization("pt-BR", "configuracoes")
+		.setDescription("Bot features setting!")
+		.setDescriptionLocalization("pt-BR", "Configura funcionalidades especificas do bot!")
 		.setDMPermission(false)
 		.addSubcommandGroup((subCommandGroup) =>
 			subCommandGroup
 				.setName("warns")
 				.setDescription("Settings to warn system!")
+				.setDescriptionLocalization("pt-BR", "Configurações do sistema de warn!")
 				.addSubcommand((subCommand) =>
 					subCommand
 						.setName("punishment")
+						.setNameLocalization("pt-BR", "punicao")
 						.setDescription("Select the type of punishment the user will recieve after reach warns limit!")
+						.setDescriptionLocalization(
+							"pt-BR",
+							"Seleciona o tipo de punição que o usuário ira receber ao atingir o limite de warns",
+						)
 
 						.addIntegerOption((option) =>
 							option
 								.setName("type")
-								.setDescription("The punish type! (1: Kick, 2: Ban, 3: Timeout)")
+								.setNameLocalization("pt-BR", "tipo")
+								.setDescription("The punish type!")
+								.setDescriptionLocalization("pt-BR", "O tipo da punição!")
 								.setRequired(true)
 								.addChoices(
 									{ name: "Kick", value: 1 },
@@ -38,15 +48,22 @@ module.exports = {
 						.addStringOption((option) =>
 							option
 								.setName("timeout_duration")
+								.setNameLocalization("pt-BR", "duracao_do_timeout")
 								.setDescription(
 									"Timeout duration if you choose Timeout as punish type! (5s, 30m, 1h, 1 day) (Default: 10m)",
+								)
+								.setDescriptionLocalization(
+									"pt-BR",
+									"Duração do timeout caso você escolha 'timeout' como tipo de punição! (5s, 30m, 1h, 1 day)",
 								),
 						),
 				)
 				.addSubcommand((subCommand) =>
 					subCommand
 						.setName("max")
+						.setNameLocalization("pt-BR", "maximo")
 						.setDescription("The maximum of warns to user has been punished!")
+						.setDescriptionLocalization("pt-BR", "O maximo de warns para que o usuário seja punido!")
 
 						.addIntegerOption((option) =>
 							option
@@ -54,20 +71,29 @@ module.exports = {
 								.setDescription(
 									"Number of warnings that will punish the member when reached (Integer Number)",
 								)
+								.setDescriptionLocalization(
+									"pt-BR",
+									"O número de warns que irá punir o membro ao ser atingido! (Número inteiro)",
+								)
 								.setMinValue(1)
+								.setMaxValue(100)
 								.setRequired(true),
 						),
 				),
 		)
 		.addSubcommand((subCommand) =>
 			subCommand
-				.setName("locale")
-				.setDescription("Set locale for your server (Default: pt-BR)!")
+				.setName("language")
+				.setNameLocalization("pt-BR", "idioma")
+				.setDescription("Set the bot language for your server (Default: pt-BR)!")
+				.setDescriptionLocalization("pt-BR", "Define a linguagem que o BOT irá falar no servidor!")
 
 				.addStringOption((option) =>
 					option
-						.setName("locale")
-						.setDescription("Your locale! Supported languages: pt-BR, en-US")
+						.setName("language")
+						.setNameLocalization("pt-BR", "idioma")
+						.setDescription("Select your language!")
+						.setDescriptionLocalization("pt-BR", "Selecione a lingua!")
 						.setRequired(true)
 						.addChoices(
 							{ name: "Português Brasileiro", value: "pt-BR" },
@@ -84,6 +110,7 @@ module.exports = {
 				.addSubcommand((subCommand) =>
 					subCommand
 						.setName("announcement")
+						.setNameLocalization("pt-BR", "anuncio")
 						.setDescription("Configure announce channel to banned people")
 						.setDescriptionLocalization(
 							"pt-BR",
@@ -93,8 +120,9 @@ module.exports = {
 						.addIntegerOption((option) =>
 							option
 								.setName("announce")
+								.setNameLocalization("pt-BR", "anunciar")
 								.setDescription("Is to be annouced on specified channel?")
-								.setDescriptionLocalization("pt-BR", "É para anunciar no canal especifico?")
+								.setDescriptionLocalization("pt-BR", "É para anunciar no canal especificado?")
 								.setRequired(true)
 								.addChoices({ name: "Yes!", value: 1 }, { name: "No!", value: 0 }),
 						)
@@ -102,6 +130,7 @@ module.exports = {
 						.addChannelOption((option) =>
 							option
 								.setName("channel")
+								.setNameLocalization("pt-BR", "canal")
 								.setDescription("The channel to be announced")
 								.setDescriptionLocalization("pt-BR", "Selecione o canal para ser anunciado!")
 								.addChannelTypes(ChannelType.GuildText),
@@ -110,6 +139,7 @@ module.exports = {
 						.addStringOption((option) =>
 							option
 								.setName("embed_title")
+								.setNameLocalization("pt-BR", "titulo_embed")
 								.setDescription(
 									"The title of the message to be sent! Placeholder: {user} | {reason} | {staff}",
 								)
@@ -123,6 +153,7 @@ module.exports = {
 						.addStringOption((option) =>
 							option
 								.setName("embed_description")
+								.setNameLocalization("pt-BR", "descricao_embed")
 								.setDescription(
 									"The description/content of the message to be sent! Placeholder: {user} | {reason} | {staff}",
 								)
@@ -156,13 +187,13 @@ module.exports = {
 				return;
 			}
 		}
-		if (subCommand === "locale") {
+		if (subCommand === "language") {
 			const locales = {
 				"pt-BR": "Sua lingua foi setada com sucesso!",
 				"en-US": "Your language has been set successfully!",
 			};
 
-			const locale = interaction.options.getString("locale").trim();
+			const locale = interaction.options.getString("language").trim();
 			try {
 				await setGuildLocaleDatabase(interaction.guildId, locale);
 				setGuildLocaleCache(interaction.guildId, locale);
@@ -177,6 +208,7 @@ module.exports = {
 		}
 
 		if (subCommandGroup === "ban") {
+			const serverLocale = interaction.guild.preferredLocale;
 			if (subCommand === "announcement") {
 				const isToBeAnnounced = interaction.options.getInteger("announce");
 
@@ -185,13 +217,17 @@ module.exports = {
 				const embedDescription = interaction.options?.getString("embed_description");
 
 				const guild_id = interaction.guildId;
-				await interaction.deferReply();
+				await interaction.deferReply({ ephemeral: true });
 
 				if (isToBeAnnounced === 1) {
 					if (!channelAnnounce || !embedTitle || !embedDescription) {
-						errorEmbed.setDescription(
-							"If announce has been set to 'Yes!' you need to specify all other optional options!",
-						);
+						const errorLocales = {
+							"pt-BR": "Se 'anunciar' foi setado como 'yes!', você precisa preencher todas as outras opções",
+							"en-US": "If announce has been set to 'Yes!' you need to specify all other optional options!",
+						};
+
+						errorEmbed.setDescription(errorLocales[serverLocale] || errorLocales["en-US"]);
+
 						await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 						return;
 					}
@@ -199,11 +235,12 @@ module.exports = {
 					try {
 						await setBanConfig(guild_id, isToBeAnnounced, channelAnnounce.id, embedTitle, embedDescription);
 
-						interaction.editReply(`
-            Your configuration has been set successfully!\nChannel: ${channelAnnounce}\nIs to be announced?: ${Boolean(
-							isToBeAnnounced,
-						)}
-            `);
+						const successLocales = {
+							"pt-BR": `Suas configuraçÕes foram setadas com successo!\nCanal setado para anunciar: ${channelAnnounce}`,
+							"en-US": `Your configuration has been set successfully!\nChannel to announce: ${channelAnnounce}`,
+						};
+
+						interaction.editReply(successLocales[serverLocale] || successLocales["en-US"]);
 					} catch (error) {
 						pino.error(error);
 						interaction.editReply("An error ocurred on set ban config!");
@@ -212,7 +249,15 @@ module.exports = {
 					try {
 						await setBanAnnouncement(guild_id, isToBeAnnounced);
 
-						interaction.editReply({ content: "The announcement has been turned off!", ephemeral: true });
+						const turnOffAnnounceLocales = {
+							"pt-BR": "O anuncio dos banimentos foi desligado!",
+							"en-US": "The ban announcement has been turned off!",
+						};
+
+						interaction.editReply({
+							content: turnOffAnnounceLocales[serverLocale] || turnOffAnnounceLocales["en-US"],
+							ephemeral: true,
+						});
 					} catch (error) {
 						pino.error(error);
 						interaction.editReply("An error ocurred on set ban config!");

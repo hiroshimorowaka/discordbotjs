@@ -15,13 +15,19 @@ async function setMaxWarnsSettings(guild_id, max_warns) {
 async function maxWarnCommand(interaction) {
 	const guildId = interaction.guildId;
 	const maxWarnLimit = interaction.options.get("limit").value;
-
+	const serverLocale = interaction.guild.preferredLocale;
 	try {
 		const result = await checkGuildRegister(guildId);
 
 		if (!result) {
+			const guildNotRegisteredLocales = {
+				"pt-BR":
+					"Seu servidor não está registrado na base dedados, por favor user `/setup` para registrar esse servidor e tente novamente!",
+				"en-US": "Your guild is not registered, please use /setup to register this guild and try again!",
+			};
+
 			errorEmbed.setDescription(
-				"Your guild is not registered, please use /setup to register this guild and try again!",
+				guildNotRegisteredLocales[serverLocale] || guildNotRegisteredLocales["en-US"],
 			);
 			await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 			return;
@@ -29,9 +35,19 @@ async function maxWarnCommand(interaction) {
 
 		await setMaxWarnsSettings(guildId, maxWarnLimit);
 
+		const successTitleLocales = {
+			"pt-BR": "Limite de advertências setado com sucesso!",
+			"en-US": "Warn max limit set successfully!",
+		};
+
+		const successDescriptionLocales = {
+			"pt-BR": `Você setou o limite de advertências para: \`${maxWarnLimit}\``,
+			"en-US": `You set Warn max limit to: \`${maxWarnLimit}\``,
+		};
+
 		const success = new EmbedBuilder()
-			.setTitle("Warn max limit set successfully!")
-			.setDescription(`You set Warn max limit to: \`${maxWarnLimit}\``);
+			.setTitle(successTitleLocales[serverLocale] || successTitleLocales["en-US"])
+			.setDescription(successDescriptionLocales[serverLocale] || successDescriptionLocales["en-US"]);
 
 		interaction.editReply({ embeds: [success] });
 	} catch (error) {
