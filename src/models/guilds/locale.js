@@ -25,7 +25,7 @@ async function checkGuildLocale(guild_id) {
 
 		setGuildLocaleCache(guild_id, currentLocale);
 	}
-	console.log(`Locale: ${currentLocale || "pt-BR"}\nCached: ${cached}`);
+	// console.log(`Locale: ${currentLocale || "pt-BR"}\nCached: ${cached}`);
 
 	return currentLocale;
 }

@@ -78,7 +78,6 @@ module.exports = {
 		if (subCommand === "list") {
 			const type = interaction.options.get("type").value;
 			const embed = new EmbedBuilder();
-			console.log(type);
 
 			try {
 				let result;
