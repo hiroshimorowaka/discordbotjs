@@ -93,6 +93,19 @@ async function addWarn(interaction) {
 			return;
 		}
 
+		const isAdministrator = userSelectedObj.permissions.has("Administrator", true);
+
+		if (isAdministrator) {
+			const userIsAdminLocales = {
+				"pt-BR": "Eu não posso dar warn em um Administrator!",
+				"en-US": "I can't warn administrators!",
+			};
+
+			errorEmbed.setDescription(userIsAdminLocales[serverLocale] || userIsAdminLocales["en-US"]);
+			interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
+			return false;
+		}
+
 		const date = new Date();
 		await query("INSERT INTO warns (guild_id,user_id,reason,staff,timestamp) VALUES ($1,$2,$3,$4,$5)", [
 			guildId,
@@ -117,7 +130,11 @@ async function addWarn(interaction) {
 					reason,
 					userWarnsResult.timeout_duration,
 					serverLocale,
-				);
+				).catch((e) => {
+					pino.error(e);
+					interaction.editReply("This user have 'Administrator' permission and cannot be punished!");
+					return false;
+				});
 
 				if (punish[punishmentType].name === "kick" || punish[punishmentType].name === "ban") {
 					deleteInfoOnExitGuild(guildId, userSelectedId);
