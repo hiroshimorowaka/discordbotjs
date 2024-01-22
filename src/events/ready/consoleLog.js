@@ -7,5 +7,5 @@ const { Client } = require("discord.js");
  */
 
 module.exports = (client) => {
-	pino.info(`${client.user.username} is ready! | Version: 2.0.0`);
+	pino.info(`${client.user.username} is ready! | Version: 3.0.0`);
 };
