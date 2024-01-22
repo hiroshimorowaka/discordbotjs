@@ -37,6 +37,7 @@ module.exports = {
 		}, 1000);
 	},
 	options: {
+		devOnly: true,
 		timeout: commandTimeout,
 	},
 };
