@@ -24,6 +24,7 @@ async function setCacheTimezone(guild_id, timezone) {
 }
 
 async function checkTimezone(guild_id) {
+	const startTime = performance.now();
 	let currentTimezone = await getCacheTimezone(guild_id);
 	let cached = true;
 	if (!currentTimezone) {
@@ -38,7 +39,15 @@ async function checkTimezone(guild_id) {
 		setCacheTimezone(guild_id, currentTimezone);
 	}
 
-	console.log(`Timezone check:\nCached: ${cached}\nCurrentTimezone: ${currentTimezone}`);
+	const endTime = performance.now();
+
+	if (process.env.DEBUG) {
+		console.log(
+			`Timezone check:\nTime${(endTime - startTime).toFixed(
+				2,
+			)}ms\nCached: ${cached}\nCurrentTimezone: ${currentTimezone}`,
+		);
+	}
 
 	return currentTimezone;
 }

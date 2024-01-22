@@ -313,7 +313,6 @@ async function listUserWarns(interaction, userSelected) {
 		interaction.guildId,
 		userSelected.id,
 	]);
-	console.log(user.rows);
 	const endTime = performance.now();
 
 	if (user.rows.length > 0) {
