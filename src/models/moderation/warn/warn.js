@@ -291,11 +291,14 @@ async function listUserWarns(interaction, userSelected) {
 	await interaction.deferReply();
 
 	const startTime = performance.now();
+
 	const user = await query("SELECT * FROM warns WHERE guild_id = $1 AND user_id = $2 ORDER BY timestamp", [
 		interaction.guildId,
 		userSelected.id,
 	]);
+	console.log(user.rows);
 	const endTime = performance.now();
+
 	if (user.rows.length > 0) {
 		const userWarnsTitleLocales = {
 			"pt-BR": `Advertências de ${userSelected.user.username}`,

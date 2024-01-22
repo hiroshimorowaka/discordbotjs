@@ -3,7 +3,7 @@
  */
 module.exports = ({ interaction, commandObj }) => {
 	interaction.client.cooldowns.set(
-		`${interaction.user.id}_${commandObj.name}`,
+		`${interaction.user.id}_${commandObj.data.name}`,
 		Date.now() + (commandObj.options?.timeout || 0),
 	);
 };
