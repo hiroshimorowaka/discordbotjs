@@ -19,7 +19,7 @@ module.exports = {
 				.setName("user")
 				.setNameLocalization("pt-BR", "usuario")
 				.setDescription("The user to be banned!")
-				.setDescriptionLocalization("O usuário a ser banido!")
+				.setDescriptionLocalization("pt-BR", "O usuário a ser banido!")
 				.setRequired(true),
 		)
 		.addStringOption((option) =>
@@ -28,7 +28,7 @@ module.exports = {
 				.setNameLocalization("pt-BR", "motivo")
 
 				.setDescription("The reason to this user has been banned!")
-				.setDescriptionLocalization("O motivo para esse usuário ser banido!"),
+				.setDescriptionLocalization("pt-BR", "O motivo para esse usuário ser banido!"),
 		),
 
 	/**
