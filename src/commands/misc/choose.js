@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, Client } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 const commandTimeout = 3000;
 
 const { checkGuildLocale } = require("../../models/guilds/locale");
@@ -24,9 +24,8 @@ module.exports = {
 		),
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
-	 * @param {Client} param1
 	 */
-	run: async ({ interaction, client }) => {
+	run: async ({ interaction }) => {
 		const successLocales = {
 			"pt-BR": "Hmmm... eu escolho",
 			"en-US": "Hmmm... I choose",

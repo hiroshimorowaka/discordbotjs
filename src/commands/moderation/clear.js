@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const pino = require("../../../logger");
-
+const { checkGuildLocale } = require("../../models/guilds/locale");
 const maxValue = 100;
 const commandTimeout = 5000;
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
 		let amount = options.getInteger("amount");
 		const target = options.getUser("target");
 		const multiMessages = amount === 1 ? "message" : "messages";
-		const serverLocale = interaction.guild.preferredLocale;
+		const serverLocale = await checkGuildLocale(interaction.guild.id);
 		if (!amount || amount > maxValue || amount < 1) {
 			const locales = {
 				"pt-BR": `Por favor, especifique uma quantidade de 1 a ${maxValue}`,

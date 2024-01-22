@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 
 const { registerGuild } = require("../../models/guilds/guildRegistering");
-const commandTimeout = 7000;
+const commandTimeout = 30000;
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("setup")
