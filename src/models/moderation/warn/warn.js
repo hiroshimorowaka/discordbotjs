@@ -6,7 +6,7 @@ const { EmbedBuilder } = require("discord.js");
 const { errorEmbed } = require("../../embeds/defaultEmbeds");
 const { deleteInfoOnExitGuild } = require("../../guilds/deleteInfoOnExitGuild");
 const { checkGuildLocale } = require("../../guilds/locale");
-const { getTimezone } = require("../../settings/timezones");
+const { checkTimezone } = require("../../settings/timezones");
 
 /**
  * @param {import('discord.js').Interaction} interaction
@@ -316,7 +316,7 @@ async function listUserWarns(interaction, userSelected) {
 			"en-US": "Reason",
 		};
 
-		const timezone = await getTimezone(interaction.guildId);
+		const timezone = await checkTimezone(interaction.guildId);
 
 		const newDate = new Intl.DateTimeFormat("pt-BR", {
 			timeZone: timezone,
