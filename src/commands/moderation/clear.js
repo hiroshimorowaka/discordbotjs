@@ -8,7 +8,7 @@ const commandTimeout = 5000;
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("clear")
-		.setNameLocalization("limpar")
+		.setNameLocalization("pt-BR", "limpar")
 		.setDescription("Delete X messages from chat")
 		.setDescriptionLocalization("pt-BR", "Exclui X mensagens do chat!")
 		.setDMPermission(false)
