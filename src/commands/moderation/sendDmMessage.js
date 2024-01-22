@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-
+const { checkGuildLocale } = require("../../models/guilds/locale");
 const commandTimeout = 3000;
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -31,13 +31,14 @@ module.exports = {
 		const userSelected = interaction.options.getMember("user");
 		const text = interaction.options.getString("text");
 		const guild = interaction.guild;
-		const embed = new EmbedBuilder();
-		const serverlocale = interaction.guild.preferredLocale;
+
+		const serverlocale = await checkGuildLocale(guild.id);
 
 		const titleLocales = {
 			"pt-BR": "Uma nova mensagem foi enviada para você!",
 			"en-US": "A new message has been sent to you!",
-		}
+		};
+		const embed = new EmbedBuilder()
 			.setTitle(titleLocales[serverlocale] || titleLocales["en-US"])
 			.setDescription(`${text}`);
 
@@ -46,10 +47,22 @@ module.exports = {
 			"en-US": `> *Hello, the following message has been set by the **${guild.name}** (${guild.id}) team. If it is posting content inappropriately, has NSFW content or breaks Discord's terms of use, please report it to the Hiroshi BOT team and leave the server! Thank you!*`,
 		};
 
-		await userSelected.send({
-			content: warnLocale[serverlocale] || warnLocale["en-US"],
-			embeds: [embed],
-		});
+		await userSelected
+			.send({
+				content: warnLocale[serverlocale] || warnLocale["en-US"],
+				embeds: [embed],
+			})
+			.catch(() => {
+				const errorLocales = {
+					"pt-BR": "Eu não consigo enviar mensagens para esse usuário!",
+					"en-US": "I can't send messages to this user!",
+				};
+				interaction.reply({
+					content: errorLocales[serverlocale] || errorLocales["en-US"],
+					ephemeral: true,
+				});
+				return;
+			});
 
 		const successLocales = {
 			"pt-BR": "Mensagem enviada com sucesso!",

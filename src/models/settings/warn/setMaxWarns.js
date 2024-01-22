@@ -3,6 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 const { query } = require("../../../../infra/database");
 const { checkGuildRegister } = require("./common");
 const { errorEmbed } = require("../../embeds/defaultEmbeds");
+const { checkGuildLocale } = require("../../guilds/locale");
 
 async function setMaxWarnsSettings(guild_id, max_warns) {
 	await query("UPDATE warn_config SET max_warns = $2 WHERE guild_id = $1", [guild_id, max_warns]);
@@ -15,7 +16,7 @@ async function setMaxWarnsSettings(guild_id, max_warns) {
 async function maxWarnCommand(interaction) {
 	const guildId = interaction.guildId;
 	const maxWarnLimit = interaction.options.get("limit").value;
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(guildId);
 	try {
 		const result = await checkGuildRegister(guildId);
 

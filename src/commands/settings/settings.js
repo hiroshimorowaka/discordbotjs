@@ -2,7 +2,7 @@ const { SlashCommandBuilder, ChannelType } = require("discord.js");
 const { maxWarnCommand } = require("../../models/settings/warn/setMaxWarns");
 const { warnPunishmentCommand } = require("../../models/settings/warn/setWarnPunishmentType");
 const { setGuildLocaleCache } = require("../../../infra/redis");
-const { setGuildLocaleDatabase } = require("../../models/guilds/locale");
+const { setGuildLocaleDatabase, checkGuildLocale } = require("../../models/guilds/locale");
 const { setBanConfig, setBanAnnouncement } = require("../../models/settings/ban/banConfig");
 const pino = require("../../../logger");
 const { errorEmbed } = require("../../models/embeds/defaultEmbeds");
@@ -208,7 +208,7 @@ module.exports = {
 		}
 
 		if (subCommandGroup === "ban") {
-			const serverLocale = interaction.guild.preferredLocale;
+			const serverLocale = await checkGuildLocale(interaction.guild.id);
 			if (subCommand === "announcement") {
 				const isToBeAnnounced = interaction.options.getInteger("announce");
 

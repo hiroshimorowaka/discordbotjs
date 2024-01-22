@@ -13,9 +13,10 @@ async function getGuildLocaleDatabase(guild_id) {
 
 async function checkGuildLocale(guild_id) {
 	let currentLocale = await getGuildLocaleCache(guild_id);
-
+	let cached = true;
 	if (!currentLocale) {
-		currentLocale = await setGuildLocaleCache(guild_id);
+		currentLocale = await getGuildLocaleDatabase(guild_id);
+		cached = false;
 
 		if (!currentLocale) {
 			setGuildLocaleDatabase(guild_id, "pt-BR");
@@ -24,6 +25,8 @@ async function checkGuildLocale(guild_id) {
 
 		setGuildLocaleCache(guild_id, currentLocale);
 	}
+	console.log(`Locale: ${currentLocale || "pt-BR"}\nCached: ${cached}`);
+
 	return currentLocale;
 }
 

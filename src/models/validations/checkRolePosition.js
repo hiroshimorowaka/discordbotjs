@@ -1,3 +1,5 @@
+const { checkGuildLocale } = require("../guilds/locale");
+
 async function checkRolePosition(interaction, userSelectedObj, commandName) {
 	const targetUserRolePosition = userSelectedObj.roles.highest.position;
 	const requestUserRolePosition = interaction.member.roles.highest.position;
@@ -7,7 +9,7 @@ async function checkRolePosition(interaction, userSelectedObj, commandName) {
 	const userSelectedId = userSelectedObj.id;
 	const guildOwnerId = interaction.guild.ownerId;
 
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(interaction.guild.id);
 
 	if (userSelectedObj.user.bot) {
 		const userIsBotLocales = {

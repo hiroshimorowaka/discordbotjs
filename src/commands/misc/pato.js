@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 const commandTimeout = 3000;
 const pino = require("../../../logger");
+const { checkGuildLocale } = require("../../models/guilds/locale");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("duck")
@@ -11,16 +12,18 @@ module.exports = {
 
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
-	 * @param {Client} param1
 	 */
-	run: async ({ interaction, client }) => {
+	run: async ({ interaction }) => {
 		const locales = {
 			"pt-BR": "Pato",
 			"en-US": "Duck",
 		};
 
+		const guildId = interaction.guildId;
+
+		const guildLocale = await checkGuildLocale(guildId);
 		let i = 0;
-		interaction.reply({ content: locales[interaction.locale] });
+		interaction.reply({ content: locales[guildLocale] });
 
 		const messages = [];
 		const interval = setInterval(async () => {
@@ -42,7 +45,6 @@ module.exports = {
 		}, 1000);
 	},
 	options: {
-		devOnly: true,
 		timeout: commandTimeout,
 	},
 };

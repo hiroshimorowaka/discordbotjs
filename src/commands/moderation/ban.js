@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { getBanConfig } = require("../../models/settings/ban/banConfig");
 const { checkRolePosition } = require("../../models/validations/checkRolePosition");
 const { errorEmbed } = require("../../models/embeds/defaultEmbeds");
-
+const { checkGuildLocale } = require("../../models/guilds/locale");
 const pino = require("../../../logger");
 
 const commandTimeout = 3000;
@@ -39,7 +39,7 @@ module.exports = {
 		const reason = interaction.options?.getString("reason") || "No reason provided!";
 		const guildId = interaction.guildId;
 		const staff = interaction.user.username;
-		const guildLocale = interaction.guild.preferredLocale;
+		const guildLocale = await checkGuildLocale(guildId);
 
 		await interaction.deferReply({ ephemeral: true });
 

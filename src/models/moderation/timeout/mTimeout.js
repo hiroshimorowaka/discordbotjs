@@ -1,5 +1,5 @@
 const pino = require("../../../../logger");
-
+const { checkGuildLocale } = require("../../guilds/locale");
 const prettyMs = require("ms-prettify").default;
 const ms = require("ms");
 const { checkRolePosition } = require("../../validations/checkRolePosition");
@@ -12,7 +12,7 @@ async function setTimeout(interaction) {
 	const userSelected = interaction.options.get("user").value;
 	const duration = interaction.options.get("duration").value;
 	const reason = interaction.options.get("reason")?.value || "No reason provided";
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(interaction.guild.id);
 
 	await interaction.deferReply();
 
@@ -93,7 +93,7 @@ async function setTimeout(interaction) {
 
 async function removeTimeout(interaction) {
 	const userSelected = interaction.options.get("user").value;
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(interaction.guild.id);
 
 	await interaction.deferReply();
 

@@ -6,6 +6,7 @@ const msPretty = require("ms-prettify").default;
 const { query } = require("../../../../infra/database");
 const { checkGuildRegister } = require("./common");
 const { errorEmbed } = require("../../embeds/defaultEmbeds");
+const { checkGuildLocale } = require("../../guilds/locale");
 
 async function setWarnPunishTypeSettings(guild_id, punishment_type, timeout_duration) {
 	const timeoutDuration = timeout_duration || 600000;
@@ -26,7 +27,7 @@ async function setWarnPunishTypeSettings(guild_id, punishment_type, timeout_dura
 async function warnPunishmentCommand(interaction) {
 	const guildId = interaction.guildId;
 
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(guildId);
 
 	const punish_type = interaction.options.get("type").value;
 	const timeout_duration = interaction.options.get("timeout_duration")?.value || "0s";

@@ -7,6 +7,7 @@ const { errorEmbed } = require("../../embeds/defaultEmbeds");
 const { deleteInfoOnExitGuild } = require("../../guilds/deleteInfoOnExitGuild");
 
 const { format, subHours } = require("date-fns");
+const { checkGuildLocale } = require("../../guilds/locale");
 
 /**
  * @param {import('discord.js').Interaction} interaction
@@ -43,7 +44,7 @@ async function addWarn(interaction) {
 	let reason = interaction.options.get("reason")?.value;
 	const requestUser = interaction.member.id;
 	const guildId = interaction.guildId;
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(guildId);
 
 	const noReasonLocale = {
 		"pt-BR": "Motivo não informado.",
@@ -168,7 +169,7 @@ async function addWarn(interaction) {
 async function removeWarn(interaction) {
 	const userSelectedId = interaction.options.get("user").value;
 	const guildId = interaction.guildId;
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(interaction.guild.id);
 	let amount = interaction.options.get("quantity")?.value;
 
 	await interaction.deferReply();
@@ -235,7 +236,7 @@ async function removeWarn(interaction) {
  */
 
 async function listWarn(interaction) {
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(interaction.guild.id);
 
 	const listTitleLocales = {
 		"pt-BR": "Lista de advertências",
@@ -284,7 +285,7 @@ async function listWarn(interaction) {
  * @param {import('discord.js').Interaction} interaction
  */
 async function listUserWarns(interaction, userSelected) {
-	const serverLocale = interaction.guild.preferredLocale;
+	const serverLocale = await checkGuildLocale(interaction.guild.id);
 
 	await interaction.deferReply();
 
