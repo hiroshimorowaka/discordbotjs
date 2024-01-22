@@ -11,14 +11,6 @@ async function createTables(pool) {
     );
   `);
 
-	pino.info(`Database.js -> Creating table "logs" if not exists`);
-	pool.query(`
-  CREATE TABLE IF NOT EXISTS logs (
-    guild_id TEXT UNIQUE NOT NULL,
-    channels text[]
-  );
-`);
-
 	pino.info(`Database.js -> Creating table "warns" if not exists`);
 	pool.query(`
 CREATE TABLE IF NOT EXISTS warns (
