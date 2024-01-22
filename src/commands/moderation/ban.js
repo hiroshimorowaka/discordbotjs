@@ -15,10 +15,20 @@ module.exports = {
 		.setDMPermission(false)
 
 		.addUserOption((option) =>
-			option.setName("user").setDescription("The user to be banned!").setRequired(true),
+			option
+				.setName("user")
+				.setNameLocalization("pt-BR", "usuario")
+				.setDescription("The user to be banned!")
+				.setDescriptionLocalization("O usuário a ser banido!")
+				.setRequired(true),
 		)
 		.addStringOption((option) =>
-			option.setName("reason").setDescription("The reason to this user has been banned!"),
+			option
+				.setName("reason")
+				.setNameLocalization("pt-BR", "motivo")
+
+				.setDescription("The reason to this user has been banned!")
+				.setDescriptionLocalization("O motivo para esse usuário ser banido!"),
 		),
 
 	/**

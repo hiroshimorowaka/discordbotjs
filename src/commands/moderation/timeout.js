@@ -37,7 +37,7 @@ module.exports = {
 						.setName("reason")
 						.setNameLocalization("pt-BR", "motivo")
 						.setDescription("The reason for the time out!")
-						.setDescriptionLocalization("O motivo para essa pessoa tomar timeout!"),
+						.setDescriptionLocalization("pt-BR", "O motivo para essa pessoa tomar timeout!"),
 				),
 		)
 		.addSubcommand((subCommand) =>

@@ -28,7 +28,7 @@ module.exports = {
 		.addUserOption((option) =>
 			option
 				.setName("target")
-				.setNameLocalization("pt-BR", "usuário")
+				.setNameLocalization("pt-BR", "usuario")
 				.setDescription("Exclui as mensagens de um usuário especifico!"),
 		),
 

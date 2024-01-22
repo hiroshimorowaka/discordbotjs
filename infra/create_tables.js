@@ -3,16 +3,6 @@ const pino = require("../logger");
 async function createTables(pool) {
 	const startTime = performance.now();
 
-	pino.info(`Database.js -> Creating table "users" if not exists`);
-
-	pool.query(`
-
-      CREATE TABLE IF NOT EXISTS birthdays (
-          user_id TEXT UNIQUE NOT NULL,
-          birthday DATE NOT NULL
-      );
-      `);
-
 	pino.info(`Database.js -> Creating table "banned_words" if not exists`);
 	pool.query(`
     CREATE TABLE IF NOT EXISTS banned_words (
