@@ -4,6 +4,8 @@ const { warnPunishmentCommand } = require("../../models/settings/warn/setWarnPun
 const { setGuildLocaleCache } = require("../../../infra/redis");
 const { setGuildLocaleDatabase, checkGuildLocale } = require("../../models/guilds/locale");
 const { setBanConfig, setBanAnnouncement } = require("../../models/settings/ban/banConfig");
+const { setTimezone } = require("../../models/settings/timezones");
+
 const pino = require("../../../logger");
 const { errorEmbed } = require("../../models/embeds/defaultEmbeds");
 
@@ -98,6 +100,25 @@ module.exports = {
 						.addChoices(
 							{ name: "Português Brasileiro", value: "pt-BR" },
 							{ name: "English US", value: "en-US" },
+						),
+				),
+		)
+
+		.addSubcommand((subCommand) =>
+			subCommand
+				.setName("timezone")
+				.setDescription("Set your timezone!")
+				.setDescriptionLocalization("pt-BR", "Configure sua timezone! Padrão: America/Sao_Paulo (GMT-3) !")
+
+				.addStringOption((option) =>
+					option
+						.setName("timezone")
+						.setDescription("Select your timezone!")
+						.setDescriptionLocalization("pt-BR", "Selecione a timezone!")
+						.setRequired(true)
+						.addChoices(
+							{ name: "São Paulo - BR", value: "America/Sao_Paulo" },
+							{ name: "New York - US", value: "America/New_York" },
 						),
 				),
 		)
@@ -204,6 +225,17 @@ module.exports = {
 			} catch (error) {
 				pino.error(error);
 				interaction.reply("An error ocurred on executing this command!");
+			}
+		}
+
+		if (subCommand === "timezone") {
+			const timezone = interaction.options.getString("timezone");
+			try {
+				await setTimezone(interaction.guildId, timezone);
+				interaction.reply("Your timezone has been set successfully!");
+			} catch (error) {
+				pino.error(error);
+				interaction.reply("An error ocurred!");
 			}
 		}
 

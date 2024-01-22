@@ -50,7 +50,8 @@ timestamp timestamp DEFAULT current_timestamp
 	pool.query(`
 CREATE TABLE IF NOT EXISTS guild_config (
 guild_id TEXT UNIQUE NOT NULL,
-locale TEXT NOT NULL
+locale TEXT NOT NULL,
+timezone TEXT NOT NULL
 );
 `);
 

@@ -5,9 +5,8 @@ const pino = require("../../../../logger");
 const { EmbedBuilder } = require("discord.js");
 const { errorEmbed } = require("../../embeds/defaultEmbeds");
 const { deleteInfoOnExitGuild } = require("../../guilds/deleteInfoOnExitGuild");
-
-const { format, subHours } = require("date-fns");
 const { checkGuildLocale } = require("../../guilds/locale");
+const { getTimezone } = require("../../settings/timezones");
 
 /**
  * @param {import('discord.js').Interaction} interaction
@@ -317,19 +316,20 @@ async function listUserWarns(interaction, userSelected) {
 			"en-US": "Reason",
 		};
 
+		const timezone = await getTimezone(interaction.guildId);
+
+		const newDate = new Intl.DateTimeFormat("pt-BR", {
+			timeZone: timezone,
+			dateStyle: "short",
+			timeStyle: "medium",
+		});
+
 		for (let i = 0; i < user.rows.length; i++) {
 			const date = user.rows[i].timestamp;
-
-			const newDate = new Intl.DateTimeFormat("pt-BR", {
-				timeZone: "America/Sao_Paulo",
-				dateStyle: "short",
-				timeStyle: "medium",
-			});
-
 			embed.addFields({
 				name: `${fieldNameLocales[serverLocale] || fieldNameLocales["en-US"]} ${i + 1} - ${newDate.format(
 					date,
-				)} GMT-3`,
+				)}`,
 				value: `Staff: <@${user.rows[i].staff}>\n${
 					fieldReasonLocales[serverLocale] || fieldReasonLocales["en-US"]
 				}: ${user.rows[i].reason}\n`,
