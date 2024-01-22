@@ -24,7 +24,7 @@ module.exports = {
 
 		.setTitle(locales[locale] || locales["pt-BR"]);
 
-		await interaction.deferReply();
+		await interaction.deferReply({ ephemeral: true });
 
 		const commands = await client.application.commands.fetch();
 
@@ -34,7 +34,7 @@ module.exports = {
 				value: `${command.descriptionLocalizations?.[locale] || command.description}`,
 			});
 		}
-		interaction.editReply({ embeds: [embed] });
+		interaction.editReply({ embeds: [embed], ephemeral: true });
 	},
 	options: {
 		timeout: commandTimeout,
