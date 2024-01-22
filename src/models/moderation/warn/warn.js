@@ -94,11 +94,13 @@ async function addWarn(interaction) {
 			return;
 		}
 
-		await query("INSERT INTO warns (guild_id,user_id,reason,staff) VALUES ($1,$2,$3,$4)", [
+		const date = new Date();
+		await query("INSERT INTO warns (guild_id,user_id,reason,staff,timestamp) VALUES ($1,$2,$3,$4,$5)", [
 			guildId,
 			userSelectedId,
 			reason,
 			requestUser,
+			date,
 		]);
 
 		const userWarnsResult = await checkUserWarns(guildId, userSelectedId);
@@ -316,10 +318,18 @@ async function listUserWarns(interaction, userSelected) {
 		};
 
 		for (let i = 0; i < user.rows.length; i++) {
-			const date = subHours(user.rows[i].timestamp, 3);
-			const newDate = format(date, "dd/MM H:mm:ss");
+			const date = user.rows[i].timestamp;
+
+			const newDate = new Intl.DateTimeFormat("pt-BR", {
+				timeZone: "America/Sao_Paulo",
+				dateStyle: "short",
+				timeStyle: "medium",
+			});
+
 			embed.addFields({
-				name: `${fieldNameLocales[serverLocale] || fieldNameLocales["en-US"]} ${i + 1} - ${newDate} GMT-3`,
+				name: `${fieldNameLocales[serverLocale] || fieldNameLocales["en-US"]} ${i + 1} - ${newDate.format(
+					date,
+				)} GMT-3`,
 				value: `Staff: <@${user.rows[i].staff}>\n${
 					fieldReasonLocales[serverLocale] || fieldReasonLocales["en-US"]
 				}: ${user.rows[i].reason}\n`,

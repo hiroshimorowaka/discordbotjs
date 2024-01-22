@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "npm run up:services && nodemon --env-file .env.development src/index.js",
     "start": "node --env-file .env.production src/index.js",
+    "delete:appcommands": "node --env-file .env.development deleteAllAppCommands.js",
     "up:services": "docker compose -f infra/compose.yaml up -d",
     "stop:services": "docker compose -f infra/compose.yaml stop",
     "down:services": "docker compose -f infra/compose.yaml down",

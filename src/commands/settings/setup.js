@@ -16,7 +16,7 @@ module.exports = {
 	run: async ({ interaction }) => {
 		await interaction.reply("Configuring your server...");
 
-		const result = await registerGuild(interaction.guildId, interaction.client);
+		await registerGuild(interaction.guildId, interaction.client);
 
 		await interaction.editReply("Start setup was made successfully!");
 	},
