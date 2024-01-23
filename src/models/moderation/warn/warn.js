@@ -52,7 +52,7 @@ async function addWarn(interaction) {
 
 	if (!reason) reason = noReasonLocale[serverLocale] || noReasonLocale["en-US"];
 
-	await interaction.deferReply();
+	await interaction.deferReply({ ephemeral: true });
 
 	const userSelectedObj =
 		interaction.guild.members.cache.get(userSelectedId) ||

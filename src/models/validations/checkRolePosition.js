@@ -1,4 +1,5 @@
 const { checkGuildLocale } = require("../guilds/locale");
+const { errorEmbed } = require("../embeds/defaultEmbeds");
 
 async function checkRolePosition(interaction, userSelectedObj, commandName) {
 	const targetUserRolePosition = userSelectedObj.roles.highest.position;
@@ -17,23 +18,20 @@ async function checkRolePosition(interaction, userSelectedObj, commandName) {
 			"en-US": `I can't ${commandName} a bot!`,
 		};
 
-		await interaction.editReply({
-			content: userIsBotLocales[serverLocale] || userIsBotLocales["en-US"],
-			ephemeral: true,
-		});
+		errorEmbed.setDescription(userIsBotLocales[serverLocale] || userIsBotLocales["en-US"]);
+		await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 		return false;
 	}
 
 	if (userSelectedId === requestUserId) {
 		const userIsRequesterLocales = {
-			"pt-BR": `Você não pode se dar ${commandName}`,
+			"pt-BR": `Você não pode se dar ${commandName}!`,
 			"en-US": `You can't auto ${commandName}!`,
 		};
 
-		await interaction.editReply({
-			content: userIsRequesterLocales[serverLocale] || userIsRequesterLocales["en-US"],
-			ephemeral: true,
-		});
+		errorEmbed.setDescription(userIsRequesterLocales[serverLocale] || userIsRequesterLocales["en-US"]);
+		await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
+
 		return false;
 	}
 
@@ -41,26 +39,22 @@ async function checkRolePosition(interaction, userSelectedObj, commandName) {
 		if (targetUserRolePosition >= requestUserRolePosition || userSelectedId === guildOwnerId) {
 			const userIsHigherLocales = {
 				"pt-BR": `Você não poder dar ${commandName} nesse usuário, porque ele tem um cargo igual/maior que o SEU ou é o Dono do Servidor!`,
-				"en-US": `You can't ${commandName} that user because they have the same/higher role than you or is Server Owner`,
+				"en-US": `You can't ${commandName} that user because they have the same/higher role than you or is Server Owner!`,
 			};
 
-			await interaction.editReply({
-				content: userIsHigherLocales[serverLocale] || userIsHigherLocales["en-US"],
-				ephemeral: true,
-			});
+			errorEmbed.setDescription(userIsHigherLocales[serverLocale] || userIsHigherLocales["en-US"]);
+			await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 			return false;
 		}
 	}
 	if (targetUserRolePosition >= botRolePosition || userSelectedId === guildOwnerId) {
 		const botIsLowerLocales = {
 			"pt-BR": `Eu não posso dar ${commandName} nesse usuário, porque ele tem um cargo igual/maior que o MEU ou é o Dono do Servidor!`,
-			"en-US": `I can't ${commandName} that user because they have the same/higher role than me or is Server Owner`,
+			"en-US": `I can't ${commandName} that user because they have the same/higher role than me or is Server Owner!`,
 		};
 
-		await interaction.editReply({
-			content: botIsLowerLocales[serverLocale] || botIsLowerLocales["en-US"],
-			ephemeral: true,
-		});
+		errorEmbed.setDescription(botIsLowerLocales[serverLocale] || botIsLowerLocales["en-US"]);
+		await interaction.editReply({ embeds: [errorEmbed], ephemeral: true });
 		return false;
 	}
 
