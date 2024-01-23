@@ -12,11 +12,11 @@ const client =
 
 client.connect();
 
-client.on("error", (err) => pino.error("Redis.js -> Redis Client Error", err));
-
 client.on("connect", () => {
 	pino.info(`Redis.js -> Redis Client Connected | Node ENV: ${node_env}`);
 });
+
+client.on("error", (err) => pino.error("Redis.js -> Redis Client Error", err));
 
 async function setGuildLocaleCache(guild_id, locale) {
 	await client.set(`${guild_id}:locale`, locale, { EX: 600 });

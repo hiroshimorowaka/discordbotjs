@@ -19,6 +19,6 @@ module.exports = async (client) => {
 			client.user.setActivity(status[random].replace("{guildcount}", guildCount));
 		}, 15 * 1000);
 	} else {
-		client.user.setActivity(status[0]);
+		client.user.setActivity(status[0].replace("{guildcount}", guildCount));
 	}
 };
