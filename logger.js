@@ -1,14 +1,6 @@
-const { format } = require("date-fns");
+const { getDateFormater } = require("./src/models/dateFormater");
 
-const dateFormat = new Intl.DateTimeFormat("pt-BR", {
-	timeZone: "America/Sao_Paulo",
-	month: "2-digit",
-	day: "2-digit",
-	hour: "2-digit",
-	minute: "2-digit",
-	second: "2-digit",
-	timeZoneName: "shortOffset",
-});
+const dateFormat = getDateFormater("pt-BR", "America/Sao_Paulo");
 const pino = require("pino")({
 	level: "debug",
 	transport: {
