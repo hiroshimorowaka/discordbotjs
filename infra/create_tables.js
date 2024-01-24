@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS banned_words (
     staff TEXT NOT NULL,
     timestamp timestamp DEFAULT current_timestamp
   );
+
+  CREATE INDEX IF NOT EXISTS idx_user_id_timestamp ON warns (user_id, timestamp DESC);
   
   CREATE INDEX IF NOT EXISTS idx_warns_guildid ON public.warns USING btree (guild_id);
   
