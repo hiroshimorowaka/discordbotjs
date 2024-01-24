@@ -32,6 +32,5 @@ async function checkGuildLocale(guild_id) {
 
 module.exports = {
 	setGuildLocaleDatabase,
-	getGuildLocaleDatabase,
 	checkGuildLocale,
 };
