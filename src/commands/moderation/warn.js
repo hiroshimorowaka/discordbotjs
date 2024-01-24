@@ -1,5 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { addWarn, removeWarn, listWarn, listUserWarns } = require("../../models/moderation/warn/warn");
+const { removeWarn } = require("../../models/moderation/warn/removeWarn");
+const { listUserWarns } = require("../../models/moderation/warn/listUserWarns");
+const { listWarn } = require("../../models/moderation/warn/listAllWarns");
+const { addWarn } = require("../../models/moderation/warn/addWarn");
 
 const commandTimeout = 3000;
 module.exports = {

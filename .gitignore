@@ -4,3 +4,4 @@ app.log
 .env.development
 .env.production
 Discord BOT js 3.0.zip
+src/commands/misc/teste.js
