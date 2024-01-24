@@ -18,7 +18,6 @@ const pino = require("pino")({
 		],
 	},
 	timestamp: () => `,"time":"${dateFormat.format(new Date(Date.now()))}"`,
-	// timestamp: () => `,"time":"${format(new Date(Date.now()), "dd/MM H:mm:ss.SS")}"`,
 });
 
 module.exports = pino;
