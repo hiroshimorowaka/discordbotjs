@@ -1,5 +1,6 @@
 const { query } = require("../../../infra/database");
 const { redis } = require("../../../infra/redis");
+const pino = require("../../../logger");
 
 async function setTimezone(guild_id, timezone) {
 	const result = await query("UPDATE guild_config SET timezone = $2 WHERE guild_id = $1;", [
@@ -43,8 +44,8 @@ async function checkTimezone(guild_id) {
 	const endTime = performance.now();
 
 	if (process.env.DEBUG) {
-		console.log(
-			`Timezone check:\nTime${(endTime - startTime).toFixed(
+		pino.info(
+			`Timezone check:\nTime: ${(endTime - startTime).toFixed(
 				2,
 			)}ms\nCached: ${cached}\nCurrentTimezone: ${currentTimezone}`,
 		);
