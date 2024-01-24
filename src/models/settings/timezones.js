@@ -6,6 +6,7 @@ async function setTimezone(guild_id, timezone) {
 		guild_id,
 		timezone,
 	]);
+	await setCacheTimezone(guild_id, timezone);
 	return result;
 }
 
