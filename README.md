@@ -4,7 +4,7 @@
 
 ### Nível atual como programador: Iniciante
 
->desculpe pelo meu inglês ruim
+>Desculpe pelo meu inglês ruim
 
 ## Stack
 
@@ -13,7 +13,7 @@
 - Postgres (Persistencia de alguns dados)
 - pg (Conexão no banco | Querys são feitas manualmente)
 - Redis (cache)
-- Docker
+- Docker (Containers)
 - CommandKit library (Event and command handler)
 
 ## Features
@@ -24,8 +24,6 @@
 - **/setup** (Configura o banco de dados da guild)
 - **/timeout [subCommand]** (Deixa o usuário selecionado impossibilitado de digitar em chats ou remove seu timeout)
 - **/bot [subCommand]** (Da reload em algumas features do bot, como commands, event listeners e validations)
-- **/say (text)** (Bot diz algo que você escreveu)
-- **/speak (text)** (Le sua mensagem em TTS)
 - **/choose (text[])** (Escolhe aleatoriamente entre as opções passadas pela option)
 - **/help** (Mostra todos os comandos cadastrados e suas opções)
 - **/warn [subCommand]** (Sistema de warns)
@@ -50,7 +48,7 @@ ou baixando de forma zipada e descompactando na sua pasta.
 
 ### Dependências locais
 
-Então após baixar o repositório, não se esqueça de instalar as dependências locais do projeto:
+Após baixar o repositório, não se esqueça de instalar as dependências locais do projeto:
 
 ```bash
 npm install
@@ -58,14 +56,14 @@ npm install
 
 ### Configuração inicial
 
-> Crie um arquivo `.env` na raiz do projeto e popule com as variáveis de ambiente do seu bot baseado no arquivo já existente `.env.template` (caso você não saiba criar um bot no discord, [clique aqui](https://discord.com/developers/docs/getting-started#step-1-creating-an-app))
+> Crie um arquivo `.env.development` na raiz do projeto e popule com as variáveis de ambiente do seu bot baseado no arquivo já existente `.env.template` (caso você não saiba criar um bot no discord, [clique aqui](https://discord.com/developers/docs/getting-started#step-1-creating-an-app))
 
 ### Configurando o BOT
 
 Depois de feito toda a configuração do `.env` e das dependências, você irá precisar configurar o arquivo `config.json` e o `status.json`
 
-- O `config.json` possui um objeto com duas chaves: `testServers` e `devs`  
-  Esses parametros recebem um array com o ID dos servidores de testes que comandos marcados com `devsOnly` será registrado e o `devs` que é o ID das pessoas que são desenvolvedores que receberão permissão de executar esses comandos  
+- O `config.json` possui um objeto com duas chaves: `testServers`, `devs`, `logs`   
+  Esses parametros recebem um array com o ID dos servidores de testes que comandos marcados com `devsOnly` será registrado e o `devs` que é o ID das pessoas que são desenvolvedores que receberão permissão de executar esses comandos
   Mais informações sobre os comandos em:
 
   - [Commandkit Guide](https://commandkit.js.org/guide/installation)
@@ -78,12 +76,14 @@ Depois de feito toda a configuração do `.env` e das dependências, você irá 
   Você pode ter multiplos objetos para que fique fazendo um looping entre eles dentro de 10 segundos, mas caso você não queira fazer nenhum looping, você pode definir somente UM status no `status.json`  
   Mais informações sobre status em:
   - [Discord.js Guide](https://discordjs.guide/popular-topics/faq.html#how-do-i-set-my-playing-status)
-  - [Arquivo que controla a mudança de status](https://github.com/hiroshimorowaka/discordbotjs/blob/main/src/index.js)
+  - [Arquivo que controla a mudança de status](https://github.com/hiroshimorowaka/discordbotjs/blob/main/src/events/ready/statusChange.js)
   - [Arquivo que mostra como definir os status type dentro do status.json](https://github.com/hiroshimorowaka/discordbotjs/blob/main/status_type.txt)
 
 Depois de fazer todas as etapas acima, seu bot já está pronto para ser executado!
 
-> Agora é só startar o projeto com `npm run start`, e ele irá subir os container e executar o projeto;
+> Agora é só startar o projeto com `npm run dev`, e ele irá subir os container e executar o projeto;  
+>  
+> `npm run start` roda o projeto carregando as variaveis de dentro do `.env.development`, o que é somente utilizado para cenário de produção dentro da sua hospedam. No meu caso eu uso a Squarecloud.
 >
 > Para derrubar os container ou subi-los sem executar o projeto, existem os comandos:  
 > `npm run up:services` Subir os containers  
