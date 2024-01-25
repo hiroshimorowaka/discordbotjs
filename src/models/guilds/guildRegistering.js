@@ -17,7 +17,9 @@ async function registerGuild(guild_id, client) {
 }
 
 async function unregisterGuild(guild_id) {
-	await query("DELETE FROM banned_words WHERE guild_id = $1", [guild_id]);
+	await query("DELETE FROM banned_words WHERE guild_id = $1;", [guild_id]);
+	await query("DELETE FROM warn_config WHERE guild_id = $1;", [guild_id]);
+	await query("DELETE FROM guild_config WHERE guild_id = $1;", [guild_id]);
 	return true;
 }
 
