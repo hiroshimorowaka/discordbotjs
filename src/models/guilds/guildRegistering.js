@@ -10,7 +10,7 @@ async function registerGuild(guild_id, client) {
 	);
 	await query(
 		"INSERT INTO guild_config (guild_id,locale,timezone) VALUES($1,$2,$3) ON CONFLICT (guild_id) DO NOTHING;",
-		[guild_id, "pt-BR", "America/Sao_Paulo"],
+		[guild_id, "en-US", "America/Sao_Paulo"],
 	);
 
 	return true;
