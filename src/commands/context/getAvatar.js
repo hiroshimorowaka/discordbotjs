@@ -1,6 +1,6 @@
-const { ApplicationCommandType, Client, EmbedBuilder } = require("discord.js");
+const { ApplicationCommandType, Client, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const { ContextMenuCommandProps } = require("commandkit");
-
+const commandTimeout = 3000;
 module.exports = {
 	data: {
 		name: "Get-Avatar",
@@ -31,9 +31,8 @@ module.exports = {
 	},
 
 	options: {
-		devOnly: true,
-		userPermissions: ["Administrator", "AddReactions"],
-		botPermissions: ["Administrator", "AddReactions"],
-		deleted: false,
+		timeout: commandTimeout,
+		userPermissions: ["SendMessages"],
+		botPermissions: ["SendMessages"],
 	},
 };
