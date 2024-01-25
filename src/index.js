@@ -1,7 +1,7 @@
 const { Client, IntentsBitField, Collection } = require("discord.js");
 const { CommandKit } = require("commandkit");
 const path = require("path");
-
+//
 const { testServers, devs } = require("../config.json");
 const commandsPath = path.join(__dirname, "commands");
 const validationsPath = path.join(__dirname, "validations");
