@@ -1,4 +1,4 @@
-const { ApplicationCommandType, Client, ContextMenuCommandInteraction } = require("discord.js");
+const { ApplicationCommandType, Client, EmbedBuilder } = require("discord.js");
 const { ContextMenuCommandProps } = require("commandkit");
 
 module.exports = {
@@ -24,7 +24,10 @@ module.exports = {
 			});
 			return;
 		}
-		interaction.member.send(`The user avatar is: ${userObj.user.avatarURL()}`);
+		const embed = new EmbedBuilder()
+			.setTitle(`:frame_photo: ${userObj.user.username}`)
+			.setImage(userObj.user.displayAvatarURL({ dynamic: true, extension: "png", size: 2048 }));
+		interaction.reply({ embeds: [embed], ephemeral: true });
 	},
 
 	options: {
