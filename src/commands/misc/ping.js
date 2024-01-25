@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, Client } = require("discord.js");
 const commandTimeout = 3000;
 
 module.exports = {
@@ -9,14 +9,23 @@ module.exports = {
 
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
+	 * @param {Client} param1
 	 */
-	run: async ({ interaction }) => {
+	run: async ({ interaction, client }) => {
 		const sent = await interaction.reply({
 			content: "Pinging...",
 			fetchReply: true,
 		});
 
-		interaction.editReply(`Bot Latency: ${sent.createdTimestamp - interaction.createdTimestamp}ms`);
+		await interaction.editReply({
+			content: `API Latency: ${client.ws.ping}\nBot Latency: ${
+				sent.createdTimestamp - interaction.createdTimestamp
+			}ms`,
+		});
+
+		setTimeout(() => {
+			interaction.deleteReply().catch(() => {});
+		}, 5000);
 	},
 	options: {
 		timeout: commandTimeout,

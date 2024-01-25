@@ -44,7 +44,7 @@ async function listWarn(interaction) {
 
 	const embedTitle = listTitleLocales[serverLocale] || listTitleLocales["en-US"];
 
-	const firstPage = new EmbedBuilder().setTitle(embedTitle);
+	const actualPage = new EmbedBuilder().setTitle(embedTitle);
 
 	const previousButton = new ButtonBuilder()
 		.setCustomId("previous_page_button")
@@ -65,7 +65,7 @@ async function listWarn(interaction) {
 	const lastPage = Math.ceil(data.length / maxItemPerPage);
 
 	const firstInteraction = data.length > maxItemPerPage ? maxItemPerPage : data.length;
-	showSlicedData(firstPage, data, firstInteraction, 0);
+	showSlicedData(actualPage, data, firstInteraction);
 
 	updateButtons();
 
@@ -75,7 +75,7 @@ async function listWarn(interaction) {
 	}
 	const message = await interaction.editReply({
 		content: content,
-		embeds: [firstPage],
+		embeds: [actualPage],
 		components: [buttonRow],
 		fetchReply: true,
 	});
@@ -110,9 +110,8 @@ async function listWarn(interaction) {
 			}
 
 			const actualData = data.slice(from, until_item);
-			const actualPage = new EmbedBuilder();
 
-			showSlicedData(actualPage, actualData, actualData.length, from);
+			showSlicedData(actualPage, actualData, actualData.length);
 
 			await message.edit({ embeds: [actualPage], components: [buttonRow] });
 		})
@@ -151,7 +150,7 @@ async function listWarn(interaction) {
 		}
 	}
 
-	function showSlicedData(actualPage, data, maxIteractions, from) {
+	function showSlicedData(actualPage, data, maxIteractions) {
 		const warnCountLocales = {
 			"pt-BR": "advertência(s)",
 			"en-US": "warn(s)",

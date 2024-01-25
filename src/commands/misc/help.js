@@ -10,23 +10,22 @@ module.exports = {
 
 	/**
 	 * @param {import('commandkit').SlashCommandProps} param0
-	 * @param {import('discord.js').Client} param1
 	 */
 
-	run: async ({ interaction, client }) => {
+	run: async ({ interaction }) => {
+		await interaction.deferReply();
+
 		const locale = interaction.locale;
 
 		const locales = {
 			"pt-BR": "Lista de todos os comandos!",
 			"en-US": "List of all commands!",
 		};
-		const embed = new EmbedBuilder()
+		const embed = new EmbedBuilder().setTitle(locales[locale] || locales["en-US"]);
 
-		.setTitle(locales[locale] || locales["pt-BR"]);
-
-		await interaction.deferReply({ ephemeral: true });
-
-		const commands = await client.application.commands.fetch();
+		const commands =
+			interaction.client.application.commands.cache.get() ||
+			(await interaction.client.application.commands.fetch());
 
 		for (command of commands.values()) {
 			embed.addFields({
@@ -34,6 +33,7 @@ module.exports = {
 				value: `${command.descriptionLocalizations?.[locale] || command.description}`,
 			});
 		}
+
 		interaction.editReply({ embeds: [embed], ephemeral: true });
 	},
 	options: {
