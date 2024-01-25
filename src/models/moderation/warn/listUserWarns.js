@@ -61,7 +61,7 @@ async function listUserWarns(interaction, userSelected) {
 		.setStyle(ButtonStyle.Primary)
 		.setEmoji("⏭️");
 
-	const buttonRow = new ActionRowBuilder().addComponents([nextButton, previousButton]);
+	const buttonRow = new ActionRowBuilder().addComponents([previousButton, nextButton]);
 
 	let currentPage = 1;
 	const maxItemPerPage = 5;
