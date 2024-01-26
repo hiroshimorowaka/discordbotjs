@@ -16,10 +16,21 @@ module.exports = {
 		)
 		.addStringOption((option) =>
 			option
-				.setName("text")
+				.setName("title")
+				.setNameLocalization("pt-BR", "titulo")
+				.setDescription("The message title (embed)!")
+				.setDescriptionLocalization("pt-BR", "O titulo da mensagem (embed)!")
+				.setRequired(true),
+		)
+		.addStringOption((option) =>
+			option
+				.setName("content")
 				.setNameLocalization("pt-BR", "mensagem")
-				.setDescription("The DM message!")
-				.setDescriptionLocalization("pt-BR", "A mensagem desejada!")
+				.setDescription("The message content (embed)! Use '`\n`' to break line")
+				.setDescriptionLocalization(
+					"pt-BR",
+					"O conteudo da mensagem desejada (embed)! Use '`\n`' para pular para a proxima linha",
+				)
 				.setRequired(true),
 		),
 
@@ -29,18 +40,13 @@ module.exports = {
 
 	run: async ({ interaction }) => {
 		const userSelected = interaction.options.getMember("user");
-		const text = interaction.options.getString("text");
+		const title = interaction.options.getString("title").trim();
+		const content = interaction.options.getString("content").trim();
 		const guild = interaction.guild;
 
 		const serverlocale = await checkGuildLocale(guild.id);
 
-		const titleLocales = {
-			"pt-BR": "Uma nova mensagem foi enviada para você!",
-			"en-US": "A new message has been sent to you!",
-		};
-		const embed = new EmbedBuilder()
-			.setTitle(titleLocales[serverlocale] || titleLocales["en-US"])
-			.setDescription(`${text}`);
+		const embed = new EmbedBuilder().setTitle(title).setDescription(content);
 
 		const warnLocale = {
 			"pt-BR": `> *Olá! A mensagem a seguir foi definida pela equipe de **${guild.name}** (${guild.id}). Se ela está divulgando conteúdos de forma inadequada, possui conteúdo NSFW ou quebra os termos de uso do Discord, por favor, reporte para a equipe do Hiroshi BOT e saia do servidor! Obrigado!!*`,

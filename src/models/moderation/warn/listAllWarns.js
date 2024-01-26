@@ -126,7 +126,6 @@ async function listWarn(interaction) {
 				await message
 					.edit({
 						content: `> *${locale[serverLocale] ?? locale["en-US"]}*`,
-						components: [buttonRow],
 					})
 					.catch(() => {});
 
